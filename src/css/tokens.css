@@ -1,0 +1,46 @@
+/* ==========================================================
+   TOKENS DE DISEÑO · Viento 10
+   Colores muestreados del diseño de Figma (home-desktop.png)
+   ========================================================== */
+
+@font-face { font-family: "Canela"; src: url("../assets/font/canela/Canela-Light.otf") format("opentype"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Canela"; src: url("../assets/font/canela/Canela-Regular.otf") format("opentype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Gotham Pro"; src: url("../assets/font/gotham_pro/GothamPro.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Gotham Pro"; src: url("../assets/font/gotham_pro/GothamPro-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Gotham Pro"; src: url("../assets/font/gotham_pro/GothamPro-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Bon Vivant"; src: url("../assets/font/bont_vivant/bon-vivant-regular.ttf") format("truetype"); font-display: swap; }
+
+:root {
+  /* Color */
+  --c-olive-dark: #40421a;   /* footer, texto principal */
+  --c-green-700:  #6c6f2b;   /* green-700 (Figma): botones, enlaces, script */
+  --c-cream:      #f5f5ed;   /* fondo testimonios */
+  --c-white:      #ffffff;
+  --c-line:       rgba(64, 66, 26, .25);
+  --c-ph:         #e8e6da;   /* fondo de imágenes pendientes */
+
+  /* Tipografía */
+  --f-serif:  "Canela", Georgia, serif;
+  --f-sans:   "Gotham Pro", "Helvetica Neue", Arial, sans-serif;
+  --f-script: "Bon Vivant", "Brush Script MT", cursive;
+
+  --fs-display: clamp(2.4rem, 5.6vw, 5rem);     /* Bienvenidos (script) */
+  --fs-h2:      clamp(1.75rem, 2.6vw, 2.25rem); /* titulares Canela */
+  --fs-lead:    clamp(1.65rem, 2.78vw, 40px);   /* párrafos destacados: Canela 40px en Figma */
+  --fs-quote:   clamp(1.2rem, 1.8vw, 1.6rem);
+  --fs-body:    0.95rem;
+  --fs-label:   0.8rem;                          /* mayúsculas espaciadas */
+  --fs-meta:    13px;                            /* teléfono e idiomas (13pt en Figma) */
+  --ls-label:   0.12em;
+
+  /* Espaciado y layout */
+  --gutter:     clamp(20px, 10.8vw, 156px);      /* margen lateral de 156px a 1440 */
+  --gutter-sm:  clamp(20px, 3vw, 42px);
+  --section:    clamp(80px, 12vw, 180px);
+  --radius:     6px;
+
+  --ease: cubic-bezier(.25, .6, .3, 1);
+
+  /* Imagen del hero: 1 = original · 0.85 = 15% más oscura */
+  --hero-brightness: 0.6;
+}

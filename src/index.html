@@ -1,21 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Web</title>
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viento 10 · Hotel boutique en Córdoba</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Bienvenido a Mi Web</h1>
-    </header>
-    <main>
-        <p>Esta es la página principal de mi aplicación web.</p>
-    </main>
-    <footer>
-        <p>&copy; 2023 Mi Web. Todos los derechos reservados.</p>
-    </footer>
-    <script src="js/main.js"></script>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <div class="header__meta">
+      <a href="tel:+34744655732" class="header__phone">+34 744 655 732</a>
+      <span class="header__sep" aria-hidden="true">|</span>
+      <div class="lang" id="lang">
+        <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="lang__current">Español</span>
+          <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        </button>
+        <ul class="lang__list" hidden>
+          <li><button type="button" lang="es" aria-current="true">Español</button></li>
+          <li><button type="button" lang="en">English</button></li>
+          <li><button type="button" lang="fr">Français</button></li>
+          <li><button type="button" lang="de">Deutsch</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="header__actions">
+      <a href="#" class="btn btn--light">Reservar</a>
+      <button class="btn btn--olive" type="button">Menú</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <img class="hero__bg" src="assets/img/img_hero_01.jpg" alt="Alberca del hotel Viento 10">
+      <h1 class="hero__logo"><img src="assets/img/logo-viento.svg" alt="Viento 10" width="210" height="40"></h1>
+      <p class="hero__tagline">Un hotel en Córdoba hecho<br>de luz y silencio</p>
+      <span class="hero__scroll hero__scroll--left" aria-hidden="true">Keep scroll</span>
+      <span class="hero__scroll hero__scroll--right" aria-hidden="true">Keep scroll</span>
+      <span class="hero__swipe" aria-hidden="true">Desliza</span>
+    </section>
+
+    <!-- ============ BIENVENIDA ============ -->
+    <section class="welcome" id="hotel">
+      <h2 class="script-title">Bienvenidos<br>a Viento 10</h2>
+
+      <div class="collage collage--welcome">
+        <img class="collage__img reveal collage__img--pool" src="assets/img/img_hotel_home_1.jpg" alt="Huésped flotando en la alberca" loading="lazy">
+        <img class="collage__img reveal collage__img--book" src="assets/img/img_hotel_home_2.jpg" alt="Sillón con un libro abierto y un zumo de naranja" loading="lazy">
+      </div>
+
+      <div class="statement reveal">
+        <p class="statement__text">Un hotel en el centro histórico de Córdoba donde la atención al detalle y el cuidado al viajero se siente en cada estancia. Respira, nosotros hacemos el resto.</p>
+        <a href="#hotel" class="link-arrow">Descubre el hotel</a>
+      </div>
+
+      <div class="collage collage--hotel">
+        <img class="collage__img reveal collage__img--stairs" src="assets/img/img_hotel_home_3.jpg" alt="Escalera interior del hotel" loading="lazy">
+        <img class="collage__img reveal collage__img--garden" src="assets/img/img_hotel_home_4.jpg" alt="Pasillo del jardín hacia la alberca" loading="lazy">
+      </div>
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
