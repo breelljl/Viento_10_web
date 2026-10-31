@@ -13,8 +13,10 @@
 :root {
   /* Color */
   --c-olive-dark: #40421a;   /* footer, texto principal */
-  --c-green-700:  #6c6f2b;   /* green-700 (Figma): botones, enlaces, script */
+  --c-green-800:  #545621;   /* green-800 (Figma): footer, botones, enlaces, script */
   --c-cream:      #f5f5ed;   /* fondo testimonios */
+  --c-green-100:  #dfdfc4;   /* botón Menú (muestreado de la captura) */
+  --c-green-200:  #d2d2b2;   /* botón Menú al pasar el ratón */
   --c-white:      #ffffff;
   --c-line:       rgba(64, 66, 26, .25);
   --c-ph:         #e8e6da;   /* fondo de imágenes pendientes */
@@ -29,6 +31,7 @@
   --fs-lead:    clamp(1.65rem, 2.78vw, 40px);   /* párrafos destacados: Canela 40px en Figma */
   --fs-quote:   clamp(1.2rem, 1.8vw, 1.6rem);
   --fs-body:    0.95rem;
+  --fs-caption: 0.875rem;                       /* 14px · pies de foto */
   --fs-label:   0.8rem;                          /* mayúsculas espaciadas */
   --fs-meta:    13px;                            /* teléfono e idiomas (13pt en Figma) */
   --ls-label:   0.12em;
@@ -41,6 +44,31 @@
 
   --ease: cubic-bezier(.25, .6, .3, 1);
 
+  /* Fundido al hacer scroll */
+  --reveal-time: 1.8s;      /* duración del fundido */
+  --reveal-distance: 40px;  /* cuánto sube el elemento mientras aparece */
+
+  /* Pase de habitaciones */
+  --rooms-fade: 3.5s;        /* fundido entre fotos */
+  --rooms-autoplay: 5s;      /* tiempo que se ve cada habitación */
+  --rooms-text-move: 2.2s;     /* deslizamiento de la cinta de nombres */
+  --rooms-names-gap: clamp(500px, 24vw, 600px); /* separación entre nombres: controla cuánto asoman los vecinos */
+  --ease-names: cubic-bezier(.65, 0, .35, 1);   /* arranque y llegada suaves */
+  --fs-room-name: 2.5rem;    /* 40px · nombre de la habitación (Canela) */
+  --fs-room-details: 1rem;   /* 16px · capacidad y cama (Gotham) */
+
+  /* Carrusel de Experiencia */
+  --strip-time: 120s;        /* tiempo en recorrer todas las fotos: más alto = más lento */
+
+  /* Carrusel de opiniones */
+  --reviews-autoplay: 60s;    /* tiempo que se ve cada opinión */
+  --reviews-fade: 1s;        /* fundido entre opiniones */
+  --reviews-fade-delay: .6s; /* la nueva entra cuando la anterior ya casi se ha ido */
+
   /* Imagen del hero: 1 = original · 0.85 = 15% más oscura */
   --hero-brightness: 0.6;
+  --hero-cover-max: 0.8; /* oscuridad máxima cuando la siguiente sección lo tapa del todo (1 = negro) */
+  --hero-fade: 3s;   /* duración del fundido entre fotos */
+  --hero-zoom: 1.05;   /* zoom final de cada foto (1.08 = 8% más grande) */
+  --hero-zoom-time: 60s; /* duración del zoom = tiempo por foto (6s, en main.js) + fundido (5s) */
 }

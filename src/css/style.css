@@ -25,7 +25,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   justify-content: center;
   height: 46px;
   padding: 0 22px;
-  border: 2px solid var(--c-green-700);
+  border: 0;
   border-radius: 8px;
   font-family: var(--f-sans);
   font-weight: 500; /* Figma: 550 → Gotham Pro no tiene ese peso; Medium es el más cercano */
@@ -34,23 +34,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-transform: uppercase;
   transition: background-color .3s var(--ease), color .3s var(--ease);
 }
-.btn--light { background: var(--c-white); color: var(--c-green-700); }
-.btn--light:hover { background: var(--c-cream); }
-.btn--olive { background: var(--c-green-700); color: var(--c-cream); }
-.btn--olive:hover { background: var(--c-olive-dark); }
+/* Reservar: oliva oscuro · Menú: verde claro */
+.btn--light { width: 160px; background: var(--c-olive-dark); color: var(--c-white); } /* Reservar */
+.btn--light:hover { background: var(--c-green-800); }
+.btn--olive { background: var(--c-green-100); color: var(--c-olive-dark); }
+.btn--olive:hover { background: var(--c-green-200); }
 
 /* ---------- Header ---------- */
-.header {
-  position: absolute;
-  inset: 0 0 auto 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 52px var(--gutter-sm) 0 66px;
-  color: var(--c-white);
-}
+/* La cabecera no es una capa propia: cada parte se coloca en su capa.
+   Capas (z-index): hero 0 · teléfono/idioma 1 · secciones 1 (van después, lo tapan) · botones 20 */
+.header { color: var(--c-white); }
+
+/* Teléfono e idioma: fijos como el hero, y las secciones los cubren al subir */
 .header__meta {
+  position: fixed;
+  top: 52px;
+  left: 66px;
+  z-index: 1;
   display: flex;
   align-items: center;
   height: 46px; /* misma altura que los botones, para que queden alineados */
@@ -59,7 +59,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: .04em;
   text-transform: uppercase;
 }
-.header__phone:hover, .lang__toggle:hover { opacity: .75; }
+.lang__toggle:hover { opacity: .75; }
 
 /* Selector de idioma (estilo neutro: no definido en Figma) */
 .lang { position: relative; }
@@ -96,7 +96,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: var(--fs-meta);
   letter-spacing: .04em;
   text-transform: uppercase;
-  color: var(--c-green-700);
+  color: var(--c-green-800);
   white-space: nowrap;
 }
 .lang__list button:hover,
@@ -112,8 +112,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ---------- Hero ---------- */
+/* El hero se queda fijo y las secciones siguientes pasan por encima */
 .hero {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 0;
   height: 100vh;
   min-height: 640px;
   overflow: hidden;
@@ -124,6 +127,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   color: var(--c-white);
   text-align: center;
 }
+.hero__slides { position: absolute; inset: 0; z-index: -1; }
+/* Velo negro que se oscurece a medida que la sección siguiente tapa el hero.
+   --hero-cover (0 → 1) lo calcula main.js según el scroll */
+.hero__slides::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: calc(var(--hero-cover, 0) * var(--hero-cover-max));
+  pointer-events: none;
+}
 .hero__bg {
   position: absolute;
   inset: 0;
@@ -131,14 +145,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   height: 100%;
   object-fit: cover;
   object-position: 60% center;
-  z-index: -1;
   filter: brightness(var(--hero-brightness));
+  opacity: 0;
+  transform: scale(1);
+  /* al salir: se funde y, cuando ya es invisible, vuelve a su tamaño */
+  transition: opacity var(--hero-fade) ease-in-out, transform 0s linear var(--hero-fade);
+}
+/* al entrar: aparece y hace un zoom lento durante todo el tiempo que se ve */
+.hero__bg.is-active {
+  opacity: 1;
+  transform: scale(var(--hero-zoom));
+  transition: opacity var(--hero-fade) ease-in-out, transform var(--hero-zoom-time) linear;
 }
 .hero__logo { margin: 0; line-height: 0; }
 .hero__logo img { width: clamp(210px, 17.4vw, 250px); height: auto; } /* 250px a 1440 */
-.hero__tagline {
+/* Frase + "Scroll" con su línea, centrados en la parte baja */
+.hero__bottom {
   position: absolute;
-  bottom: 14.5vh;
+  bottom: 6vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;                       /* espacio entre la frase y "Scroll" */
+}
+.hero__tagline {
   margin: 0;
   font-size: 1rem;
   line-height: 1.4;
@@ -146,17 +178,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-transform: uppercase;
 }
 .hero__scroll {
-  position: absolute;
-  top: 50%;
-  font-size: .7rem;
-  letter-spacing: var(--ls-label);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  font-size: var(--fs-meta);
+  letter-spacing: .05em;
   text-transform: uppercase;
-  writing-mode: vertical-rl;
-  transform: translateY(-50%);
 }
-.hero__scroll--left { left: 40px; }
-.hero__scroll--right { right: 40px; }
-.hero__swipe { display: none; }
+.hero__scroll::after { content: ""; width: 1px; height: 50px; background: currentColor; }
 
 /* ---------- Hero · móvil ---------- */
 @media (max-width: 767px) {
@@ -172,24 +202,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   }
   .btn { height: 54px; font-size: .95rem; }
   .btn--olive { padding: 0 24px; }
+  .btn--light { width: auto; } /* en móvil ocupa el ancho disponible */
 
   .hero { height: 100svh; min-height: 600px; }
   .hero__bg { object-position: 72% center; }
   .hero__logo img { width: 210px; }
-  .hero__tagline { bottom: 196px; font-size: .95rem; }
-  .hero__scroll { display: none; }
-  .hero__swipe {
-    position: absolute;
-    bottom: 110px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    font-size: .7rem;
-    letter-spacing: var(--ls-label);
-    text-transform: uppercase;
-  }
-  .hero__swipe::after { content: ""; width: 1px; height: 26px; background: currentColor; }
+  .hero__bottom { bottom: 120px; gap: 32px; } /* por encima de los botones */
+  .hero__tagline { font-size: .95rem; }
+  .hero__scroll { gap: 12px; }
+  .hero__scroll::after { height: 30px; }
 }
 
 /* ==========================================================
@@ -203,7 +224,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 400;
   font-size: var(--fs-display);
   line-height: 1.05;
-  color: var(--c-green-700);
+  color: var(--c-green-800);
   text-align: center;
 }
 
@@ -229,26 +250,45 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: baseline;
   gap: 8px;
   padding-bottom: 6px;
-  border-bottom: 1px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
   font-weight: 500;
   font-size: var(--fs-meta);
   letter-spacing: .05em;
   text-transform: uppercase;
-  color: var(--c-green-700);
-  transition: opacity .3s var(--ease);
+  color: var(--c-green-800);
+  transition: opacity .4s var(--ease);
 }
 /* Flecha (Figma "Arrow 2"): línea de 12px, trazo 1px, color del texto.
    Se apoya en la línea base y su centro cae a media altura de la "o". */
+/* En reposo la flecha está oculta (ancho 0 y sin separación);
+   al pasar el ratón crece, aparece y empuja un poco el texto */
 .link-arrow::after {
   content: "";
-  width: 12px;
+  width: 0;
+  margin-left: -8px;               /* anula el gap mientras está oculta */
+  opacity: 0;
+  transition: width .4s var(--ease), margin-left .4s var(--ease), opacity .4s var(--ease);
   height: 7px;
   background: currentColor;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
 }
 .link-arrow:hover { opacity: .7; }
+.link-arrow:hover::after,
+.link-arrow:focus-visible::after { width: 12px; margin-left: 0; opacity: 1; }
 .statement .link-arrow { margin-top: 60px; }
+
+/* Pie de foto: estilo reutilizable para cualquier texto que acompañe a una imagen */
+.caption {
+  max-width: 530px;
+  margin: 0;
+  font-family: var(--f-sans);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  line-height: 1.5;                /* 150% */
+  letter-spacing: .02em;
+  color: var(--c-olive-dark);
+}
 
 /* Collage de fotos: posiciones proporcionales al Figma de 1440px (1vw = 14.4px) */
 .collage { display: flex; align-items: flex-start; }
@@ -257,6 +297,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ==========================================================
    SECCIÓN · BIENVENIDA
    ========================================================== */
+/* Todas las secciones posteriores al hero tapan la foto al subir */
+.hero ~ section {
+  position: relative;
+  z-index: 1;
+  background: var(--c-white);
+}
+
 .welcome { padding: 11vw 0 10vw; }
 
 .collage--welcome { margin: 1.7vw 0 13.5vw; }
@@ -291,11 +338,418 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    ========================================================== */
 .js .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 1.2s var(--ease), transform 1.2s var(--ease);
+  transform: translateY(var(--reveal-distance));
+  transition: opacity var(--reveal-time) ease-out, transform var(--reveal-time) var(--ease);
 }
 .js .reveal.is-visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero__bg.is-active { transform: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Variante clara del enlace con flecha (sobre fotos) */
+.link-arrow--light { color: var(--c-white); }
+
+/* ==========================================================
+   SECCIÓN · HABITACIONES
+   ========================================================== */
+.rooms { padding-top: 10vw; }
+.rooms .statement { margin-bottom: 6.7vw; }
+
+.rooms__slider {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;
+  color: var(--c-white);
+  touch-action: pan-y; /* permite deslizar en horizontal sin bloquear el scroll */
+}
+.rooms__track { position: absolute; inset: 0; }
+
+/* Las fotos están superpuestas: solo la activa es visible (fundido entre ellas). */
+.rooms__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--rooms-fade) ease-in-out;
+  filter: brightness(var(--hero-brightness)); /* mismo oscurecimiento que el hero */
+}
+.rooms__slide.is-active { opacity: 1; }
+
+/* Elementos fijos sobre las fotos */
+.rooms__count,
+.rooms__names,
+.rooms__details,
+.rooms__cta { position: absolute; z-index: 3; }
+
+/* Contador "1 ——— 10": la línea se rellena mientras dura cada habitación */
+.rooms__count {
+  top: 127px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: var(--fs-meta);
+  letter-spacing: .05em;
+}
+.rooms__progress {
+  position: relative;
+  width: 80px;
+  height: 1px;
+  background: rgba(255, 255, 255, .35);
+  overflow: hidden;
+}
+.rooms__progress span {
+  position: absolute;
+  inset: 0;
+  background: var(--c-white);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.rooms__progress.is-running span { animation: rooms-progress var(--rooms-autoplay) linear forwards; }
+@keyframes rooms-progress { to { transform: scaleX(1); } }
+
+/* Cinta de nombres: todos en fila; el activo en el centro y los vecinos asomando */
+.rooms__names {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  pointer-events: none;
+}
+.rooms__names-track {
+  display: flex;
+  align-items: center; /* los nombres de una línea quedan centrados respecto a los de dos */
+  gap: var(--rooms-names-gap);
+  width: max-content;
+  transition: transform var(--rooms-text-move) var(--ease-names);
+}
+.rooms__names-track.no-transition { transition: none; }
+.rooms__names-track span {
+  font-family: var(--f-serif);
+  font-weight: 400;
+  font-size: var(--fs-room-name);
+  line-height: 1.2;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Detalles: fijos bajo el nombre central, se funden al cambiar */
+.rooms__details {
+  top: calc(50% + var(--fs-room-name) * .6 + 12px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: var(--fs-room-details);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  transition: opacity calc(var(--rooms-text-move) / 2) ease;
+}
+.rooms__details.is-hidden { opacity: 0; }
+
+/* Texto solo para lectores de pantalla */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.rooms__cta { bottom: 110px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+
+/* ---------- Habitaciones · móvil ---------- */
+@media (max-width: 767px) {
+  .rooms { padding-top: 80px; }
+  .rooms .statement { margin-bottom: 48px; }
+  .rooms__slider { height: 100svh; }
+  .rooms__count { top: 90px; }
+  :root { --fs-room-name: 1.25rem; --fs-room-details: .875rem; } /* 20px y 14px */
+  .rooms__names { top: auto; bottom: 230px; transform: none; }
+  .rooms__details { top: auto !important; bottom: 200px; } /* en móvil va anclado abajo; ignora la posición que calcula main.js */
+  .rooms__cta { bottom: 150px; }   /* deja sitio a los botones fijos */
+}
+
+/* ==========================================================
+   SECCIÓN · EXPERIENCIA
+   Medidas del Figma de 1440px: foto 1050×700, separación 12px
+   ========================================================== */
+.experience { padding: 9vw 0 15.625rem; } /* 250px hasta Testimonios */
+.experience .statement { margin-bottom: 8.3vw; }
+
+/* Carrusel continuo: la pista lleva las fotos dos veces y se desplaza
+   media pista en bucle (velocidad en --strip-time) */
+.strip { overflow: hidden; }
+.strip__track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: strip-loop var(--strip-time) linear infinite;
+}
+@keyframes strip-loop {
+  to { transform: translateX(calc(-50% - 6px)); } /* -6px = media separación: el corte no se nota */
+}
+/* Todas a la misma altura; el ancho sale de la proporción de cada foto
+   (horizontales 1050px a 1440, verticales más estrechas, sin recortar) */
+.strip__img {
+  flex: none;
+  width: auto;
+  max-width: none;
+  height: 48.6vw;                  /* 700px a 1440 */
+}
+
+.experience__caption { margin: 28px 0 0 var(--gutter); }
+
+@media (max-width: 767px) {
+  .experience { padding: 80px 0; }
+  .experience .statement { margin-bottom: 56px; }
+  .strip__img { height: 84vw; }
+  .experience__caption { margin: 24px var(--gutter-sm) 0; }
+}
+
+/* Saltos de línea solo para escritorio: en móvil el texto fluye libre */
+@media (max-width: 767px) { .br-desktop { display: none; } }
+
+/* ==========================================================
+   SECCIÓN · TESTIMONIOS
+   ========================================================== */
+/* Etiqueta pequeña en mayúsculas (reutilizable) */
+.eyebrow {
+  margin: 0;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+}
+
+.hero ~ section.testimonials {
+  background: var(--c-cream);
+  padding: 10.4vw var(--gutter) 9.7vw;
+}
+/* Dientes de león: asoman por encima del borde de la sección.
+   La foto tiene fondo blanco; "multiply" lo hace desaparecer sobre cualquier fondo claro */
+.testimonials__deco {
+  position: absolute;
+  top: -14.4vw;
+  right: 6.5vw;
+  width: 37.6vw;                   /* 542px a 1440 */
+  max-width: 542px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.testimonials__title {
+  margin: 20px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);  /* 40px */
+  line-height: 1.2;
+  color: var(--c-olive-dark);
+}
+/* Carrusel: todas las opiniones ocupan la misma celda y se funden entre sí.
+   La cita va arriba, la línea en medio y el nombre abajo */
+.testimonials__slider {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  margin-top: 10.4vw;
+}
+.testimonial { display: contents; }
+.testimonial__quote,
+.testimonial .eyebrow {
+  grid-column: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--reviews-fade) ease, visibility 0s linear var(--reviews-fade);
+}
+.testimonial__quote { grid-row: 1; align-self: end; }
+.testimonial .eyebrow { grid-row: 3; }
+.testimonial.is-active .testimonial__quote,
+.testimonial.is-active .eyebrow {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--reviews-fade) ease var(--reviews-fade-delay), visibility 0s;
+}
+.testimonial__quote {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-quote);
+  line-height: 1.5;
+  color: var(--c-olive-dark);
+}
+/* Línea: tramo grueso oscuro que avanza sobre una línea fina clara */
+.testimonial__line {
+  grid-row: 2;
+  position: relative;
+  display: block;
+  height: 1px;
+  margin: 50px 0 46px;
+  background: var(--c-line);
+}
+.testimonial__line span {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 0;
+  height: 2px;
+  background: var(--c-olive-dark);
+}
+/* Flechas: en la fila del autor, al otro lado */
+.testimonials__nav {
+  grid-row: 3;
+  grid-column: 1;
+  justify-self: end;
+  align-self: center;
+  display: flex;
+  gap: 16px;
+}
+/* Flecha: la misma de los enlaces subrayados ("Arrow 2"), a mayor tamaño */
+.arrow-btn {
+  width: 22px;
+  height: 13px;
+  padding: 0;
+  background: var(--c-olive-dark);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+  transition: opacity .3s var(--ease);
+}
+.arrow-btn--prev { transform: scaleX(-1); } /* la misma flecha, girada */
+.arrow-btn:hover { opacity: .6; }
+
+.testimonial__line.is-running span { animation: reviews-progress var(--reviews-autoplay) linear forwards; }
+@keyframes reviews-progress { to { width: 100%; } }
+
+@media (max-width: 767px) {
+  .hero ~ section.testimonials { padding: 110px var(--gutter-sm) 80px; }
+  .testimonials__deco { top: -90px; right: 0; width: 70vw; }
+  .testimonials__title { font-size: 2rem; }
+  .testimonials__slider { margin-top: 56px; }
+  .testimonial__line { margin: 32px 0 28px; }
+}
+
+/* ==========================================================
+   SECCIÓN · CÓRDOBA
+   Foto a todo el ancho con su proporción; el texto flota sobre el cielo
+   ========================================================== */
+.city { color: var(--c-white); }
+.city__img { width: 100%; height: auto; }
+.city__content {
+  position: absolute;
+  top: 15.6vw;                     /* 225px a 1440 */
+  left: 0;
+  right: 0;
+  padding: 0 var(--gutter-sm);
+  text-align: center;
+}
+.city__title {
+  margin: 0 0 50px;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);  /* 40px */
+  line-height: 1.2;
+}
+
+@media (max-width: 767px) {
+  .city__content { top: 64px; }
+  .city__title { font-size: 1.75rem; margin-bottom: 32px; }
+  .city__title br { display: none; }
+}
+
+/* ==========================================================
+   FOOTER
+   Medidas del Figma de 1440px · márgenes laterales 42px
+   ========================================================== */
+.footer {
+  position: relative;
+  z-index: 1;                      /* tapa el hero fijo, como las secciones */
+  background: var(--c-green-800);
+  color: var(--c-cream);
+}
+.footer a { transition: opacity .3s var(--ease); }
+.footer a:hover { opacity: .7; }
+.footer ul { margin: 0; padding: 0; list-style: none; }
+
+/* Logo + frase */
+.footer__claim {
+  padding: 96px var(--gutter-sm) 120px;
+  text-align: center;
+}
+.footer__logo { width: 65px; height: auto; margin: 0 auto 40px; }
+.footer__title {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);  /* 40px */
+  line-height: 1.2;
+}
+
+/* Menú · dirección · redes */
+.footer__main {
+  display: grid;
+  grid-template-columns: 40.1vw 1fr auto; /* "Dirección" empieza a 620px */
+  padding: 48px var(--gutter-sm) 70px;
+  border-top: 1px solid rgba(245, 245, 237, .2);
+}
+.footer__label {
+  margin: 0 0 22px;
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.footer__menu,
+.footer__address {
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: 1.5rem;               /* 24px */
+  font-style: normal;
+}
+.footer__menu { line-height: 1.6; }
+.footer__address { line-height: 1.4; }
+.footer__address p { margin: 0 0 18px; }
+.footer__address a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.footer__social { display: flex; gap: 12px; align-self: start; margin-top: 0 !important; } /* alineadas con las etiquetas */
+.footer__social img { width: 40px; height: 40px; }
+
+/* Fila inferior */
+.footer__bottom {
+  display: grid;
+  grid-template-columns: 40.1vw 1fr auto;
+  align-items: center;
+  padding: 28px var(--gutter-sm);
+  border-top: 1px solid rgba(245, 245, 237, .2);
+  font-size: var(--fs-label);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.footer__michelin {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  font-size: .75rem;
+  line-height: 1.2;
+}
+.footer__michelin img { width: 54px; height: auto; }
+.footer__legal { display: flex; gap: 24px; }
+.footer__copy { margin: 0; }
+
+@media (max-width: 767px) {
+  .footer__claim { padding: 80px var(--gutter-sm) 80px; }
+  .footer__title { font-size: 1.75rem; }
+  .footer__main,
+  .footer__bottom { grid-template-columns: 1fr; gap: 40px; }
+  .footer__main { padding-bottom: 60px; }
+  .footer__social { margin-top: 0 !important; }
+  .footer__bottom { gap: 24px; padding-bottom: 140px; } /* deja sitio a los botones fijos */
 }
