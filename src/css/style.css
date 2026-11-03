@@ -204,7 +204,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 0;
   line-height: 0;
 }
-.hero__logo img { width: 160px; height: auto; }
+.hero__logo img { width: 150px; height: auto; }
 /* Frase + "Scroll" con su línea, centrados en la parte baja */
 .hero__bottom {
   position: absolute;
@@ -608,6 +608,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width: auto;
   max-width: none;
   height: 45.1vw;                  /* 650px a 1440 */
+  border-radius: 8px;
 }
 
 
@@ -1513,7 +1514,6 @@ body.no-scroll { overflow: hidden; }
 .remodel { padding-bottom: 12.5rem; }
 .strip--remodel .strip__img {
   height: 41.67vw;                            /* 600px a 1440 */
-  border-radius: var(--radius);
 }
 .story__text p + p { margin-top: 24px; }     /* separación entre párrafos */
 
