@@ -968,7 +968,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding: 0 20px;
   white-space: nowrap;                        /* la etiqueta siempre en una línea */
   border: 1px solid var(--c-green-800);
-  font-size: .875rem;                         /* 14px */
+  font-size: .75rem;                          /* 12px */
   color: var(--c-green-800);
   background: transparent;
 }
@@ -1928,13 +1928,41 @@ body.menu-open :is(.menu__logo, .menu__social, .menu__media) {
 html.is-loading { overflow: hidden; background: var(--c-olive-dark); } /* desde el primer instante: sin barras de scroll y todo el fondo en verde */
 html.is-loading body { background: transparent; }
 
-.loader__mark {
-  width: 82px;
-  height: auto;
-  fill: var(--c-cream);
+/* Símbolo dibujado con trazos reales: cada línea se dibuja una detrás de otra (--loader-draw) */
+.loader__mark { width: 104px; height: auto; overflow: visible; }
+.loader__mark path {
+  fill: none;
+  stroke: var(--c-loader-mark);
+  stroke-width: 1.8;
+  stroke-linecap: butt;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;                       /* línea sin dibujar */
+  transition: stroke-dashoffset var(--loader-draw) var(--ease-names);
+}
+.loader.is-mark .loader__mark path {
+  stroke-dashoffset: 0;
+  transition-delay: calc(var(--i) * var(--loader-draw-stagger));
+}
+/* Texto inferior: aparece con un fundido y un sutil deslizamiento */
+.loader__text {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-family: var(--f-serif);
+  font-size: 1rem;                            /* 16px */
+  line-height: 1.4;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--c-loader-mark);
   opacity: 0;
   transform: translateY(var(--loader-mark-distance));
   transition: opacity var(--loader-mark-fade) var(--ease), transform var(--loader-mark-fade) var(--ease);
 }
-.loader.is-mark .loader__mark { opacity: 1; transform: none; }
-.loader.is-out .loader__mark { opacity: 0; transform: none; }
+.loader.is-mark .loader__text { opacity: 1; transform: none; transition-delay: var(--loader-draw); }
+/* Salida: símbolo y texto se funden antes de que suba la cortina */
+.loader__mark { transition: opacity var(--loader-mark-fade) var(--ease); }
+.loader.is-out .loader__mark,
+.loader.is-out .loader__text { opacity: 0; transition-delay: 0s; }

@@ -478,7 +478,8 @@
 })();
 
 // ---------- Pantalla de carga y paso entre páginas ----------
-// 1ª visita de la sesión: pantalla vacía → aparece el símbolo → espera a que cargue la página
+// 1ª visita de la sesión: pantalla vacía → se dibuja el símbolo línea a línea y aparece el texto →
+// espera a que cargue la página
 // y --loader-hold más → el símbolo se funde → la cortina sube.
 // Resto de páginas: la cortina sube en cuanto carga. Al pulsar un enlace interno la cortina
 // baja y, cuando ha terminado de bajar, se abre la página nueva.
@@ -507,7 +508,9 @@
     if (first) {
       await wait(ms('--loader-mark-delay'));
       loader.classList.add('is-mark');
-      await Promise.all([loaded, wait(ms('--loader-mark-fade'))]); // termina de aparecer y la página está cargada
+      // termina de dibujarse (líneas escalonadas + texto) y la página está cargada
+      const drawn = ms('--loader-draw') + 14 * ms('--loader-draw-stagger') + ms('--loader-mark-fade');
+      await Promise.all([loaded, wait(drawn)]);
       await wait(ms('--loader-hold'));
       loader.classList.add('is-out');
       await wait(ms('--loader-mark-fade'));
