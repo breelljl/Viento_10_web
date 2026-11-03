@@ -72,10 +72,10 @@
 
   /* Pantalla de carga */
   --loader-time: 1s;         /* subida y bajada de la cortina de carga */
-  --loader-mark-delay: .2s;  /* pausa con la pantalla vacía antes de que aparezca el símbolo */
-  --loader-mark-fade: 1.5s;  /* entrada y salida del símbolo */
+  --loader-mark-delay: 1s;  /* pausa con la pantalla vacía antes de que aparezca el símbolo */
+  --loader-mark-fade: 1s;  /* entrada y salida del símbolo */
   --loader-mark-distance: 15px; /* cuánto sube el texto mientras aparece */
-  --loader-draw: 1.4s;       /* lo que tarda en dibujarse cada línea del símbolo */
+  --loader-draw: 1s;      /* lo que tarda en dibujarse cada línea del símbolo */
   --loader-draw-stagger: .08s; /* retraso entre una línea y la siguiente */
   --loader-hold: .5s;        /* tiempo que se queda el símbolo después de cargar la página */
 
