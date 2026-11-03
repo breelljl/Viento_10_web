@@ -1996,4 +1996,4 @@ html.is-loading body { background: transparent; }
 /* Salida: símbolo y texto se funden antes de que suba la cortina */
 .loader__mark { transition: opacity var(--loader-mark-fade) var(--ease); }
 .loader.is-out .loader__mark,
-.loader.is-out .loader__text { opacity: 0; transition-delay: 0s; }
+.loader.is-out .loader__text { opacity: 0; transition: opacity var(--loader-mark-out) var(--ease); }

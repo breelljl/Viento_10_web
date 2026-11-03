@@ -554,7 +554,7 @@ if (IS_SAFARI) document.documentElement.classList.add('is-safari');
       await Promise.all([loaded, wait(drawn)]);
       await wait(ms('--loader-hold'));
       loader.classList.add('is-out');
-      await wait(ms('--loader-mark-fade'));
+      await wait(ms('--loader-mark-out'));
     } else {
       await loaded;
     }
