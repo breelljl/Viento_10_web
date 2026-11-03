@@ -1639,6 +1639,7 @@ body.no-scroll { overflow: hidden; }
 .pair__item--tall { width: 30.2vw; }        /* 435px a 1440 */
 .pair__item--mid { width: 46.2vw; }        /* 665px a 1440 */
 .pair__item--wide { width: 54.5vw; }       /* 785px a 1440 */
+.pair__item--narrow { width: 38.2vw; }     /* 550px a 1440 */
 .pair__item--low { margin-top: 21vw; }      /* 300px más baja a 1440 */
 .pair__item--lower { margin-top: 17.7vw; }  /* 255px más baja a 1440 */
 .pair--inset { padding-right: var(--gutter); } /* la foto de la derecha se alinea con el texto (masaje) */
