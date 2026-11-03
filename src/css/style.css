@@ -1642,7 +1642,8 @@ body.no-scroll { overflow: hidden; }
 .pair__item--low { margin-top: 21vw; }      /* 300px más baja a 1440 */
 .pair__item--lower { margin-top: 17.7vw; }  /* 255px más baja a 1440 */
 .pair--inset { padding-right: var(--gutter); } /* la foto de la derecha se alinea con el texto (masaje) */
-.pair__item img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.pair__item img,
+.pair__item video { display: block; width: 100%; height: auto; border-radius: var(--radius); }
 .pair__item .caption { margin-top: 25px; }
 
 

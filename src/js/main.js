@@ -577,3 +577,18 @@ if (IS_SAFARI) document.documentElement.classList.add('is-safari');
   // Al volver con "atrás" el navegador puede recuperar la página con la cortina bajada
   window.addEventListener('pageshow', (e) => { if (e.persisted) open(); });
 })();
+
+// ---------- Vídeos en bucle (Vivir Viento 10) ----------
+// Se reproducen solo mientras se ven: Safari a veces no los arranca solos con autoplay,
+// y pararlos fuera de pantalla aligera el scroll.
+(function () {
+  const videos = document.querySelectorAll('video[autoplay]');
+  if (!videos.length || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) e.target.play().catch(() => {});
+      else e.target.pause();
+    });
+  });
+  videos.forEach((v) => { v.muted = true; io.observe(v); });
+})();
