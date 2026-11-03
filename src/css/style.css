@@ -5,7 +5,7 @@
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; } /* nunca hay scroll lateral (los carruseles son más anchos que la pantalla) */
 body {
   margin: 0;
   font-family: var(--f-sans);
@@ -1906,34 +1906,35 @@ body.menu-open :is(.menu__logo, .menu__social, .menu__media) {
 }
 
 /* ==========================================================
-   PANTALLA DE CARGA · cortina olive-dark con el símbolo
-   Al entrar cubre la página y sube; al ir a otra página baja y se navega.
-   Tapa toda la pantalla, también Reservar y Menú
+   PANTALLA DE CARGA
+   Cortina olive-dark por encima de todo. Estados (los pone main.js):
+   .is-mark → aparece el símbolo · .is-out → se funde · .is-open → la cortina sube
    ========================================================== */
 .loader {
   position: fixed;
-  inset: 0;
-  z-index: 25;                                /* tapa también los botones mientras carga */
-  display: grid;
-  place-items: center;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--c-olive-dark);
-  transition: translate var(--loader-time) var(--ease-names);
+  box-shadow: 0 100vh 0 var(--c-olive-dark);   /* se alarga por debajo: nunca deja ver una franja */
+  transition: transform var(--loader-time) var(--ease-names);
 }
-.loader.is-done { translate: 0 -100%; pointer-events: none; }
-/* Símbolo: una línea recorre el contorno de cada trazo (--loader-draw) y después se rellena */
-.loader__mark { width: 82px; height: auto; overflow: visible; transition: opacity var(--loader-mark-fade) var(--ease); }
-.loader__mark path {
+.loader.is-open { transform: translateY(-200vh); pointer-events: none; } /* sube del todo, sombra incluida */
+html.is-loading { overflow: hidden; background: var(--c-olive-dark); } /* desde el primer instante: sin barras de scroll y todo el fondo en verde */
+html.is-loading body { background: transparent; }
+
+.loader__mark {
+  width: 82px;
+  height: auto;
   fill: var(--c-cream);
-  fill-opacity: 0;
-  stroke: var(--c-cream);
-  stroke-width: .3;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;                       /* línea sin dibujar */
+  opacity: 0;
+  transform: translateY(var(--loader-mark-distance));
+  transition: opacity var(--loader-mark-fade) var(--ease), transform var(--loader-mark-fade) var(--ease);
 }
-.loader.is-mark .loader__mark path {
-  stroke-dashoffset: 0;
-  fill-opacity: 1;
-  transition: stroke-dashoffset var(--loader-draw) var(--ease-names),
-              fill-opacity var(--loader-mark-fade) var(--ease) calc(var(--loader-draw) * .8);
-}
-.loader.is-out .loader__mark { opacity: 0; } /* el símbolo se funde antes de que suba la cortina */
+.loader.is-mark .loader__mark { opacity: 1; transform: none; }
+.loader.is-out .loader__mark { opacity: 0; transform: none; }

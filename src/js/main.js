@@ -478,45 +478,58 @@
 })();
 
 // ---------- Pantalla de carga y paso entre páginas ----------
-// Primera visita: se dibuja el símbolo, se mantiene (--loader-hold), se funde y la cortina sube.
-// Siguientes páginas: la cortina sube enseguida. Al pulsar un enlace interno la cortina baja
-// y, cuando ha cubierto la pantalla, se abre la página nueva.
+// 1ª visita de la sesión: pantalla vacía → aparece el símbolo → espera a que cargue la página
+// y --loader-hold más → el símbolo se funde → la cortina sube.
+// Resto de páginas: la cortina sube en cuanto carga. Al pulsar un enlace interno la cortina
+// baja y, cuando ha terminado de bajar, se abre la página nueva.
 (function () {
   const loader = document.querySelector('.loader');
   if (!loader) return;
-  const css = getComputedStyle(document.documentElement);
-  const ms = (name, fallback) => parseFloat(css.getPropertyValue(name)) * 1000 || fallback;
-  const TIME = ms('--loader-time', 1000);
-  const FADE = ms('--loader-mark-fade', 600);
-  const HOLD = ms('--loader-hold', 1200);
-
-  let first = false;
-  try { first = !sessionStorage.getItem('v10-visto'); sessionStorage.setItem('v10-visto', '1'); } catch (e) {}
-
-  const DRAW = ms('--loader-draw', 2200);
-
-  const open = () => {
-    if (first) {
-      requestAnimationFrame(() => loader.classList.add('is-mark'));         // empieza a dibujarse
-      setTimeout(() => loader.classList.add('is-out'), DRAW + FADE + HOLD);  // se funde
-      setTimeout(() => loader.classList.add('is-done'), DRAW + FADE * 2 + HOLD); // sube la cortina
-    } else {
-      requestAnimationFrame(() => loader.classList.add('is-done'));
-    }
-  };
-  window.addEventListener('load', open);
-
-  document.addEventListener('click', (e) => {
-    const link = e.target.closest('a[href]');
-    if (!link || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || link.target) return;
-    const url = new URL(link.href, location.href);
-    if (url.origin !== location.origin || !/\.html$/.test(url.pathname)) return;
-    if (url.pathname === location.pathname && url.hash) return;   // ancla en la misma página
-    e.preventDefault();
-    loader.classList.remove('is-done');
-    setTimeout(() => { location.href = url.href; }, TIME);
+  const root = document.documentElement;
+  const css = getComputedStyle(root);
+  const ms = (name) => parseFloat(css.getPropertyValue(name)) * 1000 || 0;
+  const wait = (t) => new Promise((resolve) => setTimeout(resolve, t));
+  const loaded = new Promise((resolve) => {
+    if (document.readyState === 'complete') resolve();
+    else window.addEventListener('load', resolve, { once: true });
   });
 
-  // Al volver con el botón "atrás" el navegador puede recuperar la página con la cortina bajada
-  window.addEventListener('pageshow', (e) => { if (e.persisted) loader.classList.add('is-done'); });
+  let first = true;
+  try {
+    first = !sessionStorage.getItem('v10-intro');
+    sessionStorage.setItem('v10-intro', '1');
+  } catch (e) {}
+
+  const open = () => { loader.classList.add('is-open'); root.classList.remove('is-loading'); };
+  root.classList.add('is-loading');
+
+  (async () => {
+    if (first) {
+      await wait(ms('--loader-mark-delay'));
+      loader.classList.add('is-mark');
+      await Promise.all([loaded, wait(ms('--loader-mark-fade'))]); // termina de aparecer y la página está cargada
+      await wait(ms('--loader-hold'));
+      loader.classList.add('is-out');
+      await wait(ms('--loader-mark-fade'));
+    } else {
+      await loaded;
+    }
+    open();
+  })();
+
+  // Paso a otra página de la web
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href]');
+    if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || link.target) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || !url.pathname.endsWith('.html')) return;
+    if (url.pathname === location.pathname && url.hash) return; // ancla en la misma página
+    e.preventDefault();
+    loader.classList.remove('is-mark', 'is-out', 'is-open');
+    root.classList.add('is-loading');
+    wait(ms('--loader-time') + 100).then(() => { location.href = url.href; });
+  });
+
+  // Al volver con "atrás" el navegador puede recuperar la página con la cortina bajada
+  window.addEventListener('pageshow', (e) => { if (e.persisted) open(); });
 })();
