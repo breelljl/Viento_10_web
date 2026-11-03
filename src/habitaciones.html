@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Habitaciones • Viento 10, hotel boutique en Córdoba</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ PANTALLA DE CARGA ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 65 94" width="82" height="119" aria-hidden="true"><path pathLength="1" d="M32.4082 0C50.2756 0.000194897 64.8154 14.5406 64.8154 32.4082V61.5918C64.8154 79.4594 50.2756 93.9998 32.4082 94C14.5406 94 2.97578e-05 79.4595 0 61.5918V32.4082C0 14.5405 14.5406 0 32.4082 0ZM1.13672 55.208V61.5869C1.13672 76.4595 11.583 88.9362 25.5195 92.0811V65.8457H25.1543L21.1338 67.3291L20.7461 66.2764L24.9531 64.7227H26.6426V92.3154C28.5144 92.6664 30.4381 92.8584 32.4082 92.8584V92.8535C49.6485 92.8533 63.6738 78.8274 63.6738 61.5869V55.208H1.13672ZM37.9346 64.5449C42.5629 64.5449 45.9228 68.6724 45.9229 74.3584V74.4102C45.9228 80.0352 42.5111 84.2754 37.8828 84.2754C33.2547 84.2751 29.8945 80.1468 29.8945 74.4609V74.4102C29.8945 68.785 33.3531 64.545 37.9346 64.5449ZM37.9346 65.668C33.442 65.6681 31.0176 70.1749 31.0176 74.4102V74.4609C31.0176 78.7803 33.3905 83.1521 37.8828 83.1523C42.3754 83.1523 44.7997 78.65 44.7998 74.4102V74.3584C44.7998 70.0389 42.4272 65.668 37.9346 65.668ZM32.4082 1.1416C15.1677 1.1416 1.1416 15.1676 1.1416 32.4082V54.0898H63.6738V32.4082C63.6738 15.1677 49.6485 1.1418 32.4082 1.1416ZM32.9697 24.9434L36.5215 11.6904L37.6074 11.9854L34.0547 25.2383L40.916 13.3564L41.8848 13.9131L35.0283 25.7959L44.7295 16.0938L45.5205 16.8896L35.8193 26.5908L47.7012 19.7305L48.2627 20.7041L36.3809 27.5645L49.6348 24.0127L49.9248 25.0977L32.9697 29.6426V45.4463H31.8467V29.6426L14.8916 25.0977L15.1816 24.0127L28.4346 27.5645L16.5527 20.7041L17.1143 19.7305L28.9961 26.5908L19.29 16.8896L20.0859 16.0938L29.7871 25.7959L22.9268 13.9131L23.9004 13.3564L30.7607 25.2383L27.209 11.9854L28.2939 11.6904L31.8467 24.9434V11.2266H32.9697V24.9434Z"/></svg>
+  </div>
+  <noscript><style>.loader { display: none; }</style></noscript>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <a class="hero__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" data-dark-src="assets/img/Home/slider_hero/logo-viento_oscuro.svg" alt="Viento 10 · Inicio" width="210" height="40"></a>  <!-- logo fijo, siempre visible -->
+    <div class="header__meta">
+      <nav class="header__nav" aria-label="Principal">
+        <a href="habitaciones.html">Habitaciones</a>
+        <a href="hotel.html">El hotel</a>
+        <a href="vivir.html">Vivir Viento 10</a>
+      </nav>
+    </div>
+    <div class="lang header__lang" id="lang">
+      <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <span class="lang__current">ES</span>
+        <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <ul class="lang__list" hidden>
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+    </div>
+    <div class="header__actions">
+      <a href="#" class="btn btn--light">Reservar</a>
+      <button class="btn btn--olive menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+    </div>
+  </header>
+
+  <!-- ============ MENÚ DESPLEGABLE ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__col">
+      <a class="menu__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
+      <nav class="menu__nav" aria-label="Menú">
+        <a href="index.html" style="--i: 0"><span>Inicio</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El hotel</span></a>
+        <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vivir Viento 10</span></a>
+        <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
+        <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
+      </nav>
+      <ul class="menu__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+    <div class="menu__media">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/Menu/img_hierba_viento.png" alt="" loading="lazy">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/hotel/img_fuente.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/Habitaciones/imagenes_recursos/img_luz_haitaciones.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/vivir_viento%2010/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/sobre%20cordoba/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/contacto/02_mapa_viento.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <main>
+    <!-- ============ HERO · HABITACIONES ============ -->
+    <section data-dark class="hero hero--page" id="inicio">
+      <div class="hero__slides">
+        <img class="hero__bg is-active" src="assets/img/Habitaciones/hero-habitaciones/img_hero_habitacion.jpg" alt="Cocina del estudio con vistas al dormitorio">
+      </div>
+      <h1 class="hero__title">Nuestras <em>habitaciones</em></h1>
+      <div class="hero__bottom">
+        <p class="hero__tagline">Habitaciones donde cada<br>detalle es distinto</p>
+        <span class="hero__scroll" aria-hidden="true"></span> <!-- línea animada -->
+      </div>
+    </section>
+
+    <!-- ============ ENTRADA ============ -->
+    <section class="page-intro">
+      <div class="statement reveal">
+        <p class="statement__text">Cada habitación tiene su propia luz, su silencio y su forma de recibir la tarde. Todas son maneras distintas de vivir la misma casa.</p>
+      </div>
+    </section>
+
+    <!-- ============ LISTADO DE HABITACIONES ============
+         Portada = foto 00 de cada carpeta. data-gallery = todas las fotos, en orden (para la galería) -->
+    <section class="room-list">
+      <article class="room-card reveal" id="doble-jardin">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/doble-jardin/00_hab209-doble-jardin.jpg" alt="Habitación Doble jardín" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Doble jardín</h2>
+            <p class="room-card__details">1-2 personas • Cama doble</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/doble-jardin/00_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/01_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/02_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/03_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/04_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/05_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/06_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/07_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/08_hab209-doble-jardin.jpg,assets/img/Habitaciones/doble-jardin/09_hab209-doble-jardin.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">Las ventanas se abren al pequeño jardín, y con ellas entra el canto de mirlos, vencejos y golondrinas. Un espacio sereno en primera planta, con minibar propio.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="estudio-jardin">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/estudio-jardin/00_hab210-estudio-jardin.jpg" alt="Habitación Estudio jardín" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Estudio jardín</h2>
+            <p class="room-card__details">1-2 personas • Cama super king-size</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/estudio-jardin/00_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/01_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/02_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/03_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/04_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/05_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/06_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/07_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/08_hab210-estudio-jardin.jpg,assets/img/Habitaciones/estudio-jardin/09_hab210-estudio-jardin.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">El jardín a los pies y el cielo en los ojos: así se vive este estudio en primera planta, con cocina propia y minifrigorífico para quien prefiere quedarse un poco más, y una zona de estar aparte para leer o descansar sin salir de la habitación. En las paredes, cuadros pintados por Adela, hija de Gerardo padre.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="pequena-terraza">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/pequena-terraza/00_hab203-doble-pequena.jpg" alt="Habitación Doble pequeña con terraza" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Doble pequeña con terraza</h2>
+            <p class="room-card__details">1-2 personas • Cama doble</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/pequena-terraza/00_hab203-doble-pequena.jpg,assets/img/Habitaciones/pequena-terraza/01_hab203-doble-pequena.jpg,assets/img/Habitaciones/pequena-terraza/02_hab203-doble-pequena.jpg,assets/img/Habitaciones/pequena-terraza/03_hab203-doble-pequena.jpg,assets/img/Habitaciones/pequena-terraza/04_hab203-doble-pequena.jpg,assets/img/Habitaciones/pequena-terraza/05_hab203-doble-pequena.jpg,assets/img/Habitaciones/pequena-terraza/06_hab203-doble-pequena.jpg,assets/img/Habitaciones/pequena-terraza/07_hab203-doble-pequena.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">En la primera planta, con acabados en malva y madera, los gruesos muros envuelven la habitación y la protegen del ruido mundano. La terraza mira a nuestro jardín donde los jazmines crecen lento al sol del sur.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="doble-primera">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/doble-primera/00_hab205-doble-primera-planta.jpg" alt="Habitación Doble primera planta" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Doble primera planta</h2>
+            <p class="room-card__details">1-2 personas • Cama doble</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/doble-primera/00_hab205-doble-primera-planta.jpg,assets/img/Habitaciones/doble-primera/01_hab205-doble-primera-planta.jpg,assets/img/Habitaciones/doble-primera/02_hab205-doble-primera-planta.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">La luz entra desde dos puntos distintos —una ventana al corredor de cristal, otra en el techo— y se posa sobre suelos de madera y microcemento gris plateado. Sobre la cama, un cabecero de Rocío Moreno, "Suzani", firma el conjunto.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="twin-primera">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/twin-primera/00_hab206-twin-primera-planta.jpg" alt="Habitación Twin primera planta" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Twin primera planta</h2>
+            <p class="room-card__details">1-2 personas • 2 camas individuales</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/twin-primera/00_hab206-twin-primera-planta.jpg,assets/img/Habitaciones/twin-primera/01_hab206-twin-primera-planta.jpg,assets/img/Habitaciones/twin-primera/02_hab206-twin-primera-planta.jpg,assets/img/Habitaciones/twin-primera/03_hab206-twin-primera-planta.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">Dos camas individuales bajo la misma luz que entra por el corredor de cristal, en la primera planta. El cabecero "Tiger Lines", de Rocío Moreno, pone el único trazo de color en un espacio pensado para el descanso.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="doble-patio">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/doble-patio/00_hab201-doble-patio.jpg" alt="Habitación Doble patio" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Doble patio</h2>
+            <p class="room-card__details">1-2 personas • Cama de matrimonio</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/doble-patio/00_hab201-doble-patio.jpg,assets/img/Habitaciones/doble-patio/01_hab201-doble-patio.jpg,assets/img/Habitaciones/doble-patio/02_hab201-doble-patio.jpg,assets/img/Habitaciones/doble-patio/03_hab201-doble-patio.jpg,assets/img/Habitaciones/doble-patio/04_hab201-doble-patio.jpg,assets/img/Habitaciones/doble-patio/05_hab201-doble-patio.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">En planta baja, sobre un suelo de hormigón metálico pulido de oro. Un panel de cristal con el paisaje "Castillo" de Turner separa la habitación del patio de columnas del siglo XIV. El cabecero, "Tiger Lines", es obra de Rocío Moreno.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="twin-patio">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/twin-patio/00_hab202-twin-patio.jpg" alt="Habitación Twin patio" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Twin patio</h2>
+            <p class="room-card__details">1-2 personas • 2 camas individuales</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/twin-patio/00_hab202-twin-patio.jpg,assets/img/Habitaciones/twin-patio/01_hab202-twin-patio.jpg,assets/img/Habitaciones/twin-patio/02_hab202-twin-patio.jpg,assets/img/Habitaciones/twin-patio/04_hab202-twin-patio.jpg,assets/img/Habitaciones/twin-patio/05_hab202-twin-patio.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">Dorado y turquesa se encuentran en planta baja, sobre el mismo suelo de hormigón metálico pulido de oro, frente al patio de columnas. El cabecero, "Fez Embroiderie", es obra de Rocío Moreno.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="doble-terraza">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/doble-terraza/00_hab208-doble-terraza.jpg" alt="Habitación Doble terraza" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Doble terraza</h2>
+            <p class="room-card__details">1-2 personas • Cama de matrimonio</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/doble-terraza/00_hab208-doble-terraza.jpg,assets/img/Habitaciones/doble-terraza/01_hab208-doble-terraza.jpg,assets/img/Habitaciones/doble-terraza/02_hab208-doble-terraza.jpg,assets/img/Habitaciones/doble-terraza/03_hab208-doble-terraza.jpg,assets/img/Habitaciones/doble-terraza/04_hab208-doble-terraza.jpg,assets/img/Habitaciones/doble-terraza/05_hab208-doble-terraza.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">La habitación más alta de la casa, con terraza privada y vistas a la Iglesia de Santiago. El baño, en una burbuja de cristal naranja, es la sorpresa que nadie espera.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="junior-patio">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/junior-patio/00_hab204-junior-patio.jpg" alt="Habitación Junior patio" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Junior patio</h2>
+            <p class="room-card__details">1-3 personas • Cama king-size y sofá cama</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/junior-patio/00_hab204-junior-patio.jpg,assets/img/Habitaciones/junior-patio/01_hab204-junior-patio.jpg,assets/img/Habitaciones/junior-patio/02_hab204-junior-patio.jpg,assets/img/Habitaciones/junior-patio/03_hab204-junior-patio.jpg,assets/img/Habitaciones/junior-patio/04_hab204-junior-patio.jpg,assets/img/Habitaciones/junior-patio/05_hab204-junior-patio.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">Amplia y luminosa, con cama king size y un sofá cama para quien viaja en grupo. Las ventanas se asoman al patio de columnas, y el cabecero "Sol y Luna" corona la habitación. El sofá cama admite una tercera persona.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+      <article class="room-card reveal" id="suite-junior">
+        <div class="room-card__media">
+          <img class="room-card__img" data-parallax="0.1" src="assets/img/Habitaciones/suite-junior/00_hab207-suite-junior-calle.jpg" alt="Habitación Suite junior calle" loading="lazy">
+          <header class="room-card__head">
+            <h2 class="room-card__name">Suite junior calle</h2>
+            <p class="room-card__details">1-3 personas • Cama king-size y sofá cama</p>
+          </header>
+          <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/Habitaciones/suite-junior/00_hab207-suite-junior-calle.jpg,assets/img/Habitaciones/suite-junior/01_hab207-suite-junior-calle.jpg,assets/img/Habitaciones/suite-junior/02_hab207-suite-junior-calle.jpg,assets/img/Habitaciones/suite-junior/03_hab207-suite-junior-calle.jpg,assets/img/Habitaciones/suite-junior/04_hab207-suite-junior-calle.jpg,assets/img/Habitaciones/suite-junior/05_hab207-suite-junior-calle.jpg,assets/img/Habitaciones/suite-junior/06_hab207-suite-junior-calle.jpg">Ver galería
+          </button>
+        </div>
+        <div class="room-card__foot">
+          <p class="room-card__text">La segunda habitación más grande de la casa, al final del pasillo de cristal, con vigas de madera originales sobre la cabeza y la Calle del Viento como vista. El cabecero "Tye Dye" cierra el conjunto.</p>
+          <a href="#" class="btn btn--outline">Reservar habitación</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- Amenidades: foto a todo el ancho con el titular y la caja de comodidades encima -->
+    <section data-dark class="amenities">
+      <img class="amenities__bg" data-parallax="0.1" src="assets/img/Habitaciones/amenidades/img_camarera-pisos.jpg" alt="Camarera de pisos preparando una habitación" loading="lazy">
+      <div class="amenities__inner">
+        <h2 class="amenities__title reveal">Presente en cada<br>habitación:</h2>
+        <div class="amenities__box reveal">
+          <p class="eyebrow">Comodidades</p>
+          <ul class="amenities__list">
+            <li>Baño privado</li>
+            <li>Wi-Fi</li>
+            <li>Climatización</li>
+            <li>Ropa de cama</li>
+            <li>Toallas</li>
+            <li>Secador</li>
+            <li>Servicio a la habitación</li>
+          </ul>
+          <p class="amenities__note">Nota: Nos estamos deshaciendo de las televisiones de las habitaciones. Es una elección, no una carencia: en Viento 10 se prioriza la conversación y el descanso frente a la pantalla.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Preguntas frecuentes: acordeón -->
+    <section class="faq">
+      <div class="faq__intro reveal">
+        <p class="eyebrow eyebrow--pre">Información adicional</p>
+        <h2 class="faq__title">Todo lo que necesitas saber antes<br class="br-desktop"> de reservar</h2>
+      </div>
+      <ul class="faq__list reveal">
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-1">
+                <span class="faq__num">01</span> — Pagos
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-1">
+              <div><p class="faq__answer">El pago se hace en el hotel, a la llegada. La tarifa No Reembolsable se cobra al confirmar la reserva. Antes de tu entrada, el hotel puede pre-autorizar tu tarjeta.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-2">
+                <span class="faq__num">02</span> — Llegadas fuera de horario
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-2">
+              <div><p class="faq__answer">Las entradas a partir de las 20:00 tienen un suplemento de 20&nbsp;€.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-3">
+                <span class="faq__num">03</span> — Accesibilidad
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-3">
+              <div><p class="faq__answer">El edificio es histórico y no tiene ascensor en ningún punto. La mayoría de las habitaciones se alcanzan subiendo escaleras. Si puedes, viaja ligero, y si tienes movilidad reducida, escríbenos antes de reservar.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-4">
+                <span class="faq__num">04</span> — Check-in y check-out
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-4">
+              <div><p class="faq__answer">Entrada a partir de las 15:00. Salida hasta las 11:00.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-5">
+                <span class="faq__num">05</span> — Cancelación
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-5">
+              <div><p class="faq__answer">Gratuita hasta 5 días antes de la llegada. Entre 5 y 2 días antes, se cobra una noche. Con menos de 2 días, o si no te presentas, se cobra la totalidad de la estancia. Las tarifas No Reembolsable se cobran al confirmar la reserva y no admiten devolución.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-6">
+                <span class="faq__num">06</span> — Niños
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-6">
+              <div><p class="faq__answer">Bienvenidos a partir de 7 años.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-7">
+                <span class="faq__num">07</span> — Mascotas
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-7">
+              <div><p class="faq__answer">De momento no podemos acomodarlas.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-8">
+                <span class="faq__num">08</span> — Fumadores
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-8">
+              <div><p class="faq__answer">Viento 10 es un espacio 100&nbsp;% libre de humos.</p></div>
+            </div>
+          </li>
+      </ul>
+    </section>
+
+    <!-- Despedida: pluma y frase caligráfica -->
+    <section class="farewell">
+      <img class="farewell__feather reveal" data-parallax="0.15" src="assets/img/Habitaciones/imagenes_recursos/img_pluma_habitaciones.jpg" alt="" loading="lazy">
+      <p class="script-title farewell__script reveal" data-parallax="0.05">Te esperamos<br>en Viento 10</p>
+    </section>
+
+    <!-- Más sobre Viento 10: franja de foto con enlaces a otras páginas -->
+    <section data-dark class="more">
+      <img class="more__bg" data-parallax="0.1" src="assets/img/Habitaciones/imagenes_recursos/img_luz_haitaciones.jpg" alt="" loading="lazy">
+      <div class="more__inner reveal">
+        <p class="eyebrow more__eyebrow">Más sobre Viento 10</p>
+        <p class="more__text">Descubre el día a día en <a href="vivir.html">Vivir Viento 10</a>, la historia de la casa en<br class="br-desktop"> <a href="hotel.html">El hotel</a> y los primeros pasos por la <a href="cordoba.html">ciudad en Córdoba</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer data-dark class="footer">
+    <div class="footer__claim reveal">
+      <img class="footer__logo" src="assets/img/Home/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
+      <p class="footer__title">El viaje empieza al cruzar la puerta.<br>El tuyo, en Viento 10.</p>
+    </div>
+
+    <div class="footer__main">
+      <nav class="footer__col" aria-label="Menú del pie">
+        <p class="footer__label">Menú</p>
+        <ul class="footer__menu">
+          <li><a href="hotel.html">El Hotel</a></li>
+          <li><a href="habitaciones.html">Habitaciones</a></li>
+          <li><a href="vivir.html">Vivir Viento 10</a></li>
+          <li><a href="cordoba.html">Sobre Córdoba</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col" id="contacto">
+        <p class="footer__label">Dirección</p>
+        <address class="footer__address">
+          <p>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba (España)</p>
+          <p><a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a><br><a href="tel:+34744655732">+34 744 655 732</a></p>
+        </address>
+      </div>
+
+      <ul class="footer__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__michelin"><img src="assets/img/Home/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
+      <ul class="footer__legal">
+        <li><a href="#">Aviso legal</a></li>
+        <li><a href="#">Privacidad</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+      <p class="footer__copy">Viento 10 2026</p>
+    </div>
+  </footer>
+
+  <!-- Galería de cada habitación: se rellena desde el botón "Ver galería" (data-gallery) -->
+  <dialog class="gallery" id="gallery" tabindex="-1" aria-label="Galería de la habitación">
+    <button class="gallery__close" type="button" data-close>Cerrar <span class="gallery__x" aria-hidden="true"></span></button>
+    <header class="gallery__head">
+      <h2 class="gallery__name"></h2>
+      <p class="gallery__details"></p>
+    </header>
+    <div class="gallery__stage">
+      <img class="gallery__img" src="" alt="">
+    </div>
+    <div class="gallery__thumbs"></div>
+    <div class="gallery__nav">
+      <button class="gallery__arrow" type="button" data-dir="-1" aria-label="Foto anterior">
+        <svg viewBox="0 0 8 14" aria-hidden="true"><path d="M7 1 1 7l6 6" fill="none" stroke="currentColor"/></svg>
+      </button>
+      <button class="gallery__arrow" type="button" data-dir="1" aria-label="Foto siguiente">
+        <svg viewBox="0 0 8 14" aria-hidden="true"><path d="m1 1 6 6-6 6" fill="none" stroke="currentColor"/></svg>
+      </button>
+    </div>
+  </dialog>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

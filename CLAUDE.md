@@ -8,7 +8,7 @@ Prototipo web de alta fidelidad para **Viento 10**, un hotel boutique en Córdob
 
 **Lee [AGENTS.md](AGENTS.md) antes de trabajar**: es el brief completo (rol, páginas y secciones, restricciones, orden de trabajo, criterios de calidad y formato de respuesta). Puntos críticos:
 - HTML, CSS y JS puros: sin frameworks, sin librerías, sin paso de compilación.
-- Un único `index.html` con secciones que actúan como las 6 "páginas" conceptuales (Home, Habitaciones, El hotel, Vivir Viento 10, Sobre Córdoba, Contacto), navegables por anclas.
+- `index.html` es la Home; cada página interior tiene su propio archivo (`habitaciones.html`…) que comparte cabecera, footer, CSS y JS. Decisión del usuario, aunque AGENTS.md hablaba de un único archivo.
 - Trabajar **una sección cada vez** y pedir aprobación antes de pasar a la siguiente. Orden: Home → Habitaciones → El hotel → Contacto → Sobre Córdoba → Vivir Viento 10.
 - No inventar estilos, contenido ni imágenes: si falta algo, pedirlo o usar una solución neutra.
 - Responsive: móvil, tablet, escritorio y escritorio grande.
@@ -37,7 +37,7 @@ No hay build, linter ni tests. Ojo: live-server inyecta los cambios de CSS sin r
 
 ## Recursos
 
-- Imágenes en una carpeta por sección dentro de `src/assets/img/` (`hero`, `bienvenida`, `habitaciones`, `experiencias`, `cordoba`). Nombres en minúsculas y sin espacios: si el usuario renombra o mueve un archivo, hay que actualizar la ruta.
+- Imágenes por página y sección dentro de `src/assets/img/`: `Home/` (`slider_hero`, `bienvenida`, `habitaciones_slider`, `carrusel_servicios`, `cordoba`) y `Habitaciones/` (`hero-habitaciones` y una carpeta por habitación con su galería, numerada `00_`, `01_`…). Si el usuario renombra o mueve un archivo, hay que actualizar la ruta y dejar permisos 644 (algunos archivos llegan con permisos privados).
 - Capturas de Figma en `src/assets/design/` (`home-desktop.png`, `home-mobile.png`), excluidas de git.
 - Tipografías locales en `src/assets/font/`: **Canela** (serif, títulos), **Gotham Pro** (sans, texto; no existe peso 550, se usa 500) y **Bon Vivant** (script, la carpeta se llama `bont_vivant`).
 - Git: repo privado `breelljl/Viento_10_web`, rama de trabajo `main-borrar`. Para hacer push hace falta `git -c http.postBuffer=524288000 push`.

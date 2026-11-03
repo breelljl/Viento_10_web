@@ -24,7 +24,7 @@
     if (!option) return;
     list.querySelectorAll('button').forEach((b) => b.removeAttribute('aria-current'));
     option.setAttribute('aria-current', 'true');
-    current.textContent = option.textContent;
+    current.textContent = option.lang.toUpperCase(); // abreviado: ES, EN, FR, DE
     setOpen(false);
   });
 
@@ -64,7 +64,8 @@
   const slides = document.querySelectorAll('#heroSlides .hero__bg');
   if (slides.length < 2) return; // con una sola foto no hay pase
 
-  const INTERVAL = 50000; // tiempo que se ve cada foto (ms)
+  // tiempo que se ve cada foto: --hero-time en tokens.css
+  const INTERVAL = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hero-time')) * 1000 || 50000;
   let current = 0;       // foto visible ahora (empieza en la primera)
 
   setInterval(() => {
@@ -127,7 +128,6 @@
 
   const styles = getComputedStyle(document.documentElement);
   const toMs = (v) => parseFloat(v) * (v.trim().endsWith('ms') ? 1 : 1000);
-  const AUTOPLAY = toMs(styles.getPropertyValue('--rooms-autoplay')) || 5000;
   const MOVE = toMs(styles.getPropertyValue('--rooms-text-move')) || 1000;
 
   // Cinta: [copia] [original] [copia]
@@ -147,7 +147,6 @@
   let current = 0;        // habitación activa (0..total-1)
   let position = total;   // nombre centrado dentro de la cinta (empieza en la copia central)
   let busy = false;
-  let timer;
 
   slider.querySelector('[data-total]').textContent = total;
 
@@ -210,9 +209,11 @@
     }, MOVE);
   }
 
+  // La línea del contador marca el tiempo: cuando termina de llenarse, pasa a la siguiente.
+  // Así la línea y el cambio de habitación van siempre sincronizados.
+  progress.addEventListener('animationend', () => (busy ? restartProgress() : go(1)));
+
   function restart() {
-    clearInterval(timer);
-    timer = setInterval(() => go(1), AUTOPLAY);
     restartProgress();
   }
 
@@ -237,14 +238,15 @@
 
 // ---------- Carrusel de fotos (Experiencia) ----------
 // Duplica las fotos: la animación CSS mueve media pista y vuelve al inicio sin que se note.
+// Sirve para todos los carruseles .strip (Experiencia en la Home, remodelación en El hotel).
 (function () {
-  const track = document.querySelector('#expStrip .strip__track');
-  if (!track) return;
-  [...track.children].forEach((img) => {
-    const copy = img.cloneNode();
-    copy.alt = '';
-    copy.setAttribute('aria-hidden', 'true');
-    track.appendChild(copy);
+  document.querySelectorAll('.strip .strip__track').forEach((track) => {
+    [...track.children].forEach((img) => {
+      const copy = img.cloneNode();
+      copy.alt = '';
+      copy.setAttribute('aria-hidden', 'true');
+      track.appendChild(copy);
+    });
   });
 })();
 
@@ -281,15 +283,16 @@
   restartLine();
 })();
 
-// ---------- Hero: se oscurece al taparlo ----------
+// ---------- Hero: se oscurece y funde navegación, logo e idioma al taparlo ----------
 // 0 arriba del todo → 1 cuando la sección siguiente cubre el hero por completo.
+// En páginas sin hero (Sobre Córdoba) se mide con el alto de la pantalla.
 (function () {
   const hero = document.querySelector('.hero');
-  if (!hero) return;
   let ticking = false;
   const update = () => {
-    const progress = Math.min(Math.max(window.scrollY / hero.offsetHeight, 0), 1);
-    hero.style.setProperty('--hero-cover', progress.toFixed(3));
+    const height = hero ? hero.offsetHeight : window.innerHeight;
+    const progress = Math.min(Math.max(window.scrollY / height, 0), 1);
+    document.documentElement.style.setProperty('--hero-cover', progress.toFixed(3));
     ticking = false;
   };
   window.addEventListener('scroll', () => {
@@ -297,4 +300,223 @@
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
+})();
+
+// ---------- Habitaciones: el pase tapa el texto de entrada ----------
+// --rooms-cover: 0 cuando el pase asoma por abajo → 1 cuando ocupa toda la pantalla.
+(function () {
+  const section = document.querySelector('.rooms');
+  const slider = document.getElementById('roomSlider');
+  if (!section || !slider) return;
+  let ticking = false;
+  const update = () => {
+    const vh = window.innerHeight;
+    const progress = Math.min(Math.max(1 - slider.getBoundingClientRect().top / vh, 0), 1);
+    section.style.setProperty('--rooms-cover', progress.toFixed(3));
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+// ---------- Preguntas frecuentes: acordeón ----------
+// Cada pregunta se abre y se cierra por separado; la animación está en CSS (--faq-time).
+(function () {
+  const toggles = document.querySelectorAll('.faq__toggle');
+  toggles.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      btn.setAttribute('aria-expanded', btn.getAttribute('aria-expanded') !== 'true');
+    });
+  });
+})();
+
+// ---------- Galería de habitaciones ----------
+// "Ver galería" lleva la lista de fotos en data-gallery; el nombre y los datos se toman de su ficha.
+// Se cierra con "Cerrar" o Escape; flechas del teclado y deslizar con el dedo para cambiar de foto.
+(function () {
+  const dialog = document.getElementById('gallery');
+  const buttons = document.querySelectorAll('[data-gallery]');
+  if (!dialog || !buttons.length) return;
+
+  const img = dialog.querySelector('.gallery__img');
+  const name = dialog.querySelector('.gallery__name');
+  const details = dialog.querySelector('.gallery__details');
+  const thumbs = dialog.querySelector('.gallery__thumbs');
+  const FADE = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gallery-fade')) * 1000 || 500;
+  let photos = [];
+  let current = 0;
+
+  function show(index, animate) {
+    current = (index + photos.length) % photos.length;
+    [...thumbs.children].forEach((t, i) => t.setAttribute('aria-current', i === current));
+    thumbs.children[current].scrollIntoView({ block: 'nearest', inline: 'center' });
+    const swap = () => {
+      img.src = photos[current];
+      img.alt = `${name.textContent}, foto ${current + 1} de ${photos.length}`;
+      img.classList.remove('is-changing');
+    };
+    if (!animate) return swap();
+    img.classList.add('is-changing');
+    setTimeout(swap, FADE);
+  }
+
+  function open(btn) {
+    const card = btn.closest('.room-card');
+    photos = btn.dataset.gallery.split(',');
+    name.textContent = card.querySelector('.room-card__name').textContent;
+    details.textContent = card.querySelector('.room-card__details').textContent;
+    thumbs.innerHTML = '';
+    photos.forEach((src, i) => {
+      const t = document.createElement('button');
+      t.type = 'button';
+      t.setAttribute('aria-label', `Foto ${i + 1}`);
+      t.innerHTML = `<img src="${src}" alt="" loading="lazy">`;
+      t.addEventListener('click', () => i !== current && show(i, true));
+      thumbs.appendChild(t);
+    });
+    dialog.showModal();
+    dialog.focus(); // sin marco de foco sobre "Cerrar" al abrir
+    document.body.classList.add('no-scroll');
+    show(0, false);
+    requestAnimationFrame(() => dialog.classList.add('is-visible'));
+  }
+
+  function close() {
+    dialog.classList.remove('is-visible');
+    setTimeout(() => {
+      dialog.close();
+      document.body.classList.remove('no-scroll');
+    }, FADE);
+  }
+
+  buttons.forEach((btn) => btn.addEventListener('click', () => open(btn)));
+  dialog.querySelector('[data-close]').addEventListener('click', close);
+  dialog.querySelectorAll('[data-dir]').forEach((b) => {
+    b.addEventListener('click', () => show(current + Number(b.dataset.dir), true));
+  });
+  dialog.addEventListener('cancel', (e) => { e.preventDefault(); close(); }); // Escape con fundido
+  dialog.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') show(current - 1, true);
+    if (e.key === 'ArrowRight') show(current + 1, true);
+  });
+
+  let startX = null;
+  dialog.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  dialog.addEventListener('touchend', (e) => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) show(current + (dx < 0 ? 1 : -1), true);
+    startX = null;
+  });
+})();
+
+// ---------- Logo: blanco sobre fotos y fondos oscuros, oscuro sobre fondos claros ----------
+// Las zonas oscuras llevan data-dark en el HTML; se mira qué hay debajo del logo al hacer scroll.
+(function () {
+  const logo = document.querySelector('.hero__logo');
+  const img = logo && logo.querySelector('img[data-dark-src]');
+  if (!img) return;
+  const light = img.getAttribute('src');
+  const dark = img.dataset.darkSrc;
+  let ticking = false;
+
+  const update = () => {
+    const r = logo.getBoundingClientRect();
+    const under = document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2)
+      .find((el) => !logo.contains(el) && el !== logo && !el.closest('.header, .loader, .menu')); // la cortina de carga y el menú no cuentan
+    const onDark = !under || !!under.closest('[data-dark]');
+    const src = onDark ? light : dark;
+    if (img.getAttribute('src') !== src) img.setAttribute('src', src);
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+// ---------- El hotel: relato de Gerardo Holgado ----------
+// El botón "+" despliega y recoge el relato; la animación está en CSS (--faq-time).
+(function () {
+  const btn = document.querySelector('.founder__more');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    btn.setAttribute('aria-expanded', btn.getAttribute('aria-expanded') !== 'true');
+  });
+})();
+
+
+// ---------- Menú desplegable ----------
+// El botón "Menú" abre el menú a pantalla completa y pasa a "Cerrar"; Esc también lo cierra.
+(function () {
+  const btn = document.querySelector('.menu-toggle');
+  const menu = document.getElementById('menu');
+  if (!btn || !menu) return;
+  const setOpen = (open) => {
+    document.body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.textContent = open ? 'Cerrar' : 'Menú';
+    menu.setAttribute('aria-hidden', !open);
+  };
+  btn.addEventListener('click', () => setOpen(!document.body.classList.contains('menu-open')));
+
+  // Al pasar por cada etiqueta se muestra la foto de esa página; al salir vuelve la hierba (Inicio)
+  const imgs = [...menu.querySelectorAll('.menu__img')];
+  const show = (page) => imgs.forEach((img) => img.classList.toggle('is-active', img.dataset.for === page));
+  menu.querySelectorAll('.menu__nav a').forEach((link) => {
+    const page = link.getAttribute('href');
+    link.addEventListener('mouseenter', () => show(page));
+    link.addEventListener('focus', () => show(page));
+  });
+  menu.querySelector('.menu__nav').addEventListener('mouseleave', () => show('index.html'));
+  imgs.forEach((img) => { img.loading = 'eager'; });   // cargadas de antemano: el cambio es inmediato
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+})();
+
+// ---------- Pantalla de carga y paso entre páginas ----------
+// Primera visita: se dibuja el símbolo, se mantiene (--loader-hold), se funde y la cortina sube.
+// Siguientes páginas: la cortina sube enseguida. Al pulsar un enlace interno la cortina baja
+// y, cuando ha cubierto la pantalla, se abre la página nueva.
+(function () {
+  const loader = document.querySelector('.loader');
+  if (!loader) return;
+  const css = getComputedStyle(document.documentElement);
+  const ms = (name, fallback) => parseFloat(css.getPropertyValue(name)) * 1000 || fallback;
+  const TIME = ms('--loader-time', 1000);
+  const FADE = ms('--loader-mark-fade', 600);
+  const HOLD = ms('--loader-hold', 1200);
+
+  let first = false;
+  try { first = !sessionStorage.getItem('v10-visto'); sessionStorage.setItem('v10-visto', '1'); } catch (e) {}
+
+  const DRAW = ms('--loader-draw', 2200);
+
+  const open = () => {
+    if (first) {
+      requestAnimationFrame(() => loader.classList.add('is-mark'));         // empieza a dibujarse
+      setTimeout(() => loader.classList.add('is-out'), DRAW + FADE + HOLD);  // se funde
+      setTimeout(() => loader.classList.add('is-done'), DRAW + FADE * 2 + HOLD); // sube la cortina
+    } else {
+      requestAnimationFrame(() => loader.classList.add('is-done'));
+    }
+  };
+  window.addEventListener('load', open);
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[href]');
+    if (!link || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || link.target) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || !/\.html$/.test(url.pathname)) return;
+    if (url.pathname === location.pathname && url.hash) return;   // ancla en la misma página
+    e.preventDefault();
+    loader.classList.remove('is-done');
+    setTimeout(() => { location.href = url.href; }, TIME);
+  });
+
+  // Al volver con el botón "atrás" el navegador puede recuperar la página con la cortina bajada
+  window.addEventListener('pageshow', (e) => { if (e.persisted) loader.classList.add('is-done'); });
 })();

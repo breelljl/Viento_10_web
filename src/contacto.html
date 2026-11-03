@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto • Viento 10, hotel boutique en Córdoba</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-cream">
+
+  <!-- ============ PANTALLA DE CARGA ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 65 94" width="82" height="119" aria-hidden="true"><path pathLength="1" d="M32.4082 0C50.2756 0.000194897 64.8154 14.5406 64.8154 32.4082V61.5918C64.8154 79.4594 50.2756 93.9998 32.4082 94C14.5406 94 2.97578e-05 79.4595 0 61.5918V32.4082C0 14.5405 14.5406 0 32.4082 0ZM1.13672 55.208V61.5869C1.13672 76.4595 11.583 88.9362 25.5195 92.0811V65.8457H25.1543L21.1338 67.3291L20.7461 66.2764L24.9531 64.7227H26.6426V92.3154C28.5144 92.6664 30.4381 92.8584 32.4082 92.8584V92.8535C49.6485 92.8533 63.6738 78.8274 63.6738 61.5869V55.208H1.13672ZM37.9346 64.5449C42.5629 64.5449 45.9228 68.6724 45.9229 74.3584V74.4102C45.9228 80.0352 42.5111 84.2754 37.8828 84.2754C33.2547 84.2751 29.8945 80.1468 29.8945 74.4609V74.4102C29.8945 68.785 33.3531 64.545 37.9346 64.5449ZM37.9346 65.668C33.442 65.6681 31.0176 70.1749 31.0176 74.4102V74.4609C31.0176 78.7803 33.3905 83.1521 37.8828 83.1523C42.3754 83.1523 44.7997 78.65 44.7998 74.4102V74.3584C44.7998 70.0389 42.4272 65.668 37.9346 65.668ZM32.4082 1.1416C15.1677 1.1416 1.1416 15.1676 1.1416 32.4082V54.0898H63.6738V32.4082C63.6738 15.1677 49.6485 1.1418 32.4082 1.1416ZM32.9697 24.9434L36.5215 11.6904L37.6074 11.9854L34.0547 25.2383L40.916 13.3564L41.8848 13.9131L35.0283 25.7959L44.7295 16.0938L45.5205 16.8896L35.8193 26.5908L47.7012 19.7305L48.2627 20.7041L36.3809 27.5645L49.6348 24.0127L49.9248 25.0977L32.9697 29.6426V45.4463H31.8467V29.6426L14.8916 25.0977L15.1816 24.0127L28.4346 27.5645L16.5527 20.7041L17.1143 19.7305L28.9961 26.5908L19.29 16.8896L20.0859 16.0938L29.7871 25.7959L22.9268 13.9131L23.9004 13.3564L30.7607 25.2383L27.209 11.9854L28.2939 11.6904L31.8467 24.9434V11.2266H32.9697V24.9434Z"/></svg>
+  </div>
+  <noscript><style>.loader { display: none; }</style></noscript>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <a class="hero__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" data-dark-src="assets/img/Home/slider_hero/logo-viento_oscuro.svg" alt="Viento 10 · Inicio" width="210" height="40"></a>  <!-- logo fijo, siempre visible -->
+    <div class="header__meta">
+      <nav class="header__nav" aria-label="Principal">
+        <a href="habitaciones.html">Habitaciones</a>
+        <a href="hotel.html">El hotel</a>
+        <a href="vivir.html">Vivir Viento 10</a>
+      </nav>
+    </div>
+    <div class="lang header__lang" id="lang">
+      <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <span class="lang__current">ES</span>
+        <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <ul class="lang__list" hidden>
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+    </div>
+    <div class="header__actions">
+      <a href="#" class="btn btn--light">Reservar</a>
+      <button class="btn btn--olive menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+    </div>
+  </header>
+
+  <!-- ============ MENÚ DESPLEGABLE ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__col">
+      <a class="menu__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
+      <nav class="menu__nav" aria-label="Menú">
+        <a href="index.html" style="--i: 0"><span>Inicio</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El hotel</span></a>
+        <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vivir Viento 10</span></a>
+        <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
+        <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
+      </nav>
+      <ul class="menu__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+    <div class="menu__media">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/Menu/img_hierba_viento.png" alt="" loading="lazy">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/hotel/img_fuente.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/Habitaciones/imagenes_recursos/img_luz_haitaciones.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/vivir_viento%2010/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/sobre%20cordoba/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/contacto/02_mapa_viento.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <main class="contact">
+    <!-- ============ ENTRADA ============ -->
+    <section class="guide__intro contact__intro">
+      <p class="eyebrow reveal">Contacto</p>
+      <h1 class="contact__title reveal">Cómo llegar, aparcar y resolver cualquier duda antes de tu estancia en Viento 10, en el centro histórico de Córdoba</h1>
+    </section>
+
+    <!-- ============ DÓNDE CONTACTAR · DÓNDE ESTAMOS ============ -->
+    <section class="contact__row">
+      <div class="contact__info reveal">
+        <h2 class="care__title">Donde contactar</h2>
+        <dl class="contact__data">
+          <dt>Teléfono / WhatsApp</dt>
+          <dd><a href="tel:+34744655732">+34 744 655 732</a></dd>
+          <dt>Correo electrónico</dt>
+          <dd><a href="mailto:info@viento10.es">info@viento10.es</a></dd>
+        </dl>
+        <h2 class="care__title contact__subtitle">Donde estamos</h2>
+        <dl class="contact__data">
+          <dt>Dirección</dt>
+          <dd>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba</dd>
+          <dt>Horario de recepción</dt>
+          <dd>Atiende en recepción de 8:00 a 20:00.</dd>
+          <dt>Check-in y check-out</dt>
+          <dd>Entrada a partir de las 15:00 (con suplemento de 20€ si llegas después de las 20:00). Salida hasta las 11:00.</dd>
+        </dl>
+        <a href="habitaciones.html" class="link-arrow contact__cta">Reservar habitación</a>
+      </div>
+      <figure class="contact__media reveal">
+        <img src="assets/img/contacto/02_mapa_viento.jpg" alt="Mapa del centro histórico de Córdoba con la situación de Viento 10, junto a la Ronda de los Mártires" loading="lazy">
+      </figure>
+    </section>
+
+    <!-- ============ LLEGADA Y APARCAMIENTO ============ -->
+    <section class="contact__row contact__row--arrive">
+      <figure class="contact__media reveal">
+        <img src="assets/img/contacto/01_zonas-comunes.jpg" alt="Llaves de una habitación de Viento 10 sobre el mármol" loading="lazy">
+      </figure>
+      <div class="contact__info reveal">
+        <h2 class="care__title">Llegada y aparcamiento</h2>
+        <p class="contact__lead">Viento 10 está en una calle peatonal del centro histórico de Córdoba, a 12 minutos a pie de la Mezquita-Catedral.</p>
+        <dl class="contact__data contact__data--spaced">
+          <dt>Venir en transporte público</dt>
+          <dd>Un taxi desde la estación tarda unos 15 minutos. También puedes coger el autobús línea 3 y bajarte en la parada Cuesta de la Pólvora, a 200 metros del hotel.</dd>
+          <dt>Venir en coche</dt>
+          <dd>Si vienes desde Sevilla, Málaga o Granada, <a class="text-link" href="#">consulta la ruta aquí</a>. Desde Madrid, <a class="text-link" href="#">la ruta es esta otra</a>.</dd> <!-- pendiente: enlaces de las rutas -->
+          <dt>Aparcamiento</dt>
+          <dd>Ronda de Mártires 13, a 22€/noche. Al llegar al portón, llama al <a href="tel:+34744655732">+34 744 655 732</a> y te abren en un par de minutos.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ FAQs ============ -->
+    <section class="faq contact__faq">
+      <div class="faq__intro reveal">
+        <h2 class="faq__title">FAQs</h2>
+      </div>
+      <ul class="faq__list reveal">
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-1">
+                <span class="faq__num">01</span> — Accesibilidad
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-1">
+              <div><p class="faq__answer">El edificio es histórico y no tiene ascensor en ningún punto. La mayoría de las habitaciones se alcanzan subiendo escaleras. Si puedes, viaja ligero, y si tienes movilidad reducida, escríbenos antes de reservar.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-2">
+                <span class="faq__num">02</span> — Fumadores
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-2">
+              <div><p class="faq__answer">Viento 10 es un espacio 100 % libre de humos.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-3">
+                <span class="faq__num">03</span> — Aparcamiento
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-3">
+              <div><p class="faq__answer">Se puede reservar plaza. Escríbenos antes de tu llegada y confirmamos disponibilidad.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-4">
+                <span class="faq__num">04</span> — Niños y mascotas
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-4">
+              <div><p class="faq__answer">Los niños son bienvenidos a partir de 7 años. Las mascotas, de momento, no podemos acomodarlas.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-5">
+                <span class="faq__num">05</span> — Equipaje antes del check-in
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-5">
+              <div><p class="faq__answer">Puedes dejar tus maletas en recepción y salir a pasear mientras preparamos tu habitación.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-6">
+                <span class="faq__num">06</span> — Llegadas fuera de horario
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-6">
+              <div><p class="faq__answer">Las entradas a partir de las 20:00 tienen un suplemento de 20 €.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-7">
+                <span class="faq__num">07</span> — Cancelación
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-7">
+              <div><p class="faq__answer">Gratuita hasta 5 días antes de la llegada. Entre 5 y 2 días antes, se cobra una noche. Con menos de 2 días, o si no te presentas, se cobra la totalidad de la estancia. Las tarifas No Reembolsable se cobran al confirmar la reserva y no admiten devolución.</p></div>
+            </div>
+          </li>
+          <li class="faq__item">
+            <h3 class="faq__heading">
+              <button class="faq__toggle" type="button" aria-expanded="false" aria-controls="faq-8">
+                <span class="faq__num">08</span> — Pago y pre-autorización
+                <span class="faq__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq__panel" id="faq-8">
+              <div><p class="faq__answer">El pago se hace en el hotel, a la llegada. La tarifa No Reembolsable se cobra al confirmar la reserva. Antes de tu entrada, el hotel puede pre-autorizar tu tarjeta.</p></div>
+            </div>
+          </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer data-dark class="footer">
+    <div class="footer__claim reveal">
+      <img class="footer__logo" src="assets/img/Home/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
+      <p class="footer__title">El viaje empieza al cruzar la puerta.<br>El tuyo, en Viento 10.</p>
+    </div>
+
+    <div class="footer__main">
+      <nav class="footer__col" aria-label="Menú del pie">
+        <p class="footer__label">Menú</p>
+        <ul class="footer__menu">
+          <li><a href="hotel.html">El Hotel</a></li>
+          <li><a href="habitaciones.html">Habitaciones</a></li>
+          <li><a href="vivir.html">Vivir Viento 10</a></li>
+          <li><a href="cordoba.html">Sobre Córdoba</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col" id="contacto">
+        <p class="footer__label">Dirección</p>
+        <address class="footer__address">
+          <p>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba (España)</p>
+          <p><a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a><br><a href="tel:+34744655732">+34 744 655 732</a></p>
+        </address>
+      </div>
+
+      <ul class="footer__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__michelin"><img src="assets/img/Home/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
+      <ul class="footer__legal">
+        <li><a href="#">Aviso legal</a></li>
+        <li><a href="#">Privacidad</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+      <p class="footer__copy">Viento 10 2026</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

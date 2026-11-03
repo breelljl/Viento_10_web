@@ -9,43 +9,85 @@
 </head>
 <body>
 
+  <!-- ============ PANTALLA DE CARGA ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 65 94" width="82" height="119" aria-hidden="true"><path pathLength="1" d="M32.4082 0C50.2756 0.000194897 64.8154 14.5406 64.8154 32.4082V61.5918C64.8154 79.4594 50.2756 93.9998 32.4082 94C14.5406 94 2.97578e-05 79.4595 0 61.5918V32.4082C0 14.5405 14.5406 0 32.4082 0ZM1.13672 55.208V61.5869C1.13672 76.4595 11.583 88.9362 25.5195 92.0811V65.8457H25.1543L21.1338 67.3291L20.7461 66.2764L24.9531 64.7227H26.6426V92.3154C28.5144 92.6664 30.4381 92.8584 32.4082 92.8584V92.8535C49.6485 92.8533 63.6738 78.8274 63.6738 61.5869V55.208H1.13672ZM37.9346 64.5449C42.5629 64.5449 45.9228 68.6724 45.9229 74.3584V74.4102C45.9228 80.0352 42.5111 84.2754 37.8828 84.2754C33.2547 84.2751 29.8945 80.1468 29.8945 74.4609V74.4102C29.8945 68.785 33.3531 64.545 37.9346 64.5449ZM37.9346 65.668C33.442 65.6681 31.0176 70.1749 31.0176 74.4102V74.4609C31.0176 78.7803 33.3905 83.1521 37.8828 83.1523C42.3754 83.1523 44.7997 78.65 44.7998 74.4102V74.3584C44.7998 70.0389 42.4272 65.668 37.9346 65.668ZM32.4082 1.1416C15.1677 1.1416 1.1416 15.1676 1.1416 32.4082V54.0898H63.6738V32.4082C63.6738 15.1677 49.6485 1.1418 32.4082 1.1416ZM32.9697 24.9434L36.5215 11.6904L37.6074 11.9854L34.0547 25.2383L40.916 13.3564L41.8848 13.9131L35.0283 25.7959L44.7295 16.0938L45.5205 16.8896L35.8193 26.5908L47.7012 19.7305L48.2627 20.7041L36.3809 27.5645L49.6348 24.0127L49.9248 25.0977L32.9697 29.6426V45.4463H31.8467V29.6426L14.8916 25.0977L15.1816 24.0127L28.4346 27.5645L16.5527 20.7041L17.1143 19.7305L28.9961 26.5908L19.29 16.8896L20.0859 16.0938L29.7871 25.7959L22.9268 13.9131L23.9004 13.3564L30.7607 25.2383L27.209 11.9854L28.2939 11.6904L31.8467 24.9434V11.2266H32.9697V24.9434Z"/></svg>
+  </div>
+  <noscript><style>.loader { display: none; }</style></noscript>
+
   <!-- ============ HEADER ============ -->
   <header class="header">
+    <h1 class="hero__logo"><img src="assets/img/Home/slider_hero/logo-viento.svg" data-dark-src="assets/img/Home/slider_hero/logo-viento_oscuro.svg" alt="Viento 10" width="210" height="40"></h1>  <!-- logo fijo, siempre visible -->
     <div class="header__meta">
-      <div class="lang" id="lang">
-        <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
-          <span class="lang__current">Español</span>
-          <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
-        </button>
-        <ul class="lang__list" hidden>
-          <li><button type="button" lang="es" aria-current="true">Español</button></li>
-          <li><button type="button" lang="en">English</button></li>
-          <li><button type="button" lang="fr">Français</button></li>
-          <li><button type="button" lang="de">Deutsch</button></li>
-        </ul>
-      </div>
+      <nav class="header__nav" aria-label="Principal">
+        <a href="habitaciones.html">Habitaciones</a>
+        <a href="hotel.html">El hotel</a>
+        <a href="vivir.html">Vivir Viento 10</a>
+      </nav>
+    </div>
+    <div class="lang header__lang" id="lang">
+      <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <span class="lang__current">ES</span>
+        <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <ul class="lang__list" hidden>
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
     </div>
     <div class="header__actions">
       <a href="#" class="btn btn--light">Reservar</a>
-      <button class="btn btn--olive" type="button">Menú</button>
+      <button class="btn btn--olive menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
     </div>
   </header>
 
+  <!-- ============ MENÚ DESPLEGABLE ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__col">
+      <a class="menu__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
+      <nav class="menu__nav" aria-label="Menú">
+        <a href="index.html" style="--i: 0"><span>Inicio</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El hotel</span></a>
+        <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vivir Viento 10</span></a>
+        <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
+        <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
+      </nav>
+      <ul class="menu__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+    <div class="menu__media">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/Menu/img_hierba_viento.png" alt="" loading="lazy">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/hotel/img_fuente.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/Habitaciones/imagenes_recursos/img_luz_haitaciones.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/vivir_viento%2010/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/sobre%20cordoba/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/contacto/02_mapa_viento.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+
   <main>
     <!-- ============ HERO ============ -->
-    <section class="hero" id="inicio">
+    <section class="hero" data-dark id="inicio">
       <!-- Pase de fotos: para añadir una foto, copia una línea <img> y cambia el src -->
       <div class="hero__slides" id="heroSlides">
-        <img class="hero__bg is-active" src="assets/img/hero/img_hero_01.jpg" alt="Alberca del hotel Viento 10">
-        <img class="hero__bg" src="assets/img/hero/img_hero_02.jpg" alt="pasillo de habitaciones del hotel Viento 10">
-        <img class="hero__bg" src="assets/img/hero/img_hero_03.jpg" alt="pasillo escalera del hotel Viento 10">
-        <img class="hero__bg" src="assets/img/hero/img_hero_04.jpg" alt="salon con sillón y mesa del hotel Viento 10">
+        <img class="hero__bg is-active" src="assets/img/Home/slider_hero/img_hero_01.jpg" alt="Alberca del hotel Viento 10">
+        <img class="hero__bg" src="assets/img/Home/slider_hero/img_hero_02.jpg" alt="pasillo de habitaciones del hotel Viento 10">
+        <img class="hero__bg" src="assets/img/Home/slider_hero/img_hero_03.jpg" alt="pasillo escalera del hotel Viento 10">
+        <img class="hero__bg" src="assets/img/Home/slider_hero/img_hero_04.jpg" alt="salon con sillón y mesa del hotel Viento 10">
+        <img class="hero__bg" src="assets/img/Home/slider_hero/img_hero_05.jpg" alt="Camarera con toallas pasando bajo el arco del patio">
+        <img class="hero__bg" src="assets/img/Home/slider_hero/img_hero_06.jpg" alt="Cabecero iluminado de una habitación de Viento 10">
         
       </div>
-      <h1 class="hero__logo"><img src="assets/img/hero/logo-viento.svg" alt="Viento 10" width="210" height="40"></h1>
       <div class="hero__bottom">
         <p class="hero__tagline">Un hotel en Córdoba hecho<br>de luz y silencio</p>
-        <span class="hero__scroll" aria-hidden="true">Scroll</span>
+        <span class="hero__scroll" aria-hidden="true"></span> <!-- solo la línea animada; escribe "Scroll" dentro si quieres el texto -->
+        
       </div>
     </section>
 
@@ -54,39 +96,41 @@
       <h2 class="script-title" data-parallax="0.08">Bienvenidos<br>al hotel Viento 10</h2>
 
       <div class="collage collage--welcome">
-        <img class="collage__img reveal collage__img--pool" data-parallax="0.18" src="assets/img/bienvenida/img_hotel_home_1.jpg" alt="Huésped flotando en la alberca" loading="lazy">
-        <img class="collage__img reveal collage__img--book" data-parallax="0.07" src="assets/img/bienvenida/img_hotel_home_2.jpg" alt="Sillón con un libro abierto y un zumo de naranja" loading="lazy">
+        <img class="collage__img reveal collage__img--pool" data-parallax="0.18" src="assets/img/Home/bienvenida/img_hotel_home_1.jpg" alt="Huésped flotando en la alberca" loading="lazy">
+        <img class="collage__img reveal collage__img--book" data-parallax="0.07" src="assets/img/Home/bienvenida/img_hotel_home_2.jpg" alt="Sillón con un libro abierto y un zumo de naranja" loading="lazy">
       </div>
 
       <div class="statement reveal">
+        <p class="eyebrow eyebrow--pre">El hotel</p>
         <p class="statement__text">Un hotel en el centro histórico de Córdoba donde la atención al detalle y el cuidado al viajero se siente en cada estancia. Respira, nosotros hacemos el resto.</p>
-        <a href="#hotel" class="link-arrow">Descubre el hotel</a>
+        <a href="hotel.html" class="link-arrow">Descubre el hotel</a>
       </div>
 
-      <div class="collage collage--hotel">
-        <img class="collage__img reveal collage__img--stairs" data-parallax="0.05" src="assets/img/bienvenida/img_hotel_home_3.jpg" alt="Escalera interior del hotel" loading="lazy">
-        <img class="collage__img reveal collage__img--garden" data-parallax="0.15" src="assets/img/bienvenida/img_hotel_home_4.jpg" alt="Pasillo del jardín hacia la alberca" loading="lazy">
+      <div class="collage collage--hotel">º
+        <img class="collage__img reveal collage__img--stairs" data-parallax="0.05" src="assets/img/Home/bienvenida/img_hotel_home_3.jpg" alt="Escalera interior del hotel" loading="lazy">
+        <img class="collage__img reveal collage__img--garden" data-parallax="0.15" src="assets/img/Home/bienvenida/img_hotel_home_4.jpg" alt="Pasillo del jardín hacia la alberca" loading="lazy">
       </div>
     </section>
     <!-- ============ HABITACIONES ============ -->
     <section class="rooms" id="habitaciones">
-      <div class="statement reveal">
-        <p class="statement__text">Cada habitación es un rincón de serenidad, con carácter propio y una intimidad sencilla que llega al corazón.</p>
+      <div class="statement">
+        <p class="eyebrow eyebrow--pre reveal">Habitaciones</p>
+        <p class="statement__text reveal">Cada una de nuestras habitaciones es un rincón de serenidad. No existe un molde prefabricado, no hay copia. Hay carácter, hay una intimidad sencilla que llega el corazón.</p>
       </div>
 
       <!-- Pase de habitaciones: el nombre se toma del data-name de cada foto -->
-      <div class="rooms__slider" id="roomSlider">
+      <div class="rooms__slider" data-dark id="roomSlider">
         <div class="rooms__track">
-          <img class="rooms__slide is-active" src="assets/img/habitaciones/img_hab210-estudio-jardin_01.jpg" alt="Habitación Estudio jardín" data-name="Estudio jardín" data-details="2 personas • Cama Super King">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab202-twin-patio_09.jpg" alt="Habitación Twin patio" data-name="Twin patio" data-details="2 personas • Dos camas individuales" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab205-doble-primera-planta_08.jpg" alt="Habitación Doble primera planta" data-name="Doble primera planta" data-details="2 personas • Cama de matrimonio" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab204-junior-patio_06.jpg" alt="Habitación Junior patio" data-name="Junior patio" data-details="2-3 personas • Cama King + sofá cama" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab207-suite-junior-calle_05.jpg" alt="Habitación Suite junior calle" data-name="Suite junior calle" data-details="2-3 personas • Cama King + sofá cama" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab201-doble-patio_10.jpg" alt="Habitación Doble patio" data-name="Doble patio" data-details="2 personas • Cama de matrimonio" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab203-doble-pequena_03.jpg" alt="Habitación Doble pequeña con terraza" data-name="Doble pequeña con terraza" data-details="2 personas • Cama doble" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab209-doble-jardin_02.jpg" alt="Habitación Doble jardín" data-name="Doble jardín" data-details="2 personas • Cama doble" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img_hab206-twin-primera-planta_07.jpg" alt="Habitación Twin | primera planta" data-name="Twin primera planta" data-details="2 personas • Dos camas individuales" loading="lazy">
-          <img class="rooms__slide" src="assets/img/habitaciones/img-doble-terraza_04.jpg" alt="Habitación Doble terraza" data-name="Doble terraza" data-details="2 personas • Cama de matrimonio" loading="lazy">
+          <img class="rooms__slide is-active" src="assets/img/Home/habitaciones_slider/img_hab210-estudio-jardin_01.jpg" alt="Habitación Estudio jardín" data-name="Estudio jardín" data-details="2 personas • Cama Super King">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab202-twin-patio_09.jpg" alt="Habitación Twin patio" data-name="Twin patio" data-details="2 personas • Dos camas individuales" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab205-doble-primera-planta_08.jpg" alt="Habitación Doble primera planta" data-name="Doble primera planta" data-details="2 personas • Cama de matrimonio" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab204-junior-patio_06.jpg" alt="Habitación Junior patio" data-name="Junior patio" data-details="2-3 personas • Cama King + sofá cama" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab207-suite-junior-calle_05.jpg" alt="Habitación Suite junior calle" data-name="Suite junior calle" data-details="2-3 personas • Cama King + sofá cama" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab201-doble-patio_10.jpg" alt="Habitación Doble patio" data-name="Doble patio" data-details="2 personas • Cama de matrimonio" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab203-doble-pequena_03.jpg" alt="Habitación Doble pequeña con terraza" data-name="Doble pequeña con terraza" data-details="2 personas • Cama doble" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab209-doble-jardin_02.jpg" alt="Habitación Doble jardín" data-name="Doble jardín" data-details="2 personas • Cama doble" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img_hab206-twin-primera-planta_07.jpg" alt="Habitación Twin | primera planta" data-name="Twin primera planta" data-details="2 personas • Dos camas individuales" loading="lazy">
+          <img class="rooms__slide" src="assets/img/Home/habitaciones_slider/img-doble-terraza_04.jpg" alt="Habitación Doble terraza" data-name="Doble terraza" data-details="2 personas • Cama de matrimonio" loading="lazy">
         </div>
         <!-- Contador: número actual, línea de progreso del autoplay y total -->
         <p class="rooms__count">
@@ -99,41 +143,46 @@
         <div class="rooms__names" aria-hidden="true"><div class="rooms__names-track"></div></div>
         <h3 class="visually-hidden" aria-live="polite" data-room-name>Estudio jardín</h3>
         <p class="rooms__details">2 personas • Cama Super King</p>
-        <a href="#habitaciones" class="link-arrow link-arrow--light rooms__cta">Nuestras habitaciones</a>
+        <a href="habitaciones.html" class="link-arrow link-arrow--light rooms__cta">Nuestras habitaciones</a>
       </div>
     </section>
 
     <!-- ============ EXPERIENCIA ============ -->
     <section class="experience" id="experiencia">
-      <div class="statement reveal">
-        <p class="statement__text">La habitación es solo el principio. Lo que se recuerda es el jardín, la alberca, el desayuno servido con cariño y la ciudad al otro lado de la puerta.</p>
-        <a href="#experiencia" class="link-arrow">Vivir la experiencia</a>
-      </div>
-
-      <!-- Carrusel de fotos continuo: main.js duplica las fotos para que el bucle no tenga cortes -->
-      <div class="strip reveal" id="expStrip">
-        <div class="strip__track">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_sauna_07.jpg" alt="Huésped junto a la alberca">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_desayuno_08.jpg" alt="Desayuno servido con cruasán, mermeladas y zumo">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_sauna_09.jpg" alt="Sauna de madera">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_sauna_00.jpg" alt="Sauna del hotel">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_sauna_01.jpg" alt="Sauna del hotel">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_sauna_02.jpg" alt="Sauna del hotel">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_libro_03.jpg" alt="Momento de lectura">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_camarera_04.jpg" alt="Atención del personal del hotel">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_masaje_05.jpg" alt="Masaje">
-          <img class="strip__img" src="assets/img/experiencias/img_experiencia_patio_06.jpg" alt="Patio del hotel">
+      <div class="experience__intro">
+        <p class="eyebrow eyebrow--pre reveal">Vivir Viento 10</p>
+        <h2 class="experience__title reveal">La habitación es solo el principio<br class="br-desktop"> de todo lo que la casa ofrece.</h2>
+        <div class="experience__text reveal">
+          <p>Un jardín donde parar, la alberca para los días de calor, el hammam con su sauna para los fríos y un desayuno casero cada mañana junto al patio de columnas. También hay masajes. El hammam, el masaje y el desayuno se reservan, y el equipo lo prepara todo con antelación para que, cuando llegue el momento, esté a punto.</p>
+          <a href="vivir.html" class="link-arrow">Así se vive Viento 10</a>
         </div>
       </div>
 
-      <p class="caption experience__caption">El jardín y la alberca te esperan. Para el desayuno, el hammam<br class="br-desktop"> o un masaje reparador, sólo tienes que hablar con nosotros: nos encargaremos de que todo esté listo cuando lo desees.</p>
+      <!-- Carrusel de fotos continuo: main.js duplica las fotos para que el bucle no tenga cortes -->
+      <div class="experience__gallery">
+        <div class="strip reveal" id="expStrip">
+          <div class="strip__track">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_sauna_01.jpg" alt="Sauna del hotel">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_habitacion_02.jpg" alt="Habitación del hotel">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_sauna_03.jpg" alt="Sauna del hotel">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_desayuno_04.jpg" alt="Desayuno servido con cruasán, mermeladas y zumo">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_hammam_05.jpg" alt="Hammam del hotel">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_camarera_06.jpg" alt="Atención del personal del hotel">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_masaje_07.jpg" alt="Masaje">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_sauna_08.jpg" alt="Sauna del hotel">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_sauna_09.jpg" alt="Sauna del hotel">
+            <img class="strip__img" src="assets/img/Home/carrusel_servicios/img_experiencia_libro_10.jpg" alt="Momento de lectura">
+</div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ============ TESTIMONIOS ============ -->
     <section class="testimonials" id="opiniones">
-      <img class="testimonials__deco reveal" src="assets/img/experiencias/img_diente_leon.jpg" alt="" aria-hidden="true" data-parallax="0.1">
+      <img class="testimonials__deco reveal" src="assets/img/Home/carrusel_servicios/img_diente_leon.png" alt="" aria-hidden="true" data-parallax="0.1">
 
-      <p class="eyebrow reveal">Después de su visita</p>
+      <p class="eyebrow eyebrow--pre reveal">Opiniones de huéspedes</p>
       <h2 class="testimonials__title reveal">Voces de Viento 10</h2>
 
       <!-- Carrusel de opiniones: para añadir una, copia un <figure> -->
@@ -169,19 +218,20 @@
     </section>
 
     <!-- ============ CÓRDOBA ============ -->
-    <section class="city" id="cordoba">
-      <img class="city__img" src="assets/img/cordoba/img_plaza_potro.jpg" alt="Plaza del Potro de Córdoba bajo el cielo azul" loading="lazy">
+    <section class="city" data-dark id="cordoba">
+      <img class="city__img" src="assets/img/Home/cordoba/img_plaza_potro.jpg" alt="Plaza del Potro de Córdoba bajo el cielo azul" loading="lazy">
       <div class="city__content reveal">
+        <p class="eyebrow city__eyebrow">Sobre Córdoba</p>
         <h2 class="city__title">Córdoba, la ciudad que empieza<br>al cruzar la puerta</h2>
-        <a href="#cordoba" class="link-arrow link-arrow--light">Sobre Córdoba</a>
+        <a href="cordoba.html" class="link-arrow link-arrow--light"> La ciudad a tu ritmo </a>
       </div>
     </section>
   </main>
 
   <!-- ============ FOOTER ============ -->
-  <footer class="footer">
+  <footer class="footer" data-dark>
     <div class="footer__claim reveal">
-      <img class="footer__logo" src="assets/img/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
+      <img class="footer__logo" src="assets/img/Home/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
       <p class="footer__title">El viaje empieza al cruzar la puerta.<br>El tuyo, en Viento 10.</p>
     </div>
 
@@ -189,15 +239,15 @@
       <nav class="footer__col" aria-label="Menú del pie">
         <p class="footer__label">Menú</p>
         <ul class="footer__menu">
-          <li><a href="#hotel">El Hotel</a></li>
-          <li><a href="#habitaciones">Habitaciones</a></li>
-          <li><a href="#experiencia">Vivir Viento 10</a></li>
-          <li><a href="#cordoba">Sobre Córdoba</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+          <li><a href="hotel.html">El Hotel</a></li>
+          <li><a href="habitaciones.html">Habitaciones</a></li>
+          <li><a href="vivir.html">Vivir Viento 10</a></li>
+          <li><a href="cordoba.html">Sobre Córdoba</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
         </ul>
       </nav>
 
-      <div class="footer__col">
+      <div class="footer__col" id="contacto">
         <p class="footer__label">Dirección</p>
         <address class="footer__address">
           <p>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba (España)</p>
@@ -206,14 +256,14 @@
       </div>
 
       <ul class="footer__social">
-        <li><a href="#" aria-label="WhatsApp"><img src="assets/img/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
-        <li><a href="#" aria-label="Instagram"><img src="assets/img/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
-        <li><a href="#" aria-label="Facebook"><img src="assets/img/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
       </ul>
     </div>
 
     <div class="footer__bottom">
-      <p class="footer__michelin"><img src="assets/img/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
+      <p class="footer__michelin"><img src="assets/img/Home/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
       <ul class="footer__legal">
         <li><a href="#">Aviso legal</a></li>
         <li><a href="#">Privacidad</a></li>

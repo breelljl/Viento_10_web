@@ -3,7 +3,9 @@
    Colores muestreados del diseño de Figma (home-desktop.png)
    ========================================================== */
 
+@font-face { font-family: "Canela"; src: url("../assets/font/canela/Canela-Thin.otf") format("opentype"); font-weight: 100; font-display: swap; }
 @font-face { font-family: "Canela"; src: url("../assets/font/canela/Canela-Light.otf") format("opentype"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Canela"; src: url("../assets/font/canela/Canela-LightItalic.otf") format("opentype"); font-weight: 300; font-style: italic; font-display: swap; }
 @font-face { font-family: "Canela"; src: url("../assets/font/canela/Canela-Regular.otf") format("opentype"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Gotham Pro"; src: url("../assets/font/gotham_pro/GothamPro.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Gotham Pro"; src: url("../assets/font/gotham_pro/GothamPro-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
@@ -15,8 +17,6 @@
   --c-olive-dark: #40421a;   /* footer, texto principal */
   --c-green-800:  #545621;   /* green-800 (Figma): footer, botones, enlaces, script */
   --c-cream:      #f5f5ed;   /* fondo testimonios */
-  --c-green-100:  #dfdfc4;   /* botón Menú (muestreado de la captura) */
-  --c-green-200:  #d2d2b2;   /* botón Menú al pasar el ratón */
   --c-white:      #ffffff;
   --c-line:       rgba(64, 66, 26, .25);
   --c-ph:         #e8e6da;   /* fondo de imágenes pendientes */
@@ -26,9 +26,11 @@
   --f-sans:   "Gotham Pro", "Helvetica Neue", Arial, sans-serif;
   --f-script: "Bon Vivant", "Brush Script MT", cursive;
 
-  --fs-display: clamp(2.4rem, 5.6vw, 5rem);     /* Bienvenidos (script) */
+  --fs-display: clamp(2.4rem, 5.6vw, 4rem);     /* Bienvenidos (script) */
   --fs-h2:      clamp(1.75rem, 2.6vw, 2.25rem); /* titulares Canela */
   --fs-lead:    clamp(1.65rem, 2.78vw, 40px);   /* párrafos destacados: Canela 40px en Figma */
+  --fs-page-title: 4rem;                         /* 64px · titular del hero de las páginas interiores */
+  --fs-entradilla: 2rem;                         /* 32px · Entradilla_h3 (citas de opiniones) */
   --fs-quote:   clamp(1.2rem, 1.8vw, 1.6rem);
   --fs-body:    0.95rem;
   --fs-caption: 0.875rem;                       /* 14px · pies de foto */
@@ -45,17 +47,39 @@
   --ease: cubic-bezier(.25, .6, .3, 1);
 
   /* Fundido al hacer scroll */
-  --reveal-time: 1.8s;      /* duración del fundido */
+  --reveal-time: 1.8s;     /* duración del fundido */
   --reveal-distance: 40px;  /* cuánto sube el elemento mientras aparece */
 
   /* Pase de habitaciones */
+  
+  --rooms-text-fade: 0.6;   /* el texto de entrada desaparece al llevar este % tapado por el pase */
   --rooms-fade: 3.5s;        /* fundido entre fotos */
-  --rooms-autoplay: 5s;      /* tiempo que se ve cada habitación */
+  --rooms-autoplay: 10s;      /* tiempo que se ve cada habitación */
   --rooms-text-move: 2.2s;     /* deslizamiento de la cinta de nombres */
   --rooms-names-gap: clamp(500px, 24vw, 600px); /* separación entre nombres: controla cuánto asoman los vecinos */
   --ease-names: cubic-bezier(.65, 0, .35, 1);   /* arranque y llegada suaves */
   --fs-room-name: 2.5rem;    /* 40px · nombre de la habitación (Canela) */
   --fs-room-details: 1rem;   /* 16px · capacidad y cama (Gotham) */
+
+  /* Listado de habitaciones (página Habitaciones) */
+  --more-brightness: 0.8;      /* foto de "Más sobre Viento 10": 1 = original · 0.8 = 20% más oscura */
+  --gallery-fade: .5s;         /* galería: apertura y fundido entre fotos */
+  --gallery-bg-opacity: 0.95;   /* galería: opacidad del fondo verde (1 = opaco) */
+  --faq-time: .6s;             /* apertura y cierre de las preguntas frecuentes */
+  --room-max: 1125px;          /* ancho máximo de cada habitación (foto 1125px en Figma) */
+  --room-card-brightness: 0.6; /* fotos de portada: 1 = original · 0.6 = 40% más oscura (igual que el hero) */
+
+  /* Pantalla de carga */
+  --loader-time: 1s;         /* subida y bajada de la cortina de carga */
+  --loader-draw: 2.2s;       /* dibujo de la línea del símbolo */
+  --loader-mark-fade: .6s;   /* relleno y fundido del símbolo */
+  --loader-hold: 1.2s;       /* primera visita: tiempo que se ve el símbolo ya dibujado antes de abrir */
+
+  /* Menú desplegable */
+  --menu-time: .9s;          /* bajada y subida de la cortina verde */
+  --menu-text-time: .7s;     /* aparición de etiquetas, logo, redes e imagen */
+  --menu-stagger: .08s;      /* retraso entre una etiqueta y la siguiente */
+  --menu-img-fade: .5s;      /* fundido de la foto al pasar por cada etiqueta */
 
   /* Carrusel de Experiencia */
   --strip-time: 120s;        /* tiempo en recorrer todas las fotos: más alto = más lento */
@@ -67,8 +91,11 @@
 
   /* Imagen del hero: 1 = original · 0.85 = 15% más oscura */
   --hero-brightness: 0.6;
+  --scroll-line-time: 2.4s; /* duración de cada ciclo de la línea bajo "Scroll" */
+  --hero-ui-fade: 0.5;      /* navegación, logo e idioma desaparecen al llevar este % del hero tapado (0.3 = 30%) */
   --hero-cover-max: 0.8; /* oscuridad máxima cuando la siguiente sección lo tapa del todo (1 = negro) */
+  --hero-time: 15s;  /* tiempo que se ve cada foto antes de pasar a la siguiente */
   --hero-fade: 3s;   /* duración del fundido entre fotos */
   --hero-zoom: 1.05;   /* zoom final de cada foto (1.08 = 8% más grande) */
-  --hero-zoom-time: 60s; /* duración del zoom = tiempo por foto (6s, en main.js) + fundido (5s) */
+  --hero-zoom-time: 25s; /* duración del zoom: conviene que sea algo más que --hero-time + --hero-fade */
 }
