@@ -558,10 +558,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center;
   font-size: var(--fs-room-details);
   letter-spacing: .05em;
-  text-transform: uppercase;
-  transition: opacity calc(var(--rooms-text-move) / 2) ease;
 }
-.rooms__details.is-hidden { opacity: 0; }
+.rooms__details.is-hidden { visibility: hidden; } /* cambia de golpe, sin fundido */
 
 /* Texto solo para lectores de pantalla */
 .visually-hidden {
