@@ -97,6 +97,9 @@
   --hero-brightness: 0.6;
   --scroll-line-time: 2.4s; /* duración de cada ciclo de la línea bajo "Scroll" */
   --hero-ui-fade: 0.5;      /* navegación, logo e idioma desaparecen al llevar este % del hero tapado (0.3 = 30%) */
+
+  /* Safari: aguanta peor los efectos al hacer scroll, así que allí van más suaves */
+  --safari-parallax: 0.5;   /* deslizamiento de las fotos en Safari: 1 = igual que en Chrome · 0.5 = la mitad · 0 = sin deslizamiento */
   --hero-cover-max: 0.8; /* oscuridad máxima cuando la siguiente sección lo tapa del todo (1 = negro) */
   --hero-time: 20s;  /* tiempo que se ve cada foto antes de pasar a la siguiente */
   --hero-fade: 3s;   /* duración del fundido entre fotos */

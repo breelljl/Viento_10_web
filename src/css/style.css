@@ -136,6 +136,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
           backdrop-filter: blur(2px);
   border-radius: 12px;
 }
+/* Safari: sin desenfoque (lo recalculaba en cada paso del scroll) y algo más opaco para compensar */
+.is-safari .header__actions {
+  -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+  background: rgba(84, 86, 33, 0.85);
+}
 .header__actions .btn { height: 50px; }   /* 58 − 4 − 4 */
 .header__actions .btn--light { width: 140px; }
 .header__actions .btn--olive { flex: 1; padding: 0; }
@@ -157,6 +163,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center;
 }
 .hero__slides { position: absolute; inset: 0; z-index: -1; }
+.hero.is-covered .hero__slides { visibility: hidden; } /* ya no se ve: deja de pintarse (lo pone main.js) */
 /* Navegación, logo e idioma se funden al hacer scroll (--hero-cover lo pone main.js) */
 .header__meta,
 .header__lang {
@@ -168,8 +175,20 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: #000;
   opacity: calc(var(--hero-cover, 0) * var(--hero-cover-max));
+  pointer-events: none;
+}
+/* Oscurecimiento fijo de las fotos (--hero-brightness). Es un velo negro y no un
+   filtro: Safari repintaba el filtro en cada fotograma del zoom y el scroll iba a saltos */
+.hero__slides::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #000;
+  opacity: calc(1 - var(--hero-brightness));
   pointer-events: none;
 }
 .hero__bg {
@@ -179,7 +198,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   height: 100%;
   object-fit: cover;
   object-position: 60% center;
-  filter: brightness(var(--hero-brightness));
   opacity: 0;
   transform: scale(1);
   /* al salir: se funde y, cuando ya es invisible, vuelve a su tamaño */
@@ -288,6 +306,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   line-height: 1.05;
   color: var(--c-green-800);
   text-align: center;
+  padding-block: .6em;               /* Safari: los trazos de la caligrafía salen de la caja y dejaban rastro al moverse; */
+  margin-block: -.6em;               /* la caja crece por dentro y el margen negativo lo compensa: nada cambia de sitio */
 }
 
 /* Párrafo destacado + enlace (se repite en varias secciones) */
@@ -453,7 +473,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   object-fit: cover;
   opacity: 0;
   transition: opacity var(--rooms-fade) ease-in-out;
-  filter: brightness(var(--hero-brightness)); /* mismo oscurecimiento que el hero */
+}
+/* mismo oscurecimiento que el hero, con velo en vez de filtro (más ligero en Safari) */
+.rooms__track::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: #000;
+  opacity: calc(1 - var(--hero-brightness));
+  pointer-events: none;
 }
 .rooms__slide.is-active { opacity: 1; }
 
@@ -596,20 +625,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: flex;
   gap: 12px;
   width: max-content;
-  animation: strip-loop var(--strip-time) linear infinite;
 }
+/* Se mueve cada foto, no la pista entera: Safari no sabe pintar una pista tan ancha
+   en movimiento y dejaba huecos en blanco. --strip-shift lo calcula main.js
+   (media pista + media separación, en px) */
 @keyframes strip-loop {
-  to { transform: translateX(calc(-50% - 6px)); } /* -6px = media separación: el corte no se nota */
+  to { transform: translateX(var(--strip-shift, 0px)); }
 }
-/* Todas a la misma altura; el ancho sale de la proporción de cada foto
-   (horizontales 1050px a 1440, verticales más estrechas, sin recortar) */
 .strip__img {
   flex: none;
   width: auto;
   max-width: none;
   height: 45.1vw;                  /* 650px a 1440 */
   border-radius: 8px;
+  animation: strip-loop var(--strip-time) linear infinite;
 }
+.strip.is-paused .strip__img { animation-play-state: paused; } /* fuera de pantalla no se mueve (lo pone main.js) */
 
 
 @media (max-width: 767px) {
@@ -1147,7 +1178,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   mix-blend-mode: multiply;                   /* el fondo blanco del JPG desaparece sobre el blanco */
 }
 .farewell__script {
-  margin-top: 0;
+  margin-top: -.6em;                         /* 0, descontando el relleno de .script-title */
   rotate: -12deg;
 }
 
@@ -1376,7 +1407,7 @@ body.no-scroll { overflow: hidden; }
   color: var(--c-green-800);
 }
 .care__script {
-  margin-top: 130px;
+  margin-top: calc(130px - .6em);   /* 130px, descontando el relleno de .script-title */
   rotate: -4deg;                              /* "rotate" para no chocar con el fundido (transform) */
 }
 
@@ -1385,7 +1416,7 @@ body.no-scroll { overflow: hidden; }
   .care__media { aspect-ratio: 4 / 3; }
   .care__body { flex-direction: column; gap: 25px; margin-top: 30px; }
   .care__text .care__lead { margin-bottom: 30px; font-size: 1.5rem; }
-  .care__script { margin-top: 80px; }
+  .care__script { margin-top: calc(80px - .6em); }
 }
 
 /* ---------- Página El hotel · Una casa que acoge ----------

@@ -2,6 +2,11 @@
 // Viento 10 · interacciones
 // ==========================================================
 
+// ---------- Safari ----------
+// Marca la página con .is-safari para aligerar allí los efectos (ver style.css y el parallax).
+const IS_SAFARI = /Safari/.test(navigator.userAgent) && !/Chrome|Chromium|CriOS|FxiOS|Android/.test(navigator.userAgent);
+if (IS_SAFARI) document.documentElement.classList.add('is-safari');
+
 // ---------- Selector de idioma ----------
 // Solo cambia la etiqueta visible; las traducciones están pendientes.
 (function () {
@@ -90,14 +95,20 @@
   const update = () => {
     const vh = window.innerHeight;
     const factor = mobile.matches ? 0.5 : 1; // en móvil, la mitad de movimiento
+    const safari = IS_SAFARI ? parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safari-parallax')) : 1;
+    // primero se mide todo y después se mueve todo: si se alterna medir y mover,
+    // el navegador recalcula la página una vez por elemento y el scroll va a saltos
+    const moves = [];
     items.forEach((el) => {
       const rect = el.getBoundingClientRect();
-      const shift = parseFloat(el.dataset.shift || 0); // desplazamiento ya aplicado
-      const top = rect.top - shift;                    // posición real, sin parallax
-      if (rect.bottom < -200 || top > vh + 200) return; // fuera de pantalla
-      const offset = (top + rect.height / 2 - vh / 2) * parseFloat(el.dataset.parallax) * factor;
-      el.dataset.shift = (-offset).toFixed(1);
-      el.style.translate = `0 ${el.dataset.shift}px`;
+      const top = rect.top - parseFloat(el.dataset.shift || 0); // posición real, sin parallax
+      if (rect.bottom < -200 || top > vh + 200) return;         // fuera de pantalla
+      const offset = (top + rect.height / 2 - vh / 2) * parseFloat(el.dataset.parallax) * factor * (isNaN(safari) ? 1 : safari);
+      moves.push([el, (-offset).toFixed(1)]);
+    });
+    moves.forEach(([el, shift]) => {
+      el.dataset.shift = shift;
+      el.style.translate = `0 ${shift}px`;
     });
     ticking = false;
   };
@@ -247,6 +258,32 @@
       copy.setAttribute('aria-hidden', 'true');
       track.appendChild(copy);
     });
+    // distancia que recorre cada foto en una vuelta: la mitad de la pista + media separación
+    const measure = () => {
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      const shift = `${-(track.scrollWidth + gap) / 2}px`;
+      if (track.style.getPropertyValue('--strip-shift') === shift) return;
+      track.style.setProperty('--strip-shift', shift);
+      // Safari no relee la variable en una animación ya en marcha: se reinicia
+      [...track.children].forEach((img) => { img.style.animation = 'none'; });
+      track.offsetWidth;
+      [...track.children].forEach((img) => { img.style.animation = ''; });
+    };
+    measure();
+    window.addEventListener('load', measure);
+    window.addEventListener('resize', measure);
+    track.querySelectorAll('img').forEach((img) => img.addEventListener('load', measure));
+  });
+
+  // Solo se mueve mientras se ve: fuera de pantalla se pausa. En Safari, un carrusel
+  // en marcha (aunque no se vea) bajaba el scroll de toda la página a tirones.
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => e.target.classList.toggle('is-paused', !e.isIntersecting));
+  });
+  document.querySelectorAll('.strip').forEach((strip) => {
+    strip.classList.add('is-paused');
+    io.observe(strip);
   });
 })();
 
@@ -288,11 +325,15 @@
 // En páginas sin hero (Sobre Córdoba) se mide con el alto de la pantalla.
 (function () {
   const hero = document.querySelector('.hero');
+  const targets = document.querySelectorAll('.header__meta, .header__lang, .hero__slides');
   let ticking = false;
   const update = () => {
     const height = hero ? hero.offsetHeight : window.innerHeight;
     const progress = Math.min(Math.max(window.scrollY / height, 0), 1);
-    document.documentElement.style.setProperty('--hero-cover', progress.toFixed(3));
+    // solo en los elementos que lo usan: ponerlo en <html> obligaba a recalcular toda la página en cada scroll
+    targets.forEach((el) => el.style.setProperty('--hero-cover', progress.toFixed(3)));
+    // tapado del todo: se oculta para que Safari deje de pintar el zoom de las fotos
+    if (hero) hero.classList.toggle('is-covered', progress >= 1);
     ticking = false;
   };
   window.addEventListener('scroll', () => {
