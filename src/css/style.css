@@ -1,0 +1,1968 @@
+/* ==========================================================
+   ESTILOS · Viento 10
+   Nomenclatura BEM. Valores base tomados del Figma a 1440px.
+   ========================================================== */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; overflow-x: clip; } /* nunca hay scroll lateral (los carruseles son más anchos que la pantalla) */
+body {
+  margin: 0;
+  font-family: var(--f-sans);
+  font-size: var(--fs-body);
+  color: var(--c-olive-dark);
+  background: var(--c-white);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 8px;
+  font-family: var(--f-sans);
+  font-weight: 500; /* Figma: 550 → Gotham Pro no tiene ese peso; Medium es el más cercano */
+  font-size: var(--fs-label);
+  letter-spacing: .05em; /* 5% */
+  text-transform: uppercase;
+  transition: background-color .3s var(--ease), color .3s var(--ease);
+}
+/* Reservar: oliva oscuro · Menú: transparente */
+.btn--light { width: 160px; background: var(--c-olive-dark); color: var(--c-white); } /* Reservar */
+.btn--light:hover { background: var(--c-green-800); }
+.btn--olive { background: transparent; color: var(--c-cream); }       /* Menú: solo texto sobre el contenedor */
+.btn--olive:hover { background: rgba(245, 245, 237, .12); }
+
+/* ---------- Header ---------- */
+/* La cabecera no es una capa propia: cada parte se coloca en su capa.
+   Capas (z-index): hero 0 · teléfono/idioma 1 · secciones 1 (van después, lo tapan) · botones 20 */
+.header { color: var(--c-white); }
+
+/* Navegación: centrada arriba, fija como el hero; las secciones la cubren al subir */
+.header__meta {
+  position: fixed;
+  top: 36px;                       /* centrado con el contenedor de botones */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: 46px; /* misma altura que los botones, para que queden alineados */
+  gap: 18px;
+  font-size: var(--fs-meta);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.lang__toggle:hover { opacity: .75; }
+
+/* Navegación principal: Habitaciones · El hotel · Vivir Viento 10 */
+.header__nav { display: flex; gap: 40px; }
+/* misma tipografía que los botones (.btn) */
+.header__nav a { font-size: var(--fs-label); font-weight: 500; letter-spacing: .05em; transition: opacity .3s var(--ease); }
+.header__nav a:hover { opacity: .75; }
+
+/* Selector de idioma (estilo neutro: no definido en Figma) */
+.lang { position: relative; }
+/* Idioma: fijo arriba a la derecha, junto a los botones; las secciones lo tapan al subir */
+.header__lang {
+  position: fixed;
+  top: 36px;                       /* centrado con el contenedor de botones */
+  right: var(--gutter-sm);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  height: 46px;
+  font-size: var(--fs-label);
+  font-weight: 500;
+}
+.lang__toggle {
+  display: inline-flex;
+  align-items: baseline; /* la flecha se apoya en la línea base y ocupa la altura de las mayúsculas */
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-size: inherit;
+}
+.lang__arrow {
+  position: relative;
+  top: -3px; /* sube la flecha: su parte superior coincide con la de las mayúsculas */
+  transition: transform .3s var(--ease);
+}
+.lang__toggle[aria-expanded="true"] .lang__arrow { transform: rotate(180deg); }
+.lang__list {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -14px;                    /* se abre hacia la izquierda, sin salirse de la pantalla */
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: var(--c-white);
+  border-radius: 4px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+}
+.lang__list button {
+  display: block;
+  width: 100%;
+  padding: 8px 18px;
+  text-align: left;
+  font-size: var(--fs-meta);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--c-green-800);
+  white-space: nowrap;
+}
+.lang__list button:hover,
+.lang__list button[aria-current="true"] { background: var(--c-cream); }
+/* Reservar y Menú quedan fijos en pantalla al hacer scroll */
+/* Contenedor de Reservar y Menú (Figma "Menu desktop": 238×58, en x 1102 · y 30) */
+.header__actions {
+  position: fixed;
+  top: 30px;
+  right: 100px;                    /* 1440 − 1102 − 238 = 100px: deja sitio al idioma */
+  z-index: 20;
+  display: flex;
+  gap: 4px;
+  width: 238px;
+  padding: 4px;
+  background: rgba(84, 86, 33, 0.7); /* green-800 al 70% */
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  border-radius: 12px;
+}
+.header__actions .btn { height: 50px; }   /* 58 − 4 − 4 */
+.header__actions .btn--light { width: 140px; }
+.header__actions .btn--olive { flex: 1; padding: 0; }
+
+/* ---------- Hero ---------- */
+/* El hero se queda fijo y las secciones siguientes pasan por encima */
+.hero {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-white);
+  text-align: center;
+}
+.hero__slides { position: absolute; inset: 0; z-index: -1; }
+/* Navegación, logo e idioma se funden al hacer scroll (--hero-cover lo pone main.js) */
+.header__meta,
+.header__lang {
+  opacity: clamp(0, calc(1 - var(--hero-cover, 0) / var(--hero-ui-fade)), 1);
+}
+/* Velo negro que se oscurece a medida que la sección siguiente tapa el hero.
+   --hero-cover (0 → 1) lo calcula main.js según el scroll */
+.hero__slides::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: calc(var(--hero-cover, 0) * var(--hero-cover-max));
+  pointer-events: none;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% center;
+  filter: brightness(var(--hero-brightness));
+  opacity: 0;
+  transform: scale(1);
+  /* al salir: se funde y, cuando ya es invisible, vuelve a su tamaño */
+  transition: opacity var(--hero-fade) ease-in-out, transform 0s linear var(--hero-fade);
+}
+/* al entrar: aparece y hace un zoom lento durante todo el tiempo que se ve */
+.hero__bg.is-active {
+  opacity: 1;
+  transform: scale(var(--hero-zoom));
+  transition: opacity var(--hero-fade) ease-in-out, transform var(--hero-zoom-time) linear;
+}
+/* Logo: arriba a la izquierda, fijo y siempre visible como Reservar/Menú (z-index 20).
+   Sin fundido ni otros efectos */
+.hero__logo {
+  position: fixed;
+  top: 22px;                       /* ajuste óptico: 14px más arriba que la navegación (36px) para que las letras queden alineadas con ella y los botones */
+  left: 40px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  height: 46px;                    /* misma altura que los botones: queda alineado con ellos */
+  margin: 0;
+  line-height: 0;
+}
+.hero__logo img { width: 150px; height: auto; }
+/* Frase + "Scroll" con su línea, centrados en la parte baja */
+.hero__bottom {
+  position: absolute;
+  bottom: 6vh;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;                       /* espacio entre la frase y "Scroll" */
+}
+.hero__tagline {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.hero__scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  font-size: var(--fs-meta);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.hero__scroll::after {
+  content: "";
+  width: 1px;
+  height: 50px;
+  background: currentColor;
+  animation: scroll-line var(--scroll-line-time) var(--ease) infinite;
+}
+/* La línea se dibuja de arriba abajo, se borra desde arriba y hace una pausa */
+@keyframes scroll-line {
+  0%   { clip-path: inset(0 0 100% 0); }  /* oculta */
+  45%  { clip-path: inset(0 0 0 0); }     /* dibujada entera */
+  80%  { clip-path: inset(100% 0 0 0); }  /* borrada desde arriba */
+  100% { clip-path: inset(100% 0 0 0); }  /* pausa */
+}
+
+/* ---------- Hero · móvil ---------- */
+@media (max-width: 767px) {
+  .header { padding: 0; }
+  .header__meta, .header__lang { display: none; }
+  .header__actions {
+    top: auto;
+    bottom: 38px;
+    left: 24px;
+    right: 24px;
+    width: auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  .header__actions .btn--light { width: auto; }
+  .header__actions .btn--olive { padding: 0 24px; }
+  .btn { height: 54px; font-size: .95rem; }
+  .btn--olive { padding: 0 24px; }
+  .btn--light { width: auto; } /* en móvil ocupa el ancho disponible */
+
+  .hero { height: 100svh; min-height: 600px; }
+  .hero__bg { object-position: 72% center; }
+  .hero__logo { top: 25px; left: 50%; transform: translateX(-50%); } /* en móvil, fijo arriba en el centro */
+  .hero__bottom { bottom: 120px; gap: 32px; } /* por encima de los botones */
+  .hero__tagline { font-size: .95rem; }
+  .hero__scroll { gap: 12px; }
+  .hero__scroll::after { height: 30px; }
+}
+
+/* ==========================================================
+   COMPONENTES REUTILIZABLES
+   ========================================================== */
+
+/* Título caligráfico (Bon Vivant) */
+.script-title {
+  margin: 0;
+  font-family: var(--f-script);
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: 1.05;
+  color: var(--c-green-800);
+  text-align: center;
+}
+
+/* Párrafo destacado + enlace (se repite en varias secciones) */
+.statement {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 var(--gutter-sm);
+  text-align: center;
+}
+.statement__text {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-lead);
+  line-height: 1.2; /* 120% */
+  color: var(--c-olive-dark);
+}
+
+/* Enlace en mayúsculas con flecha y subrayado */
+.link-arrow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid currentColor;
+  font-weight: 500;
+  font-size: var(--fs-meta);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--c-green-800);
+  transition: opacity .4s var(--ease);
+}
+/* Flecha (Figma "Arrow 2"): línea de 12px, trazo 1px, color del texto.
+   Se apoya en la línea base y su centro cae a media altura de la "o". */
+/* En reposo la flecha está oculta (ancho 0 y sin separación);
+   al pasar el ratón crece, aparece y empuja un poco el texto */
+.link-arrow::after {
+  content: "";
+  width: 0;
+  margin-left: -8px;               /* anula el gap mientras está oculta */
+  opacity: 0;
+  transition: width .4s var(--ease), margin-left .4s var(--ease), opacity .4s var(--ease);
+  height: 7px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.link-arrow:hover { opacity: .7; }
+.link-arrow:hover::after,
+.link-arrow:focus-visible::after { width: 12px; margin-left: 0; opacity: 1; }
+.statement .link-arrow { margin-top: 60px; }
+.statement .eyebrow { margin-bottom: 20px; } /* antetítulo a 20px del texto */
+
+/* Pie de foto: estilo reutilizable para cualquier texto que acompañe a una imagen */
+.caption {
+  max-width: 530px;
+  margin: 0;
+  font-family: var(--f-sans);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  line-height: 1.5;                /* 150% */
+  letter-spacing: .02em;
+  color: var(--c-olive-dark);
+}
+
+/* Collage de fotos: posiciones proporcionales al Figma de 1440px (1vw = 14.4px) */
+.collage { display: flex; align-items: flex-start; }
+.collage__img { height: auto; border-radius: var(--radius); object-fit: cover; }
+
+/* ==========================================================
+   SECCIÓN · BIENVENIDA
+   ========================================================== */
+/* Todas las secciones posteriores al hero tapan la foto al subir */
+.hero ~ section {
+  position: relative;
+  z-index: 1;
+  background: var(--c-white);
+}
+
+.welcome { padding: 11vw 0 10vw; }
+
+.collage--welcome { margin: 3vw 0 13.5vw; } /* 1er valor: distancia del título a la foto */
+.collage__img--pool   { width: 14.1vw;  aspect-ratio: 203 / 305; margin: 14.6vw 0 0 10.8vw; }
+.collage__img--book   { width: 37.85vw; aspect-ratio: 545 / 363; margin-left: 34.4vw; }
+
+.collage--hotel { margin-top: 14.5vw; }
+.collage__img--stairs { width: 46.3vw;  aspect-ratio: 667 / 426; margin: 7.9vw 0 0 2.7vw; }
+.collage__img--garden { width: 22.1vw;  aspect-ratio: 318 / 481; margin-left: 18vw; }
+
+/* ---------- Bienvenida · móvil (medidas del Figma a 390px) ---------- */
+@media (max-width: 767px) {
+  .welcome { padding: 64px 0 80px; }
+  .script-title { font-size: 3rem; }
+
+  .collage { flex-direction: column; }
+  .collage--welcome { margin: 40px 0 84px; }
+  .collage__img--pool   { width: 44.4vw; margin: 0 0 0 20px; aspect-ratio: 173 / 260; }
+  .collage__img--book   { width: 79vw;   margin: 47px 0 0 16.4vw; }
+
+  .statement__text { font-size: 1.65rem; }
+  .statement .link-arrow { margin-top: 36px; }
+
+  .collage--hotel { margin-top: 80px; }
+  .collage__img--stairs { width: 78.5vw; margin: 0 0 0 20px; aspect-ratio: 306 / 196; }
+  .collage__img--garden { width: 44vw;   margin: 41px 0 0 50.5vw; aspect-ratio: 172 / 260; }
+}
+
+/* ==========================================================
+   ANIMACIÓN · fundido suave al hacer scroll
+   Solo se aplica si JS está activo (clase .js en <html>).
+   ========================================================== */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition: opacity var(--reveal-time) ease-out, transform var(--reveal-time) var(--ease);
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__bg.is-active { transform: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Variante clara del enlace con flecha (sobre fotos) */
+.link-arrow--light { color: var(--c-white); }
+
+/* ==========================================================
+   SECCIÓN · HABITACIONES
+   ========================================================== */
+/* El texto de entrada ocupa una pantalla completa, centrado en vertical */
+.rooms .statement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;              /* en móvil, sin contar la barra del navegador */
+  /* Se queda quieto (no sube ni se oscurece): el pase de habitaciones lo tapa al subir
+     y el texto se funde mientras tanto (--rooms-cover lo pone main.js) */
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  opacity: clamp(0, calc(1 - var(--rooms-cover, 0) / var(--rooms-text-fade)), 1);
+}
+
+.rooms__slider {
+  position: relative;
+  z-index: 1;                      /* pasa por encima del texto fijo */
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;
+  color: var(--c-white);
+  touch-action: pan-y; /* permite deslizar en horizontal sin bloquear el scroll */
+}
+.rooms__track { position: absolute; inset: 0; }
+
+/* Las fotos están superpuestas: solo la activa es visible (fundido entre ellas). */
+.rooms__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--rooms-fade) ease-in-out;
+  filter: brightness(var(--hero-brightness)); /* mismo oscurecimiento que el hero */
+}
+.rooms__slide.is-active { opacity: 1; }
+
+/* Elementos fijos sobre las fotos */
+.rooms__count,
+.rooms__names,
+.rooms__details,
+.rooms__cta { position: absolute; z-index: 3; }
+
+/* Contador "1 ——— 10": la línea se rellena mientras dura cada habitación */
+.rooms__count {
+  top: 127px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  transform: translateX(-50%);
+  font-size: var(--fs-meta);
+  letter-spacing: .05em;
+}
+.rooms__progress {
+  position: relative;
+  width: 80px;
+  height: 1px;
+  background: rgba(255, 255, 255, .35);
+  overflow: hidden;
+}
+.rooms__progress span {
+  position: absolute;
+  inset: 0;
+  background: var(--c-white);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+.rooms__progress.is-running span { animation: rooms-progress var(--rooms-autoplay) linear forwards; }
+@keyframes rooms-progress { to { transform: scaleX(1); } }
+
+/* Cinta de nombres: todos en fila; el activo en el centro y los vecinos asomando */
+.rooms__names {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  pointer-events: none;
+}
+.rooms__names-track {
+  display: flex;
+  align-items: center; /* los nombres de una línea quedan centrados respecto a los de dos */
+  gap: var(--rooms-names-gap);
+  width: max-content;
+  transition: transform var(--rooms-text-move) var(--ease-names);
+}
+.rooms__names-track.no-transition { transition: none; }
+.rooms__names-track span {
+  font-family: var(--f-serif);
+  font-weight: 400;
+  font-size: var(--fs-room-name);
+  line-height: 1.2;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Detalles: fijos bajo el nombre central, se funden al cambiar */
+.rooms__details {
+  top: calc(50% + var(--fs-room-name) * .6 + 12px);
+  left: 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: var(--fs-room-details);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  transition: opacity calc(var(--rooms-text-move) / 2) ease;
+}
+.rooms__details.is-hidden { opacity: 0; }
+
+/* Texto solo para lectores de pantalla */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.rooms__cta { bottom: 110px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+
+/* ---------- Habitaciones · móvil ---------- */
+@media (max-width: 767px) {
+  .rooms__slider { height: 100svh; }
+  .rooms__count { top: 90px; }
+  :root { --fs-room-name: 1.25rem; --fs-room-details: .875rem; } /* 20px y 14px */
+  .rooms__names { top: auto; bottom: 230px; transform: none; }
+  .rooms__details { top: auto !important; bottom: 200px; } /* en móvil va anclado abajo; ignora la posición que calcula main.js */
+  .rooms__cta { bottom: 150px; }   /* deja sitio a los botones fijos */
+}
+
+/* ==========================================================
+   SECCIÓN · EXPERIENCIA
+   Medidas del Figma de 1440px: foto 1050×700, separación 12px
+   ========================================================== */
+/* Espacios: van como padding de la sección (no margin) para que el fondo blanco
+   los cubra y no se vea el hero por detrás */
+.experience { padding: 12.5rem 0 0; } /* 200px arriba · abajo 0: el aire hasta Testimonios lo pone su propio padding (200px) */
+
+/* Entrada: etiqueta + titular a la izquierda; texto y enlace en la columna derecha */
+.experience__intro {
+  padding: 0 var(--gutter);
+  margin-bottom: 13.9vw;           /* ≈ 200px hasta el carrusel */
+}
+.experience__title {
+  margin: 20px 0 0;                /* 20px desde "Vivir Viento 10" */
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);  /* 40px */
+  line-height: 1.2;
+  color: var(--c-olive-dark);
+}
+.experience__text {
+  max-width: 540px;
+  margin: 58px 0 0 calc(51vw - var(--gutter)); /* la columna empieza a ≈ 735px de 1440 */
+  color: var(--c-olive-dark);
+}
+.experience__text p {
+  margin: 0 0 60px;
+  font-size: 1rem;                 /* 16px */
+  line-height: 1.5;
+  letter-spacing: .02em;
+}
+
+
+/* Carrusel continuo: la pista lleva las fotos dos veces y se desplaza
+   media pista en bucle (velocidad en --strip-time) */
+.strip { overflow: hidden; }
+.strip__track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+  animation: strip-loop var(--strip-time) linear infinite;
+}
+@keyframes strip-loop {
+  to { transform: translateX(calc(-50% - 6px)); } /* -6px = media separación: el corte no se nota */
+}
+/* Todas a la misma altura; el ancho sale de la proporción de cada foto
+   (horizontales 1050px a 1440, verticales más estrechas, sin recortar) */
+.strip__img {
+  flex: none;
+  width: auto;
+  max-width: none;
+  height: 45.1vw;                  /* 650px a 1440 */
+  border-radius: 8px;
+}
+
+
+@media (max-width: 767px) {
+  .experience { padding: 80px 0; }
+  .experience__intro { padding: 0 var(--gutter-sm); margin-bottom: 56px; }
+  .experience__title { font-size: 1.75rem; }
+  .experience__text { margin: 32px 0 0; }
+  .experience__text p { margin-bottom: 36px; }
+  .strip__img { height: 84vw; }
+  }
+
+/* Saltos de línea solo para escritorio: en móvil el texto fluye libre */
+@media (max-width: 767px) { .br-desktop { display: none; } }
+
+/* ==========================================================
+   SECCIÓN · TESTIMONIOS
+   ========================================================== */
+/* Etiqueta pequeña en mayúsculas (reutilizable) */
+.eyebrow {
+  margin: 0;
+  font-size: .875rem;              /* 14px */
+  font-weight: 500;
+  letter-spacing: .05em;           /* 5% */
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+}
+/* Antetítulo: la etiqueta encima de un titular, al 60% */
+.eyebrow--pre { color: color-mix(in srgb, var(--c-olive-dark) 60%, transparent); }
+
+.hero ~ section.testimonials {
+  padding: 12.5rem var(--gutter);  /* 200px arriba y abajo */
+}
+/* Dientes de león: asoman por encima del borde de la sección.
+   PNG con fondo transparente */
+.testimonials__deco {
+  position: absolute;
+  top: 3vw;                        /* dentro de la sección, a la derecha del titular */
+  right: 3vw;
+  width: 37.6vw;                   /* 542px a 1440 */
+  max-width: 542px;
+  pointer-events: none;
+}
+.testimonials__title {
+  margin: 20px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);  /* 40px */
+  line-height: 1.2;
+  color: var(--c-olive-dark);
+  max-width: 700px;                /* caja ajustada: corta en "vivieron / Viento 10," */
+}
+/* Carrusel: todas las opiniones ocupan la misma celda y se funden entre sí.
+   La cita va arriba, la línea en medio y el nombre abajo */
+.testimonials__slider {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  margin-top: 6.25rem;             /* 100px desde el titular */
+}
+.testimonial { display: contents; }
+.testimonial__quote,
+.testimonial .eyebrow {
+  grid-column: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--reviews-fade) ease, visibility 0s linear var(--reviews-fade);
+}
+.testimonial__quote { grid-row: 1; align-self: end; }
+.testimonial .eyebrow { grid-row: 3; }
+.testimonial.is-active .testimonial__quote,
+.testimonial.is-active .eyebrow {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--reviews-fade) ease var(--reviews-fade-delay), visibility 0s;
+}
+/* Estilo Figma "Entradilla": Canela 32px · 130% · 0% de espaciado · green-800 */
+.testimonial__quote {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 100;                /* Figma: 250 → Canela Thin */
+  font-size: var(--fs-entradilla);
+  line-height: 1.3;
+  color: var(--c-green-800);
+}
+/* Línea: tramo grueso oscuro que avanza sobre una línea fina clara */
+.testimonial__line {
+  grid-row: 2;
+  position: relative;
+  display: block;
+  height: 1px;
+  margin: 50px 0 46px;
+  background: var(--c-line);
+}
+.testimonial__line span {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 0;
+  height: 2px;
+  background: var(--c-olive-dark);
+}
+/* Flechas: en la fila del autor, al otro lado */
+.testimonials__nav {
+  grid-row: 3;
+  grid-column: 1;
+  justify-self: end;
+  align-self: center;
+  display: flex;
+  gap: 16px;
+}
+/* Flecha: la misma de los enlaces subrayados ("Arrow 2"), a mayor tamaño */
+.arrow-btn {
+  width: 22px;
+  height: 13px;
+  padding: 0;
+  background: var(--c-olive-dark);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+  transition: opacity .3s var(--ease);
+}
+.arrow-btn--prev { transform: scaleX(-1); } /* la misma flecha, girada */
+.arrow-btn:hover { opacity: .6; }
+
+.testimonial__line.is-running span { animation: reviews-progress var(--reviews-autoplay) linear forwards; }
+@keyframes reviews-progress { to { width: 100%; } }
+
+@media (max-width: 767px) {
+  .hero ~ section.testimonials { padding: 110px var(--gutter-sm) 80px; }
+  .testimonials__deco { top: 40px; right: 0; width: 60vw; }
+  .testimonials__title { font-size: 2rem; }
+  .testimonials__slider { margin-top: 56px; }
+  .testimonial__line { margin: 32px 0 28px; }
+}
+
+/* ==========================================================
+   SECCIÓN · CÓRDOBA
+   Foto a todo el ancho con su proporción; el texto flota sobre el cielo
+   ========================================================== */
+.city { color: var(--c-white); }
+.city__img { width: 100%; height: auto; }
+.city__content {
+  position: absolute;
+  top: 15.6vw;                     /* 225px a 1440 */
+  left: 0;
+  right: 0;
+  padding: 0 var(--gutter-sm);
+  text-align: center;
+}
+.city__eyebrow { margin-bottom: 20px; color: var(--c-white); } /* blanco, sin transparencia */
+.city__title {
+  margin: 0 0 50px;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);  /* 40px */
+  line-height: 1.2;
+}
+
+@media (max-width: 767px) {
+  .city__content { top: 64px; }
+  .city__title { font-size: 1.75rem; margin-bottom: 32px; }
+  .city__title br { display: none; }
+}
+
+/* ==========================================================
+   FOOTER
+   Medidas del Figma de 1440px · márgenes laterales 42px
+   ========================================================== */
+.footer {
+  position: relative;
+  z-index: 1;                      /* tapa el hero fijo, como las secciones */
+  background: var(--c-green-800);
+  color: var(--c-cream);
+}
+.footer a { transition: opacity .3s var(--ease); }
+.footer a:hover { opacity: .7; }
+.footer ul { margin: 0; padding: 0; list-style: none; }
+
+/* Logo + frase */
+.footer__claim {
+  padding: 96px var(--gutter-sm) 120px;
+  text-align: center;
+}
+.footer__logo { width: 65px; height: auto; margin: 0 auto 40px; }
+.footer__title {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);  /* 40px */
+  line-height: 1.2;
+}
+
+/* Menú · dirección · redes */
+.footer__main {
+  display: grid;
+  grid-template-columns: 40.1vw 1fr auto; /* "Dirección" empieza a 620px */
+  padding: 48px var(--gutter-sm) 70px;
+  border-top: 1px solid rgba(245, 245, 237, .2);
+}
+/* Etiquetas MENÚ / DIRECCIÓN: mismas características que los antetítulos (.eyebrow),
+   pero en crema al 100% */
+.footer__label {
+  margin: 0 0 22px;
+  font-size: .875rem;              /* 14px, como los antetítulos */
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.footer__menu,
+.footer__address {
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: 1.5rem;               /* 24px */
+  font-style: normal;
+}
+.footer__menu,
+.footer__address { line-height: 1.4; } /* menú y dirección: mismo tamaño e interlineado */
+.footer__address p { margin: 0 0 18px; }
+.footer__address a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.footer__social { display: flex; gap: 12px; align-self: start; margin-top: 0 !important; } /* alineadas con las etiquetas */
+.footer__social img { width: 40px; height: 40px; }
+
+/* Fila inferior */
+.footer__bottom {
+  display: grid;
+  grid-template-columns: 40.1vw 1fr auto;
+  align-items: center;
+  padding: 28px var(--gutter-sm);
+  border-top: 1px solid rgba(245, 245, 237, .2);
+  font-size: .75rem;               /* 12px */
+  line-height: 1.2;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.footer__michelin {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  font-size: .75rem;               /* 12px */
+  line-height: 1.2;
+  letter-spacing: .05em;
+}
+.footer__michelin img { width: 54px; height: auto; }
+.footer__legal { display: flex; gap: 24px; }
+.footer__copy { margin: 0; }
+
+@media (max-width: 767px) {
+  .footer__claim { padding: 80px var(--gutter-sm) 80px; }
+  .footer__title { font-size: 1.75rem; }
+  .footer__main,
+  .footer__bottom { grid-template-columns: 1fr; gap: 40px; }
+  .footer__main { padding-bottom: 60px; }
+  .footer__social { margin-top: 0 !important; }
+  .footer__bottom { gap: 24px; padding-bottom: 140px; } /* deja sitio a los botones fijos */
+}
+
+/* ==========================================================
+   PÁGINA HABITACIONES · HERO
+   Reutiliza el hero de la Home con una sola foto (sin pase) y un titular central
+   ========================================================== */
+.hero__title {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-page-title);
+  line-height: 1.1;
+}
+.hero__title em { font-style: italic; font-weight: 300; } /* Canela Light Italic */
+@media (max-width: 767px) {
+  .hero__title { font-size: 2.75rem; padding: 0 var(--gutter-sm); }
+}
+
+/* ---------- Página Habitaciones · texto de entrada ---------- */
+.page-intro { padding: 12.5rem 0; } /* 200px arriba y abajo */
+@media (max-width: 767px) {
+  .page-intro { padding: 100px 0; }
+}
+
+/* ---------- Página Habitaciones · listado ----------
+   Medidas del Figma de 1440: foto 1125×670, márgenes laterales 156px, 200px entre habitaciones */
+.room-list { padding: 0 var(--gutter) 12.5rem; } /* 200px hasta Amenidades (padding, no margin) */
+.room-card {
+  max-width: var(--room-max);                 /* no crece más allá del diseño; centrada */
+  margin: 0 auto 9.375rem;                    /* 150px hasta la siguiente */
+}
+.room-card:last-child { margin-bottom: 0; }
+/* La caja marca el tamaño y recorta; la foto es un 20% más alta para el deslizamiento (data-parallax) */
+.room-card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1125 / 670;
+  border-radius: var(--radius);
+}
+.room-card__img {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  filter: brightness(var(--room-card-brightness)); /* oscurecida para leer el texto blanco */
+}
+/* Nombre y datos centrados sobre la foto (mismo estilo que el pase de la Home) */
+.room-card__head {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 20px;
+  text-align: center;
+  color: var(--c-white);
+  pointer-events: none;
+}
+.room-card__name {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 400;
+  font-size: 1.75rem;                         /* 28px */
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.room-card__details {
+  margin: 0;
+  font-size: var(--fs-room-details);          /* 16px */
+  letter-spacing: .05em;
+}
+/* "Ver galería": centrado abajo; estilo y flecha de .link-arrow, en blanco */
+.room-card__gallery {
+  position: absolute;
+  left: 50%;
+  bottom: 70px;
+  transform: translateX(-50%);
+  color: var(--c-white);
+}
+.room-card__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 40px;
+}
+.room-card__text {
+  max-width: 620px;                          /* a este ancho ninguna habitación deja una palabra sola en la última línea */
+  margin: 0;
+  font-size: .875rem;                         /* 14px */
+  line-height: 1.5;
+  letter-spacing: .02em;
+  color: var(--c-olive-dark);
+}
+/* Botón con borde (Reservar habitación) */
+.btn--outline {
+  flex: none;
+  height: 40px;
+  padding: 0 20px;
+  white-space: nowrap;                        /* la etiqueta siempre en una línea */
+  border: 1px solid var(--c-green-800);
+  font-size: .75rem;                          /* 12px */
+  color: var(--c-green-800);
+  background: transparent;
+}
+.btn--outline:hover { background: var(--c-green-800); color: var(--c-white); }
+
+@media (max-width: 767px) {
+  .room-list { padding: 0 var(--gutter-sm) 100px; }
+  .room-card { margin-bottom: 100px; }
+  .room-card__name { font-size: 1.5rem; }
+  .room-card__details { font-size: .8125rem; }
+  .room-card__media { aspect-ratio: 4 / 3; }
+  .room-card__gallery { bottom: 20px; }
+  .room-card__foot { flex-direction: column; gap: 25px; margin-top: 25px; }
+}
+
+/* ---------- Página Habitaciones · Amenidades ----------
+   Figma 1440: foto a todo el ancho de 1080px de alto; titular a la izquierda y
+   caja crema de 665px a la derecha, ambos a 165px del borde superior */
+.amenities {
+  position: relative;
+  overflow: hidden;                           /* recorta la foto mientras se desliza */
+  min-height: 1080px;
+  padding: 165px var(--gutter);
+}
+/* Foto un 20% más alta que la sección: el sobrante permite el deslizamiento (data-parallax) */
+.amenities__bg {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+}
+.amenities__inner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+.amenities__title {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: 3rem;                            /* 48px */
+  line-height: 1.15;
+  color: var(--c-white);
+}
+.amenities__box {
+  flex: 0 1 665px;
+  padding: 45px 60px;
+  border-radius: var(--radius);
+  background: var(--c-cream);
+}
+.amenities__list {
+  margin: 50px 0 80px;
+  padding: 0;
+  list-style: none;
+  font-family: var(--f-serif);
+  font-size: 1.5rem;                          /* 24px */
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--c-green-800);
+}
+.amenities__list li + li { margin-top: 20px; }
+.amenities__note {
+  margin: 0;
+  font-size: .8125rem;                        /* 13px */
+  line-height: 1.5;
+  color: var(--c-olive-dark);
+}
+
+@media (max-width: 767px) {
+  .amenities { min-height: 0; padding: 100px var(--gutter-sm); }
+  .amenities__inner { flex-direction: column; gap: 30px; }
+  .amenities__title { font-size: 2.25rem; }
+  .amenities__box { flex: none; width: 100%; padding: 30px 25px; }
+  .amenities__list { margin: 30px 0 40px; font-size: 1.25rem; }
+  .amenities__list li + li { margin-top: 15px; }
+}
+
+/* ---------- Página Habitaciones · Preguntas frecuentes ----------
+   Figma 1440: 200px arriba y abajo; filas de ~100px separadas por líneas finas */
+.faq { padding: 12.5rem var(--gutter) 0; }   /* abajo continúa la despedida */
+.faq__intro { margin-bottom: 80px; }
+.faq__title {
+  margin: 20px 0 0;                           /* 20px desde el antetítulo */
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-room-name);             /* 40px */
+  line-height: 1.2;
+  color: var(--c-olive-dark);
+}
+.faq__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--c-line);
+}
+.faq__item { border-bottom: 1px solid var(--c-line); }
+.faq__heading { margin: 0; }
+.faq__toggle {
+  display: flex;
+  align-items: center;
+  gap: .3em;
+  width: 100%;
+  padding: 40px 10px;
+  font-family: var(--f-serif);
+  font-weight: 400;
+  font-size: 1.5rem;                          /* 24px */
+  line-height: 1.2;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+  transition: opacity .4s var(--ease);
+}
+.faq__toggle:hover { opacity: .7; }
+/* "+" de líneas finas a la derecha; al abrir gira y se convierte en "×" */
+.faq__icon {
+  position: relative;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+  transition: transform var(--faq-time) var(--ease);
+}
+.faq__icon::before,
+.faq__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+}
+.faq__icon::after { transform: rotate(90deg); }
+.faq__toggle[aria-expanded="true"] .faq__icon { transform: rotate(45deg); }
+/* Panel: se despliega animando la altura (0fr → 1fr) */
+.faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--faq-time) var(--ease);
+}
+.faq__panel > div { overflow: hidden; }
+.faq__heading:has([aria-expanded="true"]) + .faq__panel { grid-template-rows: 1fr; }
+.faq__answer {
+  max-width: 700px;
+  margin: 0;
+  padding: 0 10px 40px;
+  font-size: 1rem;                            /* 16px */
+  line-height: 1.5;
+  color: var(--c-olive-dark);
+}
+
+@media (max-width: 767px) {
+  .faq { padding: 100px var(--gutter-sm); }
+  .faq__intro { margin-bottom: 40px; }
+  .faq__title { font-size: 1.75rem; }
+  .faq__toggle { padding: 25px 0; font-size: 1.125rem; }
+  .faq__answer { padding: 0 0 25px; font-size: .875rem; }
+}
+
+/* ---------- Página Habitaciones · Despedida (pluma + frase) ----------
+   Figma 1440: pluma sobre la frase caligráfica girada; 200px hasta la franja de foto.
+   Dos capas con deslizamiento distinto (data-parallax), como el diente de león de la Home */
+.farewell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12.5rem var(--gutter);
+}
+.farewell__feather {
+  width: 240px;                               /* la imagen ya viene girada */
+  mix-blend-mode: multiply;                   /* el fondo blanco del JPG desaparece sobre el blanco */
+}
+.farewell__script {
+  margin-top: 0;
+  rotate: -12deg;
+}
+
+/* ---------- Página Habitaciones · Más sobre Viento 10 ----------
+   Figma 1440: franja de foto de 600px a todo el ancho; texto blanco centrado en vertical */
+.more {
+  position: relative;
+  overflow: hidden;                           /* recorta la foto mientras se desliza */
+  display: flex;
+  align-items: center;
+  justify-content: center;                    /* texto centrado en la foto */
+  text-align: center;
+  min-height: 600px;
+  padding: 100px var(--gutter);
+}
+.more__bg {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  filter: brightness(var(--more-brightness)); /* oscurecida para leer el texto blanco */
+}
+.more__inner { position: relative; color: var(--c-white); }
+.more__eyebrow { color: var(--c-white); }
+.more__text {
+  margin: 15px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-lead);                  /* 40px */
+  line-height: 1.2;
+}
+/* Enlaces en cursiva y subrayados; en hover bajan la opacidad */
+.more__text a {
+  font-style: italic;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  transition: opacity .4s var(--ease);
+}
+.more__text a:hover { opacity: .7; }
+
+@media (max-width: 767px) {
+  .faq { padding-bottom: 0; }
+  .farewell { padding: 100px var(--gutter-sm); }
+  .farewell__feather { width: 80px; }
+  .more { min-height: 450px; padding: 80px var(--gutter-sm); }
+}
+
+/* ---------- Página Habitaciones · Galería ----------
+   Figma 1440×1024: fondo a pantalla completa; foto ampliada a 1080×720 como máximo,
+   miniaturas de 50px de alto debajo y, bajo ellas, las flechas cuadradas de 40px */
+.gallery {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 60px var(--gutter-sm) 50px;
+  border: 0;
+  background: color-mix(in srgb, var(--c-olive-dark) calc(var(--gallery-bg-opacity) * 100%), transparent); /* deja ver la página */
+  color: var(--c-white);
+  opacity: 0;
+  transition: opacity var(--gallery-fade) var(--ease);
+}
+.gallery[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.gallery.is-visible { opacity: 1; }
+.gallery::backdrop { background: transparent; }
+.gallery:focus { outline: none; }
+body.no-scroll { overflow: hidden; }
+
+.gallery__close {
+  position: absolute;
+  top: 50px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: .875rem;                         /* 14px */
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-white);
+  transition: opacity .3s var(--ease);
+}
+.gallery__close:hover { opacity: .7; }
+/* "×" de dos líneas finas */
+.gallery__x { position: relative; width: 12px; height: 12px; }
+.gallery__x::before,
+.gallery__x::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  width: 16px;
+  height: 1px;
+  background: currentColor;
+  rotate: 45deg;
+}
+.gallery__x::after { rotate: -45deg; }
+
+.gallery__head { text-align: center; }
+.gallery__name {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 400;
+  font-size: 1.5rem;                          /* 24px */
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.gallery__details {
+  margin: 10px 0 0;
+  font-size: .8125rem;                        /* 13px */
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.gallery__stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+}
+/* Flechas centradas debajo de las miniaturas, a 16px entre sí (como en Testimonios) */
+.gallery__nav { display: flex; gap: 16px; margin-top: -10px; }
+.gallery__img {
+  max-width: min(1080px, 100%);
+  max-height: min(720px, 100vh - 420px);       /* 420px = nombre, miniaturas, flechas y márgenes */
+  border-radius: var(--radius);
+  transition: opacity var(--gallery-fade) var(--ease);
+}
+.gallery__img.is-changing { opacity: 0; }
+.gallery__arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 4px;
+  color: var(--c-white);
+  transition: background .3s var(--ease);
+}
+.gallery__arrow:hover { background: rgba(255, 255, 255, .15); }
+.gallery__arrow svg { width: 8px; height: 14px; }
+
+.gallery__thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.gallery__thumbs button { flex: none; padding: 0; opacity: .5; transition: opacity .3s var(--ease); }
+.gallery__thumbs button:hover,
+.gallery__thumbs button[aria-current="true"] { opacity: 1; }
+.gallery__thumbs img { display: block; height: 50px; width: auto; }
+
+@media (max-width: 767px) {
+  .gallery { padding: 80px var(--gutter-sm) 30px; gap: 25px; }
+  .gallery__close { top: 25px; right: var(--gutter-sm); }
+  .gallery__name { font-size: 1.25rem; }
+  .gallery__img { max-height: 55vh; }
+  .gallery__thumbs { justify-content: flex-start; }
+  .gallery__thumbs img { height: 40px; }
+  .gallery__nav { display: none; }           /* en móvil se desliza con el dedo */
+}
+
+/* ---------- Página El hotel · Cuidado de cada día ----------
+   Figma 1440: foto de 1125×727 (mismo ancho que las habitaciones); debajo, título a la
+   izquierda y textos en una columna de 665px a la derecha; cierra la frase caligráfica */
+.care { padding: 0 var(--gutter) 12.5rem; }
+.care > * { max-width: var(--room-max); margin-left: auto; margin-right: auto; }
+/* La caja recorta; la foto es un 20% más alta para el deslizamiento (data-parallax) */
+.care__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1125 / 727;
+  border-radius: var(--radius);
+}
+.care__img {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+}
+.care__body {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 60px;
+}
+.care__title {
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 400;
+  font-size: 1.5rem;                          /* 24px */
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--c-olive-dark);
+}
+.care__text { flex: 0 1 665px; color: var(--c-olive-dark); }
+.care__text p {
+  margin: 0;
+  font-size: .875rem;                         /* 14px */
+  line-height: 1.7;
+}
+.care__text .care__lead {
+  margin-bottom: 40px;
+  font-family: var(--f-serif);
+  font-weight: 100;                           /* Figma: 250 → Canela Thin (no hay peso 250) */
+  font-size: var(--fs-entradilla);            /* 32px */
+  line-height: 1.3;                           /* 130% */
+  color: var(--c-green-800);
+}
+.care__script {
+  margin-top: 130px;
+  rotate: -4deg;                              /* "rotate" para no chocar con el fundido (transform) */
+}
+
+@media (max-width: 767px) {
+  .care { padding: 0 var(--gutter-sm) 100px; }
+  .care__media { aspect-ratio: 4 / 3; }
+  .care__body { flex-direction: column; gap: 25px; margin-top: 30px; }
+  .care__text .care__lead { margin-bottom: 30px; font-size: 1.5rem; }
+  .care__script { margin-top: 80px; }
+}
+
+/* ---------- Página El hotel · Una casa que acoge ----------
+   Figma 1440: foto a todo el ancho (1440×1047) y debajo el mismo bloque de dos columnas
+   que "Cuidado de cada día" (.care__body), con el texto a 16px */
+.story { padding-bottom: 12.5rem; }
+.story__media {
+  position: relative;
+  overflow: hidden;                           /* recorta la foto mientras se desliza */
+  aspect-ratio: 1440 / 1047;
+}
+.story__img {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+}
+.story__body {
+  max-width: var(--room-max);
+  margin: 50px auto 0;
+  padding: 0 var(--gutter);
+  box-sizing: content-box;
+}
+.story__text p { font-size: 1rem; line-height: 1.5; } /* 16px */
+
+@media (max-width: 767px) {
+  .story { padding-bottom: 100px; }
+  .story__media { aspect-ratio: 4 / 3; }
+  .story__body { margin-top: 30px; padding: 0 var(--gutter-sm); }
+  .story__text p { font-size: .875rem; }
+}
+
+/* ---------- Página El hotel · El flechazo (Gerardo Holgado) ----------
+   Figma 1440: retrato de 240×300 centrado, frase en Canela Light 32px y botón "+" con etiqueta */
+.founder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--gutter) 12.5rem;
+  text-align: center;
+}
+.founder__photo {
+  width: 240px;
+  aspect-ratio: 240 / 300;
+  border-radius: var(--radius);
+  background: var(--c-ph);                    /* hueco neutro hasta tener el retrato */
+  overflow: hidden;
+}
+.founder__photo img { width: 100%; height: 100%; object-fit: cover; }
+.founder__quote {
+  max-width: 800px;
+  text-wrap: balance;                         /* líneas de largo parecido */
+  margin: 30px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 100;                           /* Figma: 250 → Canela Thin (no hay peso 250) */
+  font-size: var(--fs-entradilla);            /* 32px */
+  line-height: 1.3;                           /* 130% */
+  color: var(--c-green-800);
+}
+.founder__more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 25px;
+  font-size: .8125rem;                        /* 13px */
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-green-800);
+  transition: opacity .3s var(--ease);
+}
+.founder__more:hover { opacity: .7; }
+/* "+" de líneas finas, como en las preguntas frecuentes */
+.founder__icon { position: relative; width: 20px; height: 20px; }
+.founder__icon::before,
+.founder__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+}
+.founder__icon::after { rotate: 90deg; }
+.founder__icon { transition: rotate var(--faq-time) var(--ease); }
+.founder__more[aria-expanded="true"] .founder__icon { rotate: 45deg; } /* "+" → "×" */
+/* Relato: se despliega animando la altura (0fr → 1fr), con la velocidad de las preguntas frecuentes */
+.founder__story {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+  transition: grid-template-rows var(--faq-time) var(--ease);
+}
+.founder__story > div { overflow: hidden; }
+.founder__more[aria-expanded="true"] + .founder__story { grid-template-rows: 1fr; }
+.founder__story p {
+  margin: 0 0 26px;
+  font-size: 1rem;                            /* 16px */
+  line-height: 1.6;
+  color: var(--c-green-800);
+  text-wrap: pretty;                          /* evita palabras sueltas en la última línea */
+}
+.founder__story p:first-child { margin-top: 60px; }
+.founder__story .founder__sign {
+  margin: 40px 0 0;
+  font-family: var(--f-serif);
+  font-size: 1.25rem;                         /* 20px */
+}
+
+@media (max-width: 767px) {
+  .founder { padding: 0 var(--gutter-sm) 100px; }
+  .founder__photo { width: 180px; }
+  .founder__quote { font-size: 1.5rem; }
+}
+
+/* ---------- Página El hotel · La casa que fue, la casa que es ----------
+   Figma 1440: carrusel continuo de fotos de 600px de alto con esquinas redondeadas;
+   debajo, el bloque de dos columnas de "Una casa que acoge" */
+.remodel { padding-bottom: 12.5rem; }
+.strip--remodel .strip__img {
+  height: 41.67vw;                            /* 600px a 1440 */
+}
+.story__text p + p { margin-top: 24px; }     /* separación entre párrafos */
+
+@media (max-width: 767px) {
+  .remodel { padding-bottom: 100px; }
+  .strip--remodel .strip__img { height: 84vw; }
+}
+
+/* ---------- Página El hotel · Dos fotos de la calle ----------
+   Figma 1440: fotos de ~548px a 40px de cada borde; la derecha (vertical) 175px más baja;
+   pies de foto a 20px */
+.street {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 40px 12.5rem;
+}
+.street__item { width: 38vw; margin: 0; }   /* 548px a 1440 */
+.street__item--low { width: 38.2vw; margin-top: 12.15vw; }  /* rótulo: 550px de ancho, 175px más bajo a 1440 */
+.street__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+.street__item .caption { margin-top: 20px; }
+/* Tercera foto: 665px de ancho, alineada con el margen de la página, 80px por debajo del rótulo */
+.street__item--wide { width: 46.2vw; margin: 5rem 0 0 calc(var(--gutter) - 40px); }
+.street__item--wide .caption { margin-top: 25px; }
+
+@media (max-width: 767px) {
+  .street { flex-direction: column; gap: 60px; padding: 0 var(--gutter-sm) 100px; }
+  .street__item { width: 100%; }
+  .street__item--low,
+  .street__item--wide { margin: 0; }
+}
+
+/* Cita de Gerardo hijo: mismo bloque que la de su padre, con firma en vez de botón */
+/* Gerardo padre: más aire alrededor (250px arriba y abajo, contando los 200px de la sección anterior) */
+.founder:not(.founder--son) { padding-top: 50px; padding-bottom: 250px; }
+.founder--son { padding-top: 150px; padding-bottom: 0; } /* abajo, la despedida ya trae 200px */       /* + 200px de la sección anterior = 350px, como en Figma */
+.founder__sign-off {
+  margin: 40px 0 0;
+  font-size: .8125rem;                        /* 13px */
+  line-height: 1.5;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--c-green-800);
+}
+.founder__sign-off strong { font-weight: 500; }
+
+/* Hojas de El hotel: mismo bloque que la pluma, a su tamaño de Figma (140px) */
+.farewell__leaf { width: 140px; margin-bottom: 60px; }
+
+/* ==========================================================
+   VIVIR VIENTO 10
+   ========================================================== */
+/* Foto grande (1125px en Figma) con título y texto debajo, como "Cuidado de cada día" */
+.feature { padding: 0 max(var(--gutter-sm), (100% - var(--room-max)) / 2); } /* contenido de 1125px como máximo, centrado */
+.feature__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1125 / 750;
+  border-radius: var(--radius);
+}
+.feature__img { position: absolute; top: -10%; left: 0; width: 100%; height: 120%; object-fit: cover; }
+.feature__img--static { position: static; display: block; height: auto; } /* sin deslizamiento: la foto se ve entera, con su proporción */
+.feature__body { margin-top: 50px; }
+.feature__text { flex-basis: 550px; }
+.feature__text p + p { margin-top: 1.7em; }
+/* Hammam: foto a todo el ancho, sin esquinas; título y texto a 40px de los bordes */
+.feature--full { padding: 0; }
+.feature--full .feature__media { aspect-ratio: auto; border-radius: 0; } /* el alto lo marca la propia foto: no se recorta */
+.feature--full .feature__body { padding: 0 max(40px, (100% - var(--room-max)) / 2) 0 40px; } /* texto alineado con el de las otras secciones */
+/* Frase manuscrita entre secciones */
+.vivir-script { padding: 0 var(--gutter-sm) 17.5rem; text-align: center; }
+/* Enlace dentro de un párrafo */
+.text-link { text-decoration: underline; text-underline-offset: 3px; transition: opacity .3s var(--ease); }
+.text-link:hover { opacity: .7; }
+/* Frase del equipo: menos aire que la entrada de la página */
+.page-intro--team { padding: 0 0 9.375rem; }
+
+/* Pareja de fotos: vertical a la izquierda (435px) y horizontal más baja a la derecha (665px) */
+.pair {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 9.375rem 40px 17.5rem;            /* 150px arriba · 280px abajo */
+}
+.pair__item { margin: 0; }
+.pair__item--tall { width: 30.2vw; }        /* 435px a 1440 */
+.pair__item--mid { width: 46.2vw; }        /* 665px a 1440 */
+.pair__item--wide { width: 54.5vw; }       /* 785px a 1440 */
+.pair__item--low { margin-top: 21vw; }      /* 300px más baja a 1440 */
+.pair__item--lower { margin-top: 17.7vw; }  /* 255px más baja a 1440 */
+.pair--inset { padding-right: var(--gutter); } /* la foto de la derecha se alinea con el texto (masaje) */
+.pair__item img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.pair__item .caption { margin-top: 25px; }
+
+
+@media (max-width: 767px) {
+  .feature__body { margin-top: 30px; }
+  .pair { flex-direction: column; gap: 60px; padding: 100px var(--gutter-sm) 120px; }
+  .pair__item { width: 100% !important; margin: 0 !important; }
+  .pair--inset { padding-right: var(--gutter-sm); }
+}
+
+/* ==========================================================
+   SOBRE CÓRDOBA · página sin hero, fondo crema
+   Columna central de 665px; notas laterales de 320px a los lados
+   ========================================================== */
+body.page-cream { background: var(--c-cream); }
+.page-cream .header__meta, .page-cream .header__lang { color: var(--c-olive-dark); } /* sin hero: menú en oscuro sobre el crema */
+
+.guide__intro {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 18.75rem var(--gutter-sm) 4.375rem;  /* 300px arriba · 70px abajo */
+  text-align: center;
+}
+.guide__title {
+  margin: 20px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: 2.5rem;                          /* 40px */
+  line-height: 1.2;
+  color: var(--c-olive-dark);
+}
+.guide__title em { font-style: italic; }
+.guide__lead {
+  margin: 40px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 100;                           /* estilo entradilla */
+  font-size: var(--fs-entradilla);
+  line-height: 1.3;
+  color: var(--c-green-800);
+  text-wrap: balance;
+}
+
+.guide__grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 665px) 1fr;
+  column-gap: 30px;
+  padding: 0 40px 12.5rem;                    /* 200px hasta la sección siguiente */
+}
+.guide__grid > * { grid-column: 2; }
+.guide__grid--solo { padding-top: 7.5rem; }   /* 120px bajo la foto del río */
+.guide__figure { margin: 0 0 50px; }
+.guide__figure img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.guide__figure--inline { margin: 40px 0; }
+.guide__text { margin-top: 30px; }
+.guide__text p { margin: 0; font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
+.guide__text p + p, .guide__text p + ul { margin-top: 24px; }
+.guide__list { margin: 24px 0 0; padding-left: 24px; }
+.guide__list li { line-height: 1.5; }
+.guide__list li + li { margin-top: 24px; }
+.guide__list strong { font-weight: 500; }
+
+/* Notas laterales (40°C y salmorejo) */
+.guide__aside { font-size: .875rem; line-height: 1.5; }
+.guide__aside p { margin: 0; }
+.guide__aside--right { grid-column: 3; grid-row: 2; align-self: start; }
+.guide__aside--left { grid-column: 1; grid-row: 1; align-self: start; margin-top: 210px; } /* a la altura de la foto */
+.guide__illus { display: block; width: 220px; margin: 0 auto 70px; } /* ilustración sobre la nota del salmorejo */
+.guide__degrees { display: block; width: 143px; margin: 0 auto 45px; }
+
+/* Ruta: foto del río a todo el ancho con el título y el mapa encima */
+.route { position: relative; overflow: hidden; color: var(--c-white); }
+.route__bg { display: block; width: 100%; height: auto; }
+.route__inner { position: absolute; inset: 0; padding: 11.25rem var(--gutter) 0; } /* 180px arriba */
+.route__title {
+  max-width: 600px;
+  margin: 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: var(--fs-lead);
+  line-height: 1.2;
+}
+.route__map { display: block; width: 78.5vw; max-width: 1130px; margin: 220px 0 0 -4px; } /* 1130px a 1440 */
+
+/* Recuadro de contacto */
+.guide__contact {
+  display: block;
+  width: min(435px, calc(100% - 40px));
+  margin: -5rem auto 5rem;
+  padding: 55px 30px;
+  box-sizing: border-box;
+  border: 1px solid var(--c-green-800);
+  border-radius: var(--radius);
+  text-align: center;
+  line-height: 1.5;
+  color: var(--c-green-800);
+  transition: opacity .3s var(--ease);
+}
+.guide__contact:hover { opacity: .7; }
+.guide__contact .eyebrow { display: block; color: inherit; }
+
+.guide__strip { padding-bottom: 6.25rem; }
+
+
+@media (max-width: 1023px) {
+  .guide__grid { grid-template-columns: minmax(0, 1fr); padding: 0 var(--gutter-sm) 100px; }
+  .guide__grid > *, .guide__aside--right, .guide__aside--left { grid-column: 1; grid-row: auto; margin-top: 40px; }
+  .route__inner { padding: 80px var(--gutter-sm) 0; }
+  .route__map { width: 100%; margin-top: 60px; }
+}
+@media (max-width: 767px) {
+  .guide__intro { padding-top: 160px; }
+  .guide__lead { font-size: 1.5rem; }
+}
+
+/* ==========================================================
+   CONTACTO · fondo crema, bloques separados por líneas finas
+   ========================================================== */
+.contact__intro { padding-bottom: 13.75rem; }             /* 220px hasta la primera línea */
+.contact__title {
+  margin: 20px 0 0;
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: 2.5rem;                                      /* 40px */
+  line-height: 1.2;
+  color: var(--c-olive-dark);
+  text-wrap: balance;
+}
+.contact__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 5rem 40px 8.125rem var(--gutter);             /* 80px arriba · 130px abajo */
+  border-top: 1px solid var(--c-line);
+}
+.contact__info { flex: 0 1 440px; }
+.contact__subtitle { margin-top: 70px; }
+.contact__data { margin: 30px 0 0; }
+.contact__data dt {
+  margin-top: 25px;
+  font-size: .875rem;                                     /* 14px */
+  font-weight: 500;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.contact__data dt:first-child { margin-top: 0; }
+.contact__data dd { margin: 4px 0 0; font-size: 1rem; line-height: 1.5; }
+.contact__data--spaced dt { margin-top: 55px; }
+.contact__data--spaced dt:first-child { margin-top: 0; }
+.contact__lead { margin: 30px 0 50px; font-size: 1rem; line-height: 1.5; }
+.contact__cta { margin-top: 50px; }
+.contact__media { flex: 0 1 665px; margin: 0; }
+.contact__media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 665 / 565;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+/* Llegada: foto vertical a la izquierda (550px) y texto a la derecha */
+.contact__row--arrive { padding-left: 40px; padding-right: var(--gutter); }
+.contact__row--arrive .contact__media { flex-basis: 550px; }
+.contact__row--arrive .contact__media img { aspect-ratio: 550 / 765; }
+.contact__faq { padding-top: 9.375rem; padding-bottom: 12.5rem; border-top: 1px solid var(--c-line); }
+.contact__faq .faq__list { border-top: 1px solid var(--c-line); } /* línea también sobre la primera pregunta */
+
+@media (max-width: 767px) {
+  .contact__intro { padding-bottom: 100px; }
+  .contact__title { font-size: 1.75rem; }
+  .contact__row, .contact__row--arrive { flex-direction: column; padding: 60px var(--gutter-sm) 80px; }
+  .contact__row--arrive .contact__media { order: 1; }
+  .contact__info, .contact__media { flex-basis: auto; width: 100%; }
+  .contact__faq { padding: 80px var(--gutter-sm) 100px; }
+}
+
+/* ==========================================================
+   MENÚ DESPLEGABLE · pantalla completa olive-dark
+   Columna izquierda (logo, enlaces, redes) centrada en la mitad izquierda;
+   foto a la derecha. Reservar y Cerrar siguen encima (z-index 20)
+   ========================================================== */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 19;                                /* por debajo de Reservar y Menú (20) */
+  display: flex;
+  align-items: center;
+  background: var(--c-olive-dark);
+  color: var(--c-cream);
+  visibility: hidden;
+  translate: 0 -100%;                         /* cortina: espera arriba, fuera de la pantalla */
+  /* Cierre: primero se va el contenido y después sube la cortina */
+  transition: translate var(--menu-time) var(--ease-names) var(--menu-text-time),
+              visibility 0s linear calc(var(--menu-time) + var(--menu-text-time));
+}
+body.menu-open .menu {
+  visibility: visible;
+  translate: 0 0;
+  transition: translate var(--menu-time) var(--ease-names), visibility 0s;
+}
+body.menu-open { overflow: hidden; }
+/* Con el menú abierto se ocultan el logo y las etiquetas de la cabecera (el menú lleva su logo) */
+body.menu-open .hero__logo,
+body.menu-open .header__meta,
+body.menu-open .header__lang { visibility: hidden; }
+/* al cerrar, reaparecen cuando la cortina ya ha subido */
+.hero__logo, .header__meta, .header__lang { transition: visibility 0s linear calc(var(--menu-time) + var(--menu-text-time)); }
+body.menu-open :is(.hero__logo, .header__meta, .header__lang) { transition-delay: 0s; }
+
+/* Etiquetas: suben desde una línea invisible (corte), una detrás de otra */
+.menu__nav a { display: block; overflow: hidden; }
+.menu__nav a span {
+  display: block;
+  translate: 0 100%;
+  transition: translate var(--menu-text-time) var(--ease);
+}
+body.menu-open .menu__nav a span {
+  translate: 0 0;
+  transition-delay: calc(var(--menu-time) + var(--i) * var(--menu-stagger));
+}
+/* Logo, redes e imagen: fundido con un sutil deslizamiento, después de las etiquetas */
+.menu__logo, .menu__social, .menu__media {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition: opacity var(--menu-text-time) var(--ease), transform var(--menu-text-time) var(--ease);
+}
+body.menu-open :is(.menu__logo, .menu__social, .menu__media) {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--menu-time) + 6 * var(--menu-stagger));
+}
+
+.menu__col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+.menu__logo { position: absolute; top: 55px; }
+.menu__logo img { display: block; width: 150px; height: auto; }
+.menu__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;                             /* centrado en vertical */
+}
+.menu__nav a {
+  font-family: var(--f-serif);
+  font-weight: 300;
+  font-size: 2.5rem;                          /* 40px */
+  line-height: 1.5;                           /* 60px entre líneas */
+  transition: opacity .3s var(--ease);
+}
+.menu__nav a:hover { opacity: .6; }
+.menu__social {
+  position: absolute;
+  bottom: 90px;
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.menu__social img { display: block; width: 50px; height: 50px; }
+/* Foto de la derecha: cambia según la etiqueta bajo el ratón (fundido de --menu-img-fade) */
+.menu__media {
+  position: relative;
+  width: 347px;
+  aspect-ratio: 347 / 494;
+  margin: 0 auto;                             /* centrada en la mitad derecha */
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.menu__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--menu-img-fade) var(--ease);
+}
+.menu__img.is-active { opacity: 1; }
+
+@media (max-width: 767px) {
+  .menu__col { width: 100%; }
+  .menu__media { display: none; }
+  .menu__logo { top: 25px; }
+  .menu__nav a { font-size: 2rem; }
+  .menu__social { bottom: 120px; }
+}
+
+/* ==========================================================
+   PANTALLA DE CARGA
+   Cortina olive-dark por encima de todo. Estados (los pone main.js):
+   .is-mark → aparece el símbolo · .is-out → se funde · .is-open → la cortina sube
+   ========================================================== */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-olive-dark);
+  box-shadow: 0 100vh 0 var(--c-olive-dark);   /* se alarga por debajo: nunca deja ver una franja */
+  transition: transform var(--loader-time) var(--ease-names);
+}
+.loader.is-open { transform: translateY(-200vh); pointer-events: none; } /* sube del todo, sombra incluida */
+html.is-loading { overflow: hidden; background: var(--c-olive-dark); } /* desde el primer instante: sin barras de scroll y todo el fondo en verde */
+html.is-loading body { background: transparent; }
+
+/* Símbolo dibujado con trazos reales: cada línea se dibuja una detrás de otra (--loader-draw) */
+.loader__mark { width: 104px; height: auto; overflow: visible; }
+.loader__mark path {
+  fill: none;
+  stroke: var(--c-loader-mark);
+  stroke-width: 1.8;
+  stroke-linecap: butt;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;                       /* línea sin dibujar */
+  transition: stroke-dashoffset var(--loader-draw) var(--ease-names);
+}
+.loader.is-mark .loader__mark path {
+  stroke-dashoffset: 0;
+  transition-delay: calc(var(--i) * var(--loader-draw-stagger));
+}
+/* Texto inferior: aparece con un fundido y un sutil deslizamiento */
+.loader__text {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-family: var(--f-serif);
+  font-size: 1rem;                            /* 16px */
+  line-height: 1.4;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--c-loader-mark);
+  opacity: 0;
+  transform: translateY(var(--loader-mark-distance));
+  transition: opacity var(--loader-mark-fade) var(--ease), transform var(--loader-mark-fade) var(--ease);
+}
+.loader.is-mark .loader__text { opacity: 1; transform: none; transition-delay: var(--loader-draw); }
+/* Salida: símbolo y texto se funden antes de que suba la cortina */
+.loader__mark { transition: opacity var(--loader-mark-fade) var(--ease); }
+.loader.is-out .loader__mark,
+.loader.is-out .loader__text { opacity: 0; transition-delay: 0s; }

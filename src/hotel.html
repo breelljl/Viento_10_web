@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es" class="is-loading">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El hotel • Viento 10, hotel boutique en Córdoba</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ PANTALLA DE CARGA ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 104 150" width="104" height="150"><path pathLength="1" style="--i: 0" d="M51.73 .91C79.75 .91 102.55 23.71 102.55 51.71V98.29C102.55 126.29 79.75 149.09 51.73 149.09C23.71 149.09 .91 126.29 .91 98.29V51.71C.91 23.71 23.71 .91 51.73 .91Z"/><path pathLength="1" style="--i: 1" d="M.91 87.2H102.55"/><path pathLength="1" style="--i: 2" d="M51.73 17.9V72.52"/><path pathLength="1" style="--i: 3" d="M79.45 39.17L51.73 46.6"/><path pathLength="1" style="--i: 4" d="M76.58 32.25L51.73 46.6"/><path pathLength="1" style="--i: 5" d="M72.02 26.31L51.73 46.6"/><path pathLength="1" style="--i: 6" d="M66.08 21.75L51.73 46.6"/><path pathLength="1" style="--i: 7" d="M59.16 18.88L51.73 46.6"/><path pathLength="1" style="--i: 8" d="M44.30 18.88L51.73 46.6"/><path pathLength="1" style="--i: 9" d="M37.38 21.75L51.73 46.6"/><path pathLength="1" style="--i: 10" d="M31.44 26.31L51.73 46.6"/><path pathLength="1" style="--i: 11" d="M26.88 32.25L51.73 46.6"/><path pathLength="1" style="--i: 12" d="M24.01 39.17L51.73 46.6"/><path pathLength="1" style="--i: 13" d="M33.43 106.6L41.63 103.6V147.6"/><path pathLength="1" style="--i: 14" d="M60.51 103.89C67.08 103.89 72.41 110.54 72.41 118.74C72.41 126.94 67.08 133.59 60.51 133.59C53.94 133.59 48.61 126.94 48.61 118.74C48.61 110.54 53.94 103.89 60.51 103.89Z"/></svg>
+    <p class="loader__text">Hotel Viento 10<br>Córdoba</p>
+  </div>
+  <noscript><style>.loader { display: none; } html.is-loading { overflow: auto; background: none; }</style></noscript>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <a class="hero__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" data-dark-src="assets/img/Home/slider_hero/logo-viento_oscuro.svg" alt="Viento 10 · Inicio" width="210" height="40"></a>  <!-- logo fijo, siempre visible -->
+    <div class="header__meta">
+      <nav class="header__nav" aria-label="Principal">
+        <a href="habitaciones.html">Habitaciones</a>
+        <a href="hotel.html">El hotel</a>
+        <a href="vivir.html">Vivir Viento 10</a>
+      </nav>
+    </div>
+    <div class="lang header__lang" id="lang">
+      <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <span class="lang__current">ES</span>
+        <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <ul class="lang__list" hidden>
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+    </div>
+    <div class="header__actions">
+      <a href="#" class="btn btn--light">Reservar</a>
+      <button class="btn btn--olive menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+    </div>
+  </header>
+
+  <!-- ============ MENÚ DESPLEGABLE ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__col">
+      <a class="menu__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
+      <nav class="menu__nav" aria-label="Menú">
+        <a href="index.html" style="--i: 0"><span>Inicio</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El hotel</span></a>
+        <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vivir Viento 10</span></a>
+        <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
+        <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
+      </nav>
+      <ul class="menu__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+    <div class="menu__media">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/Home/Menu/img_hierba_viento.png" alt="" loading="lazy">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/hotel/img_fuente.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/Habitaciones/imagenes_recursos/img_luz_haitaciones.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/vivir_viento%2010/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/sobre%20cordoba/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/contacto/02_mapa_viento.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <main>
+    <!-- ============ HERO · EL HOTEL ============ -->
+    <section data-dark class="hero hero--page" id="inicio">
+      <div class="hero__slides">
+        <img class="hero__bg is-active" src="assets/img/hotel/img_hotel_hero.jpg" alt="Patio de Viento 10 con arcos y columnas">
+      </div>
+      <h1 class="hero__title">Descubre <em>el hotel</em></h1>
+      <div class="hero__bottom">
+        <p class="hero__tagline">Trato cercano, discreción<br>y silencio</p>
+        <span class="hero__scroll" aria-hidden="true"></span> <!-- línea animada -->
+      </div>
+    </section>
+
+    <!-- ============ ENTRADA ============ -->
+    <section class="page-intro">
+      <div class="statement reveal">
+        <p class="statement__text">Bienvenidos a Viento 10, una casa luminosa donde el tiempo se ralentiza y cada huésped encuentra su propio ritmo.</p>
+      </div>
+    </section>
+
+    <!-- ============ CUIDADO DE CADA DÍA ============ -->
+    <section class="care">
+      <div class="care__media reveal">
+        <img class="care__img" data-parallax="0.1" src="assets/img/hotel/img_salon.jpg" alt="Huésped descansando en el salón junto al jardín" loading="lazy">
+      </div>
+      <div class="care__body">
+        <h2 class="care__title reveal">Cuidado de cada día</h2>
+        <div class="care__text reveal">
+          <p class="care__lead">La casa ha cambiado de manos, de aspecto y de oficio, y ha conservado su manera de estar: sencilla, atenta y pausada, pensada para que cada huésped se sienta a gusto.</p>
+          <p>Los anchos muros de tierra pisada, los ladrillos de los arcos del patio y la piedra maciza de las columnas guardan siglos de historia, y a ellos se suma una dedicación íntima y silenciosa: principios que pasan de una generación a otra y que aparecen, de pronto, en una leche merengada para los huéspedes, un gesto que ninguna carta ni protocolo recoge. Es el amor por las pequeñas cosas bellas, y una manera de entender la casa con discreción antes que protagonismo y calma antes que prisa, para que la estancia sea más cercana y la vivencia, serena y personal.</p>
+        </div>
+      </div>
+      <p class="script-title care__script reveal">Historia, discreción y espontaneidad.</p>
+    </section>
+
+    <!-- ============ UNA CASA QUE ACOGE ============ -->
+    <section class="story">
+      <div class="story__media">
+        <img class="story__img" data-parallax="0.1" src="assets/img/hotel/img_pasillo.jpg" alt="Galería acristalada sobre los arcos del patio" loading="lazy">
+      </div>
+      <div class="care__body story__body">
+        <h2 class="care__title reveal">Una casa que acoge<br class="br-desktop"> y enamora</h2>
+        <div class="care__text story__text reveal">
+          <p>Antes de ser hotel, estas paredes formaron parte del antiguo Hospital de los Santos Mártires, un edificio mudéjar levantado entre los siglos XV y XVI. En aquel tiempo, un hospital era ante todo una casa de acogida, un lugar donde se recibía a quien llegaba necesitado de cuidado y de descanso. Hospital y hospitalidad comparten raíz, la misma palabra latina que nombraba a la vez al huésped y al anfitrión, y la casa parece haberlo recordado. Con los siglos cambió de uso, pero conserva el fondo de la palabra, que es acoger.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EL FLECHAZO · GERARDO HOLGADO ============ -->
+    <section class="founder">
+      <div class="founder__photo reveal"><img src="assets/img/hotel/img_gerardo_padre.png" alt="Gerardo Holgado" loading="lazy"></div>
+      <p class="founder__quote reveal">Esa vocación de acoger también atrajo a quien un día cruzó su puerta. Viento 10 nació de un flechazo.</p>
+      <button class="founder__more reveal" type="button" aria-expanded="false" aria-controls="relato">
+        <span class="founder__icon" aria-hidden="true"></span>
+        Ver el relato<br>de Gerardo Holgado
+      </button>
+      <div class="founder__story" id="relato">
+        <div>
+          <p>Es una tarde veraniega del año 2005. Voy paseando por la calle del Sol. En una farola alguien ha puesto un anuncio de una casa que se vende en el barrio. Tiene un teléfono de contacto y la curiosidad me insta a llamar.</p>
+          <p>Del otro lado contesta una mujer, Mabel. Quedamos en vernos esa tarde en la misma casa, que queda al lado, en el número 10 de la calle del Viento. Al doblar la esquina de la calle, una brisa deliciosa acaricia los muros de la vieja Iglesia de Santiago y me envuelve. Parece que el verano ha hecho una pausa y con cada paso que doy me adentro en otra estación. Toco la puerta. Me abre Carlos, el marido de Mabel. Al entrar en la casa, me encuentro con un patio irregular y fresco. Un toldo verde cubre el patio desde la azotea y me acuerdo de la casa de mi abuela María.</p>
+          <p>Carlos es luthier de profesión y Mabel es concertista de chelo. Tienen un niño pequeño que andurrea por el patio. El olor a madera trabajada que sale del taller de Carlos lo impregna todo.</p>
+          <p>Me enseñan la casa y, pese a las obras superpuestas que afean la casa original, hay algo en ella que me hechiza profundamente. A pesar de no tener intención de comprar nada (tampoco tengo dinero), quedo con ellos para seguir charlando otro día.</p>
+          <p>Sospecho que detrás de esta segunda cita hay un viejo deseo que ahora busca salir a la superficie. Un deseo que ha ido tomando forma en cada viaje que hemos hecho Gema y yo, pero que a la vez es aún más antiguo. Un sueño de cuando era niño y construía casas de barro y cantos rodados con las manos. Un sueño moldeado por esa hospitalidad natural de mi abuela María López Alarcón y que corre por mis venas también.</p>
+          <p>Y así, con estos mimbres, me dispongo a entregarme al destino. Pero el caso es que no tengo un chavo…</p>
+          <p class="founder__sign">Gerardo Holgado</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LA CASA QUE FUE, LA CASA QUE ES ============ -->
+    <section class="remodel">
+      <!-- Carrusel continuo con las fotos de la remodelación (mismo componente que Experiencia en la Home) -->
+      <div class="strip strip--remodel reveal">
+        <div class="strip__track">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/00_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/01_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/02_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/03_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/04_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/05_remodelacion.jpeg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/06_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/07_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/08_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/09_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+            <img class="strip__img" src="assets/img/hotel/_img_remodelacion/10_remodelacion.jpg" alt="Remodelación de la casa" loading="lazy">
+        </div>
+      </div>
+      <div class="care__body story__body">
+        <h2 class="care__title reveal">La casa que fue,<br>la casa que es</h2>
+        <div class="care__text story__text reveal">
+          <p>Gerardo, padre de quien hoy dirige el hotel, se asoció con sus amigos Cinta y Quino para sacar adelante la casa, y la obra tardó seis años. Bajo el enlucido aparecieron restos arqueológicos que decidieron dejar a la vista: un arco original, hoy conservado dentro de una de las habitaciones. Abogado jubilado y apasionado de la arquitectura y el diseño desde niño, Gerardo tuvo mucho que ver en cómo quedó la casa, hoy envuelta en una arquitectura contemporánea, sobria y luminosa. Decisión a decisión, la casa fue tomando su forma.</p>
+          <p>De aquel tiempo también queda un nombre. Viene de la antigua Calle del Viento, llamada así porque, al estar cerca del gran meandro del Guadalquivir, recogía las corrientes de aire que viajaban a lomos del río, como un embudo de piedra. Ese mismo viento desembocaba en la Calle del Sol, hoy Calle Agustín Moreno. Con sus antiguos nombres, las calles de Córdoba serían aún más hermosas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LA CALLE DEL VIENTO: dos fotos con pie ============ -->
+    <section class="street">
+      <figure class="street__item reveal">
+        <img src="assets/img/hotel/img_exterior.jpg" alt="Entrada de Viento 10 con el rótulo del hotel" loading="lazy">
+        <figcaption class="caption">La entrada de Viento 10, discreta y blanca como el resto de la calle.</figcaption>
+      </figure>
+      <figure class="street__item street__item--low reveal">
+        <img src="assets/img/hotel/img_viento10_rotulo.jpg" alt="Placa antigua de la Calle del Viento" loading="lazy">
+        <figcaption class="caption">Una placa antigua conserva el nombre de la calle y, con él, el de la casa.</figcaption>
+      </figure>
+      <figure class="street__item street__item--wide reveal">
+        <img src="assets/img/hotel/img_entrada_patio.jpg" alt="Escultura bajo el arco de columnas del patio" loading="lazy">
+        <figcaption class="caption">Piedra antigua y líneas de hoy, en el mismo encuadre.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ GERARDO HOLGADO (HIJO) ============ -->
+    <section class="founder founder--son">
+      <div class="founder__photo reveal"><img src="assets/img/hotel/img_gerardo.jpg" alt="Gerardo Holgado, gerente de Viento 10" loading="lazy"></div>
+      <p class="founder__quote reveal">Mi padre fue siempre un hombre soñador. Este hotel es una parte de ese sueño, que se extiende como una bruma otoñal en el valle del Guadalquivir y hace más bella la vida en la tierra.</p>
+      <p class="founder__sign-off reveal"><strong>Gerardo Holgado</strong><br>Actual gerente de Viento 10</p>
+    </section>
+
+    <!-- ============ DESPEDIDA ============ -->
+    <section class="farewell">
+      <img class="farewell__feather farewell__leaf reveal" data-parallax="0.15" src="assets/img/hotel/img_hoja_ilustracion.png" alt="" loading="lazy">
+      <p class="script-title farewell__script reveal" data-parallax="0.05">Te esperamos<br>en Viento 10</p>
+    </section>
+
+    <!-- ============ MÁS SOBRE VIENTO 10 ============ -->
+    <section data-dark class="more">
+      <img class="more__bg" data-parallax="0.1" src="assets/img/hotel/img_fuente.jpg" alt="" loading="lazy">
+      <div class="more__inner reveal">
+        <p class="eyebrow more__eyebrow">Más sobre Viento 10</p>
+        <p class="more__text">Descubre el día a día en <a href="vivir.html">Vivir Viento 10</a>, la habitación<br class="br-desktop"> que te espera en <a href="habitaciones.html">Habitaciones</a> y los primeros pasos por<br class="br-desktop"> la <a href="cordoba.html">ciudad en Córdoba</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer data-dark class="footer">
+    <div class="footer__claim reveal">
+      <img class="footer__logo" src="assets/img/Home/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
+      <p class="footer__title">El viaje empieza al cruzar la puerta.<br>El tuyo, en Viento 10.</p>
+    </div>
+
+    <div class="footer__main">
+      <nav class="footer__col" aria-label="Menú del pie">
+        <p class="footer__label">Menú</p>
+        <ul class="footer__menu">
+          <li><a href="hotel.html">El Hotel</a></li>
+          <li><a href="habitaciones.html">Habitaciones</a></li>
+          <li><a href="vivir.html">Vivir Viento 10</a></li>
+          <li><a href="cordoba.html">Sobre Córdoba</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col" id="contacto">
+        <p class="footer__label">Dirección</p>
+        <address class="footer__address">
+          <p>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba (España)</p>
+          <p><a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a><br><a href="tel:+34744655732">+34 744 655 732</a></p>
+        </address>
+      </div>
+
+      <ul class="footer__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__michelin"><img src="assets/img/Home/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
+      <ul class="footer__legal">
+        <li><a href="#">Aviso legal</a></li>
+        <li><a href="#">Privacidad</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+      <p class="footer__copy">Viento 10 2026</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

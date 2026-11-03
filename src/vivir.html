@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es" class="is-loading">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivir Viento 10 • Viento 10, hotel boutique en Córdoba</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ PANTALLA DE CARGA ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 104 150" width="104" height="150"><path pathLength="1" style="--i: 0" d="M51.73 .91C79.75 .91 102.55 23.71 102.55 51.71V98.29C102.55 126.29 79.75 149.09 51.73 149.09C23.71 149.09 .91 126.29 .91 98.29V51.71C.91 23.71 23.71 .91 51.73 .91Z"/><path pathLength="1" style="--i: 1" d="M.91 87.2H102.55"/><path pathLength="1" style="--i: 2" d="M51.73 17.9V72.52"/><path pathLength="1" style="--i: 3" d="M79.45 39.17L51.73 46.6"/><path pathLength="1" style="--i: 4" d="M76.58 32.25L51.73 46.6"/><path pathLength="1" style="--i: 5" d="M72.02 26.31L51.73 46.6"/><path pathLength="1" style="--i: 6" d="M66.08 21.75L51.73 46.6"/><path pathLength="1" style="--i: 7" d="M59.16 18.88L51.73 46.6"/><path pathLength="1" style="--i: 8" d="M44.30 18.88L51.73 46.6"/><path pathLength="1" style="--i: 9" d="M37.38 21.75L51.73 46.6"/><path pathLength="1" style="--i: 10" d="M31.44 26.31L51.73 46.6"/><path pathLength="1" style="--i: 11" d="M26.88 32.25L51.73 46.6"/><path pathLength="1" style="--i: 12" d="M24.01 39.17L51.73 46.6"/><path pathLength="1" style="--i: 13" d="M33.43 106.6L41.63 103.6V147.6"/><path pathLength="1" style="--i: 14" d="M60.51 103.89C67.08 103.89 72.41 110.54 72.41 118.74C72.41 126.94 67.08 133.59 60.51 133.59C53.94 133.59 48.61 126.94 48.61 118.74C48.61 110.54 53.94 103.89 60.51 103.89Z"/></svg>
+    <p class="loader__text">Hotel Viento 10<br>Córdoba</p>
+  </div>
+  <noscript><style>.loader { display: none; } html.is-loading { overflow: auto; background: none; }</style></noscript>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <a class="hero__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" data-dark-src="assets/img/Home/slider_hero/logo-viento_oscuro.svg" alt="Viento 10 · Inicio" width="210" height="40"></a>  <!-- logo fijo, siempre visible -->
+    <div class="header__meta">
+      <nav class="header__nav" aria-label="Principal">
+        <a href="habitaciones.html">Habitaciones</a>
+        <a href="hotel.html">El hotel</a>
+        <a href="vivir.html">Vivir Viento 10</a>
+      </nav>
+    </div>
+    <div class="lang header__lang" id="lang">
+      <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <span class="lang__current">ES</span>
+        <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <ul class="lang__list" hidden>
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+    </div>
+    <div class="header__actions">
+      <a href="#" class="btn btn--light">Reservar</a>
+      <button class="btn btn--olive menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+    </div>
+  </header>
+
+  <!-- ============ MENÚ DESPLEGABLE ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__col">
+      <a class="menu__logo" href="index.html"><img src="assets/img/Home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
+      <nav class="menu__nav" aria-label="Menú">
+        <a href="index.html" style="--i: 0"><span>Inicio</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El hotel</span></a>
+        <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vivir Viento 10</span></a>
+        <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
+        <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
+      </nav>
+      <ul class="menu__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+    <div class="menu__media">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/Home/Menu/img_hierba_viento.png" alt="" loading="lazy">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/hotel/img_fuente.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/Habitaciones/imagenes_recursos/img_luz_haitaciones.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/vivir_viento%2010/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/sobre%20cordoba/img_footer.jpg" alt="" loading="lazy">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/contacto/02_mapa_viento.jpg" alt="" loading="lazy">
+    </div>
+  </div>
+
+  <main>
+    <!-- ============ HERO · VIVIR VIENTO 10 ============ -->
+    <section data-dark class="hero hero--page" id="inicio">
+      <div class="hero__slides">
+        <img class="hero__bg is-active" src="assets/img/vivir_viento%2010/00_hero_piscina.jpg" alt="Huésped entrando en la alberca del patio">
+      </div>
+      <h1 class="hero__title">Así <em>se vive</em> Viento 10</h1>
+      <div class="hero__bottom">
+        <p class="hero__tagline">El tiempo<br>que se queda contigo</p>
+        <span class="hero__scroll" aria-hidden="true"></span> <!-- línea animada -->
+      </div>
+    </section>
+
+    <!-- ============ ENTRADA ============ -->
+    <section class="page-intro">
+      <div class="statement reveal">
+        <p class="statement__text">En Viento 10, la casa entera está pensada para que vivas cada día a tu manera, con un equipo cerca para lo que necesites.</p>
+      </div>
+    </section>
+    <!-- ============ ESPACIOS COMUNES ============ -->
+    <section class="feature">
+      <div class="feature__media reveal">
+        <img class="feature__img" data-parallax="0.1" src="assets/img/vivir_viento%2010/01_piscina_jardin.jpg" alt="Huésped flotando en la alberca del patio" loading="lazy">
+      </div>
+      <div class="care__body feature__body">
+        <h2 class="care__title reveal">Espacios comunes</h2>
+        <div class="care__text feature__text reveal">
+          <p>El corazón de la casa sigue siendo el mismo patio de columnas del siglo XVI. En él, la alberca es la mejor aliada de los días de calor cordobés: un agua fresca para dejar pasar las horas centrales y salir de nuevo a la ciudad cuando el sol afloja. Junto a ella, un salón acristalado y luminoso donde leer con el ruido de la ciudad ya lejos, y una terraza donde el día se apaga despacio. Arriba, en la azotea, un pequeño solárium se asoma a los tejados y torres de Córdoba.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pair">
+      <figure class="pair__item pair__item--tall reveal">
+        <img src="assets/img/vivir_viento%2010/02_piscina.jpg" alt="Ducha de cobre entre cipreses junto a la alberca" loading="lazy">
+      </figure>
+      <figure class="pair__item pair__item--mid pair__item--low reveal">
+        <img src="assets/img/vivir_viento%2010/img_espacios.gif" alt="Huésped leyendo en el salón" loading="lazy">
+        <figcaption class="caption">Espacios para quedarse, y para dejarse llevar.</figcaption>
+      </figure>
+    </section>
+    <!-- ============ DESAYUNO ============ -->
+    <section class="feature">
+      <div class="feature__media reveal">
+        <img class="feature__img" data-parallax="0.1" src="assets/img/vivir_viento%2010/04_desayuno.jpg" alt="Desayuno servido en la mesa: cruasán, zumo de naranja y mermeladas" loading="lazy">
+      </div>
+      <div class="care__body feature__body">
+        <h2 class="care__title reveal">Desayuno</h2>
+        <div class="care__text feature__text reveal">
+          <p>Aquí el día empieza sin prisa. Cada mañana, de 8:30 a 10:30, el desayuno se sirve junto al patio de columnas: fruta de temporada, zumo de naranja recién exprimido y todo casero, para empezar la jornada como se empieza en casa. Se reserva con antelación.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pair">
+      <figure class="pair__item pair__item--mid reveal">
+        <img src="assets/img/vivir_viento%2010/img_animacion_desayuno.gif" alt="Mesa del desayuno preparada para dos" loading="lazy">
+        <figcaption class="caption">Mañanas que empiezan en la mesa.</figcaption>
+      </figure>
+    </section>
+
+    <section class="vivir-script">
+      <p class="script-title reveal">Ummm… hecho aquí, con cariño</p>
+    </section>
+
+    <!-- ============ HAMMAM Y MASAJE ============ -->
+    <section class="feature feature--full">
+      <div class="feature__media reveal">
+        <img class="feature__img feature__img--static" src="assets/img/vivir_viento%2010/06_sauna-hammam.jpg" alt="Huésped descansando en el hammam" loading="lazy">
+      </div>
+      <div class="care__body feature__body">
+        <h2 class="care__title reveal">Hammam y masaje</h2>
+        <div class="care__text feature__text reveal">
+          <p>Para los días fríos, el hammam reúne sauna y duchas de agua fría y caliente. Para la piel, jabón beldi y arcilla ghassoul. Abre de 10:00 a 20:00 y cuesta 15 € por persona. <!-- pendiente: ¿por sesión o por estancia? --></p>
+          <p>Y si el cuerpo pide algo más, nuestro masajista ofrece masaje de cuerpo completo, de piernas, de espalda y brazos, o reflexología, con técnicas de aromaterapia.</p>
+          <p>Tanto el hammam como el masaje se hacen bajo reserva. Escríbenos por WhatsApp y el equipo lo organiza contigo.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pair pair--inset">
+      <figure class="pair__item pair__item--tall reveal">
+        <img src="assets/img/vivir_viento%2010/07_sauna-hammam.jpg" alt="Pie de un huésped en la sauna" loading="lazy">
+      </figure>
+      <figure class="pair__item pair__item--mid pair__item--low reveal">
+        <img src="assets/img/vivir_viento%2010/img_animacion_masaje.gif" alt="Manos del masajista sobre la camilla" loading="lazy">
+        <figcaption class="caption">Calor en la piel, aroma en el aire y el cuerpo que se afloja.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ============ COMODIDADES ============ -->
+    <section class="feature">
+      <div class="feature__media reveal">
+        <img class="feature__img" data-parallax="0.1" src="assets/img/vivir_viento%2010/09_ameneties_web.jpg" alt="Armario abierto y ventana con asiento en una habitación" loading="lazy">
+      </div>
+      <div class="care__body feature__body">
+        <h2 class="care__title reveal">Comodidades</h2>
+        <div class="care__text feature__text reveal">
+          <p>Cada habitación es distinta, y en todas hay lo necesario para sentirse en casa: wifi, baño privado, aire acondicionado para los días de calor, ropa de cama que invita a quedarse, toallas, albornoces y secador, con todo a punto cada día. La casa está retirando las televisiones de las habitaciones, a propósito: la noche se deja para el silencio, un libro o una conversación. El detalle de cada una está en <a class="text-link" href="habitaciones.html">Habitaciones</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pair">
+      <figure class="pair__item pair__item--wide reveal">
+        <img src="assets/img/vivir_viento%2010/10_camarera-pisos.jpg" alt="Camarera de pisos preparando la cama" loading="lazy">
+        <figcaption class="caption">Toallas frescas, a su hora.</figcaption>
+      </figure>
+      <figure class="pair__item pair__item--tall pair__item--lower reveal">
+        <img src="assets/img/vivir_viento%2010/img_ba%C3%B1o.gif" alt="Huésped en albornoz frente al espejo del baño" loading="lazy">
+      </figure>
+    </section>
+
+    <!-- ============ PREGÚNTALE AL EQUIPO ============ -->
+    <section class="page-intro page-intro--team">
+      <div class="statement reveal">
+        <p class="statement__text">Hay cosas que solo sabe quien vive en un sitio, no quien lo visita. Eso es lo que el equipo te ofrece antes, durante y después de tu estancia</p>
+      </div>
+    </section>
+
+    <section class="feature">
+      <div class="feature__media reveal">
+        <img class="feature__img" data-parallax="0.1" src="assets/img/vivir_viento%2010/12_equipo.jpg" alt="Dos personas del equipo de Viento 10 en el patio" loading="lazy">
+      </div>
+      <div class="care__body feature__body">
+        <h2 class="care__title reveal">Pregúntale al equipo</h2>
+        <div class="care__text feature__text reveal">
+          <p>Recomendaciones de restaurantes, gestión de taxis y billetes de tren o autobús: el equipo se ocupa de todo lo que no está en ninguna guía turística, porque lleva años viviendo aquí, no solo trabajando aquí. También gestiona tours a pie por la ciudad con guías oficiales de Córdoba, en tres formatos: relax, intensivo o privado a medida.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DESPEDIDA ============ -->
+    <section class="farewell">
+      <img class="farewell__feather reveal" data-parallax="0.15" src="assets/img/vivir_viento%2010/img_diente%20de%20leon.jpg" alt="" loading="lazy">
+      <p class="script-title farewell__script reveal" data-parallax="0.05">Te esperamos<br>en Viento 10</p>
+    </section>
+
+    <!-- ============ MÁS SOBRE VIENTO 10 ============ -->
+    <section data-dark class="more">
+      <img class="more__bg" data-parallax="0.1" src="assets/img/vivir_viento%2010/img_footer.jpg" alt="" loading="lazy">
+      <div class="more__inner reveal">
+        <p class="eyebrow more__eyebrow">Más sobre Viento 10</p>
+        <p class="more__text">Mira dónde te alojarías en <a href="habitaciones.html">Habitaciones</a>, conoce la<br class="br-desktop"> historia de la casa en <a href="hotel.html">El hotel</a> y los primeros pasos por la<br class="br-desktop"> ciudad en <a href="cordoba.html">Córdoba</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer data-dark class="footer">
+    <div class="footer__claim reveal">
+      <img class="footer__logo" src="assets/img/Home/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
+      <p class="footer__title">El viaje empieza al cruzar la puerta.<br>El tuyo, en Viento 10.</p>
+    </div>
+
+    <div class="footer__main">
+      <nav class="footer__col" aria-label="Menú del pie">
+        <p class="footer__label">Menú</p>
+        <ul class="footer__menu">
+          <li><a href="hotel.html">El Hotel</a></li>
+          <li><a href="habitaciones.html">Habitaciones</a></li>
+          <li><a href="vivir.html">Vivir Viento 10</a></li>
+          <li><a href="cordoba.html">Sobre Córdoba</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col" id="contacto">
+        <p class="footer__label">Dirección</p>
+        <address class="footer__address">
+          <p>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba (España)</p>
+          <p><a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a><br><a href="tel:+34744655732">+34 744 655 732</a></p>
+        </address>
+      </div>
+
+      <ul class="footer__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/Home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/Home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/Home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__michelin"><img src="assets/img/Home/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
+      <ul class="footer__legal">
+        <li><a href="#">Aviso legal</a></li>
+        <li><a href="#">Privacidad</a></li>
+        <li><a href="#">Cookies</a></li>
+      </ul>
+      <p class="footer__copy">Viento 10 2026</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
