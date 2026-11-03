@@ -1972,7 +1972,8 @@ html.is-loading body { background: transparent; }
 }
 .loader.is-mark .loader__mark path {
   stroke-dashoffset: 0;
-  transition-delay: calc(var(--i) * var(--loader-draw-stagger));
+  /* --i = orden de salida · --after: 1 = espera a que termine el palillo (las espigas) */
+  transition-delay: calc(var(--i) * var(--loader-draw-stagger) + var(--after, 0) * var(--loader-draw));
 }
 /* Texto inferior: aparece con un fundido y un sutil deslizamiento */
 .loader__text {

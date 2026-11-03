@@ -550,7 +550,7 @@ if (IS_SAFARI) document.documentElement.classList.add('is-safari');
       await wait(ms('--loader-mark-delay'));
       loader.classList.add('is-mark');
       // termina de dibujarse (líneas escalonadas + texto) y la página está cargada
-      const drawn = ms('--loader-draw') + 14 * ms('--loader-draw-stagger') + ms('--loader-mark-fade');
+      const drawn = 2 * ms('--loader-draw') + 14 * ms('--loader-draw-stagger') + ms('--loader-mark-fade'); // palillo + espigas
       await Promise.all([loaded, wait(drawn)]);
       await wait(ms('--loader-hold'));
       loader.classList.add('is-out');
