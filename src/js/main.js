@@ -90,14 +90,19 @@
   const update = () => {
     const vh = window.innerHeight;
     const factor = mobile.matches ? 0.5 : 1; // en móvil, la mitad de movimiento
+    // primero se mide todo y después se mueve todo: si se alterna medir y mover,
+    // el navegador recalcula la página una vez por elemento y el scroll va a saltos
+    const moves = [];
     items.forEach((el) => {
       const rect = el.getBoundingClientRect();
-      const shift = parseFloat(el.dataset.shift || 0); // desplazamiento ya aplicado
-      const top = rect.top - shift;                    // posición real, sin parallax
-      if (rect.bottom < -200 || top > vh + 200) return; // fuera de pantalla
+      const top = rect.top - parseFloat(el.dataset.shift || 0); // posición real, sin parallax
+      if (rect.bottom < -200 || top > vh + 200) return;         // fuera de pantalla
       const offset = (top + rect.height / 2 - vh / 2) * parseFloat(el.dataset.parallax) * factor;
-      el.dataset.shift = (-offset).toFixed(1);
-      el.style.translate = `0 ${el.dataset.shift}px`;
+      moves.push([el, (-offset).toFixed(1)]);
+    });
+    moves.forEach(([el, shift]) => {
+      el.dataset.shift = shift;
+      el.style.translate = `0 ${shift}px`;
     });
     ticking = false;
   };
@@ -237,17 +242,53 @@
 })();
 
 // ---------- Carrusel de fotos (Experiencia) ----------
-// Duplica las fotos: la animación CSS mueve media pista y vuelve al inicio sin que se note.
-// Sirve para todos los carruseles .strip (Experiencia en la Home, remodelación en El hotel).
+// Duplica las fotos y mueve la pista desde aquí, fotograma a fotograma: al llegar a la
+// mitad vuelve al inicio sin que se note. Velocidad: --strip-time (lo que tarda media pista).
+// Se hace con JS y no con animación CSS porque Safari, con una pista tan ancha, dejaba
+// huecos en blanco o daba tirones al hacer scroll.
+// Sirve para todos los carruseles .strip (Home, El hotel, Sobre Córdoba).
 (function () {
-  document.querySelectorAll('.strip .strip__track').forEach((track) => {
+  const time = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--strip-time')) || 120) * 1000;
+  const strips = [...document.querySelectorAll('.strip')].map((strip) => {
+    const track = strip.querySelector('.strip__track');
     [...track.children].forEach((img) => {
       const copy = img.cloneNode();
       copy.alt = '';
       copy.setAttribute('aria-hidden', 'true');
       track.appendChild(copy);
     });
+    return { strip, track, half: 0, visible: true };
   });
+  if (!strips.length) return;
+
+  // media pista + media separación: lo que recorre en una vuelta
+  const measure = () => strips.forEach((s) => {
+    const gap = parseFloat(getComputedStyle(s.track).columnGap) || 0;
+    s.half = (s.track.scrollWidth + gap) / 2;
+  });
+  measure();
+  window.addEventListener('load', measure);
+  window.addEventListener('resize', measure);
+
+  // fuera de pantalla no se calcula nada (al volver sigue donde iba: no se nota)
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      const s = strips.find((x) => x.strip === e.target);
+      if (s) s.visible = e.isIntersecting;
+    }));
+    strips.forEach((s) => io.observe(s.strip));
+  }
+
+  const start = performance.now();
+  const frame = (now) => {
+    strips.forEach((s) => {
+      if (!s.visible || !s.half) return;
+      const x = (((now - start) / time) % 1) * s.half;
+      s.track.style.transform = `translate3d(${-x.toFixed(2)}px, 0, 0)`;
+    });
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
 })();
 
 // ---------- Carrusel de opiniones ----------
@@ -288,11 +329,15 @@
 // En páginas sin hero (Sobre Córdoba) se mide con el alto de la pantalla.
 (function () {
   const hero = document.querySelector('.hero');
+  const targets = document.querySelectorAll('.header__meta, .header__lang, .hero__slides');
   let ticking = false;
   const update = () => {
     const height = hero ? hero.offsetHeight : window.innerHeight;
     const progress = Math.min(Math.max(window.scrollY / height, 0), 1);
-    document.documentElement.style.setProperty('--hero-cover', progress.toFixed(3));
+    // solo en los elementos que lo usan: ponerlo en <html> obligaba a recalcular toda la página en cada scroll
+    targets.forEach((el) => el.style.setProperty('--hero-cover', progress.toFixed(3)));
+    // tapado del todo: se oculta para que Safari deje de pintar el zoom de las fotos
+    if (hero) hero.classList.toggle('is-covered', progress >= 1);
     ticking = false;
   };
   window.addEventListener('scroll', () => {
@@ -509,11 +554,11 @@
       await wait(ms('--loader-mark-delay'));
       loader.classList.add('is-mark');
       // termina de dibujarse (líneas escalonadas + texto) y la página está cargada
-      const drawn = ms('--loader-draw') + 14 * ms('--loader-draw-stagger') + ms('--loader-mark-fade');
+      const drawn = 2 * ms('--loader-draw') + 14 * ms('--loader-draw-stagger') + ms('--loader-mark-fade'); // palillo + espigas
       await Promise.all([loaded, wait(drawn)]);
       await wait(ms('--loader-hold'));
       loader.classList.add('is-out');
-      await wait(ms('--loader-mark-fade'));
+      await wait(ms('--loader-mark-out'));
     } else {
       await loaded;
     }
@@ -528,11 +573,146 @@
     if (url.origin !== location.origin || !url.pathname.endsWith('.html')) return;
     if (url.pathname === location.pathname && url.hash) return; // ancla en la misma página
     e.preventDefault();
-    loader.classList.remove('is-mark', 'is-out', 'is-open');
-    root.classList.add('is-loading');
-    wait(ms('--loader-time') + 100).then(() => { location.href = url.href; });
+    // solo baja la cortina; la página sigue visible debajo hasta que la tapa
+    // (antes se ponía también .is-loading y el fondo verde aparecía de golpe dejando ver las fotos)
+    // Desde el menú abierto: primero se va su contenido (como al pulsar Cerrar) y luego baja la cortina
+    const fromMenu = document.body.classList.contains('menu-open') && link.closest('.menu');
+    if (fromMenu) document.body.classList.add('menu-leaving');
+    wait(fromMenu ? ms('--menu-text-time') : 0).then(() => {
+      loader.classList.remove('is-mark', 'is-out', 'is-open');
+      return wait(ms('--loader-time') + 100);
+    }).then(() => { location.href = url.href; });
   });
 
   // Al volver con "atrás" el navegador puede recuperar la página con la cortina bajada
-  window.addEventListener('pageshow', (e) => { if (e.persisted) open(); });
+  window.addEventListener('pageshow', (e) => { if (e.persisted) { document.body.classList.remove('menu-leaving'); open(); } });
+})();
+
+// ---------- Vídeos en bucle (Vivir Viento 10) ----------
+// Se reproducen solo mientras se ven: Safari a veces no los arranca solos con autoplay,
+// y pararlos fuera de pantalla aligera el scroll.
+(function () {
+  const videos = document.querySelectorAll('video[autoplay]');
+  if (!videos.length || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) e.target.play().catch(() => {});
+      else e.target.pause();
+    });
+  });
+  videos.forEach((v) => { v.muted = true; io.observe(v); });
+})();
+
+
+// ---------- Barra de reserva (Home) ----------
+// Calendario: primer clic = entrada, segundo = salida. Huéspedes con − y +.
+// Solo se abre un desplegable a la vez; se cierra al pulsar fuera o con Esc.
+(function () {
+  const bar = document.getElementById('booking');
+  if (!bar) return;
+  const $ = (name) => bar.querySelector(`[data-booking="${name}"]`);
+  const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const SHORT = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  const WEEK = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
+  const day0 = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const today = day0(new Date());
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const fmt = (d) => d ? `${d.getDate()} ${SHORT[d.getMonth()]} ${d.getFullYear()}` : '—';
+
+  let checkIn = today, checkOut = addDays(today, 1);
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  const guests = { adults: 1, kids: 0 };
+  const LIMITS = { adults: [1, 10], kids: [0, 10] };
+
+  const renderSummary = () => {
+    $('in').textContent = fmt(checkIn);
+    $('out').textContent = fmt(checkOut);
+    const a = guests.adults, k = guests.kids;
+    $('guests').textContent = `${a} ${a === 1 ? 'Adulto' : 'Adultos'}, ${k} ${k === 1 ? 'Niño' : 'Niños'}`;
+  };
+
+  const renderCalendar = () => {
+    const y = view.getFullYear(), m = view.getMonth();
+    const name = MONTHS[m];
+    $('month').textContent = `${name[0].toUpperCase()}${name.slice(1)} ${y}`;
+    bar.querySelector('[data-month="-1"]').disabled = y === today.getFullYear() && m === today.getMonth();
+    const box = $('days');
+    box.innerHTML = WEEK.map((w) => `<span class="booking__weekday">${w}</span>`).join('');
+    // Siempre 6 semanas (42 días): el calendario mide lo mismo en todos los meses.
+    // Los días del mes anterior y del siguiente rellenan los huecos, en color tenue.
+    const offset = (new Date(y, m, 1).getDay() + 6) % 7;       // la semana empieza en lunes
+    for (let i = 0; i < 42; i++) {
+      const date = new Date(y, m, 1 - offset + i);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'booking__day';
+      b.textContent = date.getDate();
+      b.disabled = date < today;
+      if (date.getMonth() !== m) b.classList.add('is-other');
+      const t = date.getTime();
+      if (checkIn && checkOut && t > checkIn.getTime() && t < checkOut.getTime()) b.classList.add('is-range');
+      if ((checkIn && t === checkIn.getTime()) || (checkOut && t === checkOut.getTime())) b.classList.add('is-end');
+      b.addEventListener('click', () => pick(date));
+      box.appendChild(b);
+    }
+  };
+
+  const pick = (date) => {
+    if (!checkIn || checkOut || date <= checkIn) { checkIn = date; checkOut = null; }   // empieza una selección nueva
+    else { checkOut = date; }
+    renderCalendar();
+    renderSummary();
+    if (checkOut) setTimeout(() => close(), 250);
+  };
+
+  // Abrir y cerrar desplegables
+  const toggles = [...bar.querySelectorAll('.booking__toggle')];
+  const close = () => {
+    toggles.forEach((t) => {
+      t.setAttribute('aria-expanded', 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = true;
+    });
+    if (checkIn && !checkOut) { checkOut = addDays(checkIn, 1); renderSummary(); renderCalendar(); } // sin salida: una noche
+  };
+  toggles.forEach((t) => t.addEventListener('click', () => {
+    const wasOpen = t.getAttribute('aria-expanded') === 'true';
+    close();
+    if (wasOpen) return;
+    t.setAttribute('aria-expanded', 'true');
+    document.getElementById(t.getAttribute('aria-controls')).hidden = false;
+  }));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.booking__field')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  bar.querySelectorAll('[data-month]').forEach((b) => b.addEventListener('click', () => {
+    view = new Date(view.getFullYear(), view.getMonth() + Number(b.dataset.month), 1);
+    renderCalendar();
+  }));
+
+  const renderGuests = () => {
+    Object.keys(guests).forEach((k) => {
+      $(k === 'adults' ? 'adults' : 'kids').textContent = guests[k];
+      bar.querySelector(`[data-step="${k}:-1"]`).disabled = guests[k] <= LIMITS[k][0];
+      bar.querySelector(`[data-step="${k}:1"]`).disabled = guests[k] >= LIMITS[k][1];
+    });
+    renderSummary();
+  };
+  bar.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => {
+    const [k, n] = b.dataset.step.split(':');
+    guests[k] = Math.min(LIMITS[k][1], Math.max(LIMITS[k][0], guests[k] + Number(n)));
+    renderGuests();
+  }));
+  bar.querySelector('.booking__confirm').addEventListener('click', close);
+
+  renderCalendar();
+  renderGuests();
+
+  // Se esconde al llegar al footer y vuelve al subir
+  const footer = document.querySelector('footer');
+  if (footer && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      bar.classList.toggle('is-hidden', e.isIntersecting);
+      if (e.isIntersecting) close();
+    }).observe(footer);
+  }
 })();
