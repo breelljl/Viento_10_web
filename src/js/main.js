@@ -575,12 +575,17 @@
     e.preventDefault();
     // solo baja la cortina; la página sigue visible debajo hasta que la tapa
     // (antes se ponía también .is-loading y el fondo verde aparecía de golpe dejando ver las fotos)
-    loader.classList.remove('is-mark', 'is-out', 'is-open');
-    wait(ms('--loader-time') + 100).then(() => { location.href = url.href; });
+    // Desde el menú abierto: primero se va su contenido (como al pulsar Cerrar) y luego baja la cortina
+    const fromMenu = document.body.classList.contains('menu-open') && link.closest('.menu');
+    if (fromMenu) document.body.classList.add('menu-leaving');
+    wait(fromMenu ? ms('--menu-text-time') : 0).then(() => {
+      loader.classList.remove('is-mark', 'is-out', 'is-open');
+      return wait(ms('--loader-time') + 100);
+    }).then(() => { location.href = url.href; });
   });
 
   // Al volver con "atrás" el navegador puede recuperar la página con la cortina bajada
-  window.addEventListener('pageshow', (e) => { if (e.persisted) open(); });
+  window.addEventListener('pageshow', (e) => { if (e.persisted) { document.body.classList.remove('menu-leaving'); open(); } });
 })();
 
 // ---------- Vídeos en bucle (Vivir Viento 10) ----------
@@ -596,4 +601,118 @@
     });
   });
   videos.forEach((v) => { v.muted = true; io.observe(v); });
+})();
+
+
+// ---------- Barra de reserva (Home) ----------
+// Calendario: primer clic = entrada, segundo = salida. Huéspedes con − y +.
+// Solo se abre un desplegable a la vez; se cierra al pulsar fuera o con Esc.
+(function () {
+  const bar = document.getElementById('booking');
+  if (!bar) return;
+  const $ = (name) => bar.querySelector(`[data-booking="${name}"]`);
+  const MONTHS = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const SHORT = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+  const WEEK = ['LUN', 'MAR', 'MIÉ', 'JUE', 'VIE', 'SÁB', 'DOM'];
+  const day0 = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const today = day0(new Date());
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const fmt = (d) => d ? `${d.getDate()} ${SHORT[d.getMonth()]} ${d.getFullYear()}` : '—';
+
+  let checkIn = today, checkOut = addDays(today, 1);
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  const guests = { adults: 1, kids: 0 };
+  const LIMITS = { adults: [1, 10], kids: [0, 10] };
+
+  const renderSummary = () => {
+    $('in').textContent = fmt(checkIn);
+    $('out').textContent = fmt(checkOut);
+    const a = guests.adults, k = guests.kids;
+    $('guests').textContent = `${a} ${a === 1 ? 'Adulto' : 'Adultos'}, ${k} ${k === 1 ? 'Niño' : 'Niños'}`;
+  };
+
+  const renderCalendar = () => {
+    const y = view.getFullYear(), m = view.getMonth();
+    const name = MONTHS[m];
+    $('month').textContent = `${name[0].toUpperCase()}${name.slice(1)} ${y}`;
+    bar.querySelector('[data-month="-1"]').disabled = y === today.getFullYear() && m === today.getMonth();
+    const box = $('days');
+    box.innerHTML = WEEK.map((w) => `<span class="booking__weekday">${w}</span>`).join('');
+    // Siempre 6 semanas (42 días): el calendario mide lo mismo en todos los meses.
+    // Los días del mes anterior y del siguiente rellenan los huecos, en color tenue.
+    const offset = (new Date(y, m, 1).getDay() + 6) % 7;       // la semana empieza en lunes
+    for (let i = 0; i < 42; i++) {
+      const date = new Date(y, m, 1 - offset + i);
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'booking__day';
+      b.textContent = date.getDate();
+      b.disabled = date < today;
+      if (date.getMonth() !== m) b.classList.add('is-other');
+      const t = date.getTime();
+      if (checkIn && checkOut && t > checkIn.getTime() && t < checkOut.getTime()) b.classList.add('is-range');
+      if ((checkIn && t === checkIn.getTime()) || (checkOut && t === checkOut.getTime())) b.classList.add('is-end');
+      b.addEventListener('click', () => pick(date));
+      box.appendChild(b);
+    }
+  };
+
+  const pick = (date) => {
+    if (!checkIn || checkOut || date <= checkIn) { checkIn = date; checkOut = null; }   // empieza una selección nueva
+    else { checkOut = date; }
+    renderCalendar();
+    renderSummary();
+    if (checkOut) setTimeout(() => close(), 250);
+  };
+
+  // Abrir y cerrar desplegables
+  const toggles = [...bar.querySelectorAll('.booking__toggle')];
+  const close = () => {
+    toggles.forEach((t) => {
+      t.setAttribute('aria-expanded', 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = true;
+    });
+    if (checkIn && !checkOut) { checkOut = addDays(checkIn, 1); renderSummary(); renderCalendar(); } // sin salida: una noche
+  };
+  toggles.forEach((t) => t.addEventListener('click', () => {
+    const wasOpen = t.getAttribute('aria-expanded') === 'true';
+    close();
+    if (wasOpen) return;
+    t.setAttribute('aria-expanded', 'true');
+    document.getElementById(t.getAttribute('aria-controls')).hidden = false;
+  }));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.booking__field')) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  bar.querySelectorAll('[data-month]').forEach((b) => b.addEventListener('click', () => {
+    view = new Date(view.getFullYear(), view.getMonth() + Number(b.dataset.month), 1);
+    renderCalendar();
+  }));
+
+  const renderGuests = () => {
+    Object.keys(guests).forEach((k) => {
+      $(k === 'adults' ? 'adults' : 'kids').textContent = guests[k];
+      bar.querySelector(`[data-step="${k}:-1"]`).disabled = guests[k] <= LIMITS[k][0];
+      bar.querySelector(`[data-step="${k}:1"]`).disabled = guests[k] >= LIMITS[k][1];
+    });
+    renderSummary();
+  };
+  bar.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => {
+    const [k, n] = b.dataset.step.split(':');
+    guests[k] = Math.min(LIMITS[k][1], Math.max(LIMITS[k][0], guests[k] + Number(n)));
+    renderGuests();
+  }));
+  bar.querySelector('.booking__confirm').addEventListener('click', close);
+
+  renderCalendar();
+  renderGuests();
+
+  // Se esconde al llegar al footer y vuelve al subir
+  const footer = document.querySelector('footer');
+  if (footer && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => {
+      bar.classList.toggle('is-hidden', e.isIntersecting);
+      if (e.isIntersecting) close();
+    }).observe(footer);
+  }
 })();

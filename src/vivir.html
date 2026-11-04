@@ -50,25 +50,29 @@
       <a class="menu__logo" href="index.html"><img src="assets/img/home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
       <nav class="menu__nav" aria-label="Menú">
         <a href="index.html" style="--i: 0"><span>Inicio</span></a>
-        <a href="hotel.html" style="--i: 1"><span>El hotel</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El Hotel</span></a>
         <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
-        <a href="vivir.html" style="--i: 3"><span>Vivir Viento 10</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vive Viento 10</span></a>
         <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
         <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
       </nav>
+      <p class="menu__contact">
+        <a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a>
+        <a href="tel:+34744655732">+34 744 655 732</a>
+      </p>
       <ul class="menu__social">
-        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
-        <li><a href="#" aria-label="Instagram"><img src="assets/img/home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
-        <li><a href="#" aria-label="Facebook"><img src="assets/img/home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/home/cordoba/img_whatsapp.svg" alt="" width="40" height="40"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/home/cordoba/img_instagram.svg" alt="" width="40" height="40"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/home/cordoba/img_facebook.svg" alt="" width="40" height="40"></a></li>
       </ul>
     </div>
     <div class="menu__media">
-      <img class="menu__img is-active" data-for="index.html" src="assets/img/home/Menu/img_hierba_viento.png" alt="">
-      <img class="menu__img" data-for="hotel.html" src="assets/img/hotel/img_fuente.jpg" alt="">
-      <img class="menu__img" data-for="habitaciones.html" src="assets/img/habitaciones/imagenes_recursos/img_luz_haitaciones.jpg" alt="">
-      <img class="menu__img" data-for="vivir.html" src="assets/img/vivir_viento%2010/img_footer.jpg" alt="">
-      <img class="menu__img" data-for="cordoba.html" src="assets/img/sobre%20cordoba/img_footer.jpg" alt="">
-      <img class="menu__img" data-for="contacto.html" src="assets/img/contacto/02_mapa_viento.jpg" alt="">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/home/Menu/img_hierba_viento.jpg" alt="">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/home/Menu/img_menu_hotel.jpg" alt="">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/home/Menu/img_menu_habitaciones.jpg" alt="">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/home/Menu/img_menu_vivir-viento.jpg" alt="">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/home/Menu/img_menu_sobre-cordoba.jpg" alt="">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/home/Menu/img_menu_contacto.jpg" alt="">
     </div>
   </div>
 
@@ -127,33 +131,42 @@
     </section>
 
     <section class="pair">
-      <figure class="pair__item pair__item--mid reveal">
+      <figure class="pair__item pair__item--narrow reveal">
         <video src="assets/img/vivir_viento%2010/Desayuno.mp4" autoplay muted loop playsinline aria-label="Mesa del desayuno preparada para dos"></video>
         <figcaption class="caption">Mañanas que empiezan en la mesa.</figcaption>
       </figure>
     </section>
 
-    <section class="vivir-script">
-      <p class="script-title reveal">Ummm… hecho aquí, con cariño</p>
+    <section class="vivir-script vivir-script--right">
+      <p class="script-title reveal">Ummm…<br>hecho aquí, con cariño</p>
+    </section>
+
+    <!-- ============ FOTO A TODO EL ANCHO ============ -->
+    <section class="wide-photo">
+      <img src="assets/img/vivir_viento%2010/08_piscina-jardin.jpg" alt="Butaca de madera junto a la alberca del patio">
+    </section>
+
+    <section class="vivir-script vivir-script--left">
+      <p class="script-title reveal">Luz de mañana, silencio<br>y todo el tiempo del mundo</p>
     </section>
 
     <!-- ============ HAMMAM Y MASAJE ============ -->
-    <section class="feature feature--full">
+    <section class="feature feature--offset">
       <div class="feature__media">
-        <img class="feature__img feature__img--static" src="assets/img/vivir_viento%2010/06_sauna-hammam.jpg" alt="Huésped descansando en el hammam">
+        <img class="feature__img" data-parallax="0.1" src="assets/img/vivir_viento%2010/06_sauna-hammam.jpg" alt="Huésped descansando en el hammam">
       </div>
       <div class="care__body feature__body">
         <h2 class="care__title reveal">Hammam y masaje</h2>
         <div class="care__text feature__text reveal">
-          <p>Para los días fríos, el hammam reúne sauna y duchas de agua fría y caliente. Para la piel, jabón beldi y arcilla ghassoul. Abre de 10:00 a 20:00 y cuesta 15 € por persona. <!-- pendiente: ¿por sesión o por estancia? --></p>
-          <p>Y si el cuerpo pide algo más, nuestro masajista ofrece masaje de cuerpo completo, de piernas, de espalda y brazos, o reflexología, con técnicas de aromaterapia.</p>
-          <p>Tanto el hammam como el masaje se hacen bajo reserva. Escríbenos por WhatsApp y el equipo lo organiza contigo.</p>
+          <p>Para los días fríos, el hammam reúne sauna y duchas de agua fría y caliente, con jabón beldi y arcilla ghassoul para la piel. Abre de 10:00 a 20:00 y cuesta 15 € por persona. <!-- pendiente: ¿por sesión o por estancia? --></p>
+          <p>Y si el cuerpo pide algo más, nuestro masajista ofrece masaje de cuerpo completo, de piernas, de espalda y brazos, o reflexología, con técnicas de aromaterapia. Tanto el hammam como el masaje se hacen bajo reserva: escríbenos por WhatsApp y el equipo lo organiza contigo.</p>
+          
         </div>
       </div>
     </section>
 
     <section class="pair pair--inset">
-      <figure class="pair__item pair__item--tall reveal">
+      <figure class="pair__item pair__item--small reveal">
         <img src="assets/img/vivir_viento%2010/07_sauna-hammam.jpg" alt="Pie de un huésped en la sauna">
       </figure>
       <figure class="pair__item pair__item--narrow pair__item--low reveal">
@@ -176,7 +189,7 @@
     </section>
 
     <section class="pair">
-      <figure class="pair__item pair__item--wide reveal">
+      <figure class="pair__item pair__item--mid reveal">
         <img src="assets/img/vivir_viento%2010/10_camarera-pisos.jpg" alt="Camarera de pisos preparando la cama">
         <figcaption class="caption">Toallas frescas, a su hora.</figcaption>
       </figure>
