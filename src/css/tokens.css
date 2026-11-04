@@ -76,6 +76,18 @@
 
   /* Pantalla de carga */
   --loader-time: .7s;         /* subida y bajada de la cortina de carga (menos = más rápido) */
+
+  /* Entrada en cada página (al subir la cortina) */
+  --enter-delay: .3s;        /* espera desde que empieza a subir la cortina */
+  --enter-zoom: 1.12;        /* tamaño inicial de la foto del hero (1 = sin zoom) */
+  --enter-zoom-time: 2.4s;   /* duración del zoom de la foto */
+  --enter-fade-time: 1.2s;   /* fundido de logo, cabecera, titular y textos */
+  --enter-distance: 20px;    /* cuánto suben al aparecer */
+  --enter-stagger: .2s;      /* retraso entre un grupo y el siguiente */
+
+  /* Sobre Córdoba · mapa de la ruta */
+  --route-top: 120px;        /* distancia de la frase al borde de arriba mientras la página está detenida */
+  --route-pin: 120vh;        /* cuánto scroll dura la parada: más = la línea se dibuja más despacio */
   --loader-mark-delay: 1s;  /* pausa con la pantalla vacía antes de que aparezca el símbolo */
   --loader-mark-fade: 1s;  /* entrada del texto del símbolo */
   --loader-mark-out: .4s;   /* salida: lo que tarda el símbolo en fundirse antes de que suba la cortina (menos = más rápido) */

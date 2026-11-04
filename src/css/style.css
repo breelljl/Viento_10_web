@@ -1763,7 +1763,7 @@ body.page-cream { background: var(--c-cream); }
 .guide__degrees { display: block; width: 143px; margin: 0 auto 45px; }
 
 /* Ruta: foto del río a todo el ancho con el título y el mapa encima */
-.route { position: relative; overflow: hidden; color: var(--c-white); }
+.route { position: relative; overflow: clip; color: var(--c-white); } /* clip (no hidden): así el mapa puede quedarse fijo */
 .route__bg { display: block; width: 100%; height: auto; }
 .route__inner { position: absolute; inset: 0; padding: 11.25rem var(--gutter) 0; } /* 180px arriba */
 .route__title {
@@ -1774,7 +1774,11 @@ body.page-cream { background: var(--c-cream); }
   font-size: var(--fs-lead);
   line-height: 1.2;
 }
-.route__map { display: block; width: 78.5vw; max-width: 1130px; margin: 220px 0 0 -4px; } /* 1130px a 1440 */
+.route__map { display: block; width: 78.5vw; max-width: 1130px; height: auto; margin: 160px auto 0; } /* 1130px a 1440 · 160px bajo el titular · centrado */
+/* La página se detiene con la frase y el mapa arriba; main.js calcula --route-stick */
+.route__sticky { position: sticky; top: calc(-1 * var(--route-stick, 0px)); }
+.route__pin { height: var(--route-pin); }
+.route__line { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--route-progress, 0)); }
 
 /* Recuadro de contacto */
 .guide__contact {
@@ -2138,6 +2142,8 @@ html.is-loading body { background: transparent; }
   cursor: pointer;
 }
 .booking__toggle b { font-weight: 500; }
+.booking__toggle { transition: opacity .3s var(--ease); }
+.booking__toggle:hover { opacity: .7; }        /* mismo hover que Ver disponibilidad y el teléfono */
 .booking__chevron {
   width: 8px;
   height: 8px;
@@ -2262,3 +2268,26 @@ html.is-loading body { background: transparent; }
   .booking__phone { width: var(--booking-h); }
 }
 @media (max-width: 600px) { .booking__title { display: none; } .booking__cta { flex: 1; margin-left: 0; border-left: 0; } }
+
+
+/* ==========================================================
+   ENTRADA EN CADA PÁGINA · al subir la cortina de carga
+   La foto del hero hace zoom (de --enter-zoom a su tamaño) y logo, cabecera,
+   titular y textos aparecen con fundido subiendo --enter-distance.
+   main.js pone .is-entering en <html> al abrir la cortina
+   ========================================================== */
+@keyframes enter-zoom { from { scale: var(--enter-zoom); } }
+@keyframes enter-fade { from { opacity: 0; translate: 0 var(--enter-distance); } }
+.is-entering .hero__slides {
+  animation: enter-zoom var(--enter-zoom-time) var(--ease) var(--enter-delay) backwards;
+}
+.is-entering :is(.hero__logo, .header__meta, .header__lang, .header__actions, .hero__title, .hero__bottom) {
+  animation: enter-fade var(--enter-fade-time) var(--ease) backwards;
+}
+/* uno detrás de otro: cabecera → titular → textos de abajo */
+.is-entering :is(.hero__logo, .header__meta, .header__lang, .header__actions) { animation-delay: calc(var(--enter-delay) + var(--enter-stagger)); }
+.is-entering .hero__title  { animation-delay: calc(var(--enter-delay) + 2 * var(--enter-stagger)); }
+.is-entering .hero__bottom { animation-delay: calc(var(--enter-delay) + 3 * var(--enter-stagger)); }
+@media (prefers-reduced-motion: reduce) {
+  .is-entering :is(.hero__slides, .hero__logo, .header__meta, .header__lang, .header__actions, .hero__title, .hero__bottom) { animation: none; }
+}

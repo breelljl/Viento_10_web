@@ -546,7 +546,13 @@
     sessionStorage.setItem('v10-intro', '1');
   } catch (e) {}
 
-  const open = () => { loader.classList.add('is-open'); root.classList.remove('is-loading'); };
+  // Al subir la cortina: la foto del hero se acerca y el resto aparece con fundido y desplazamiento
+  const open = () => {
+    loader.classList.add('is-open');
+    root.classList.remove('is-loading');
+    root.classList.add('is-entering');
+    wait(ms('--loader-time') + ms('--enter-zoom-time') + 1000).then(() => root.classList.remove('is-entering'));
+  };
   root.classList.add('is-loading');
 
   (async () => {
@@ -585,7 +591,7 @@
   });
 
   // Al volver con "atrás" el navegador puede recuperar la página con la cortina bajada
-  window.addEventListener('pageshow', (e) => { if (e.persisted) { document.body.classList.remove('menu-leaving'); open(); } });
+  window.addEventListener('pageshow', (e) => { if (e.persisted) { document.body.classList.remove('menu-leaving'); root.classList.remove('is-entering'); void root.offsetWidth; open(); } });
 })();
 
 // ---------- Vídeos en bucle (Vivir Viento 10) ----------
@@ -681,7 +687,10 @@
     t.setAttribute('aria-expanded', 'true');
     document.getElementById(t.getAttribute('aria-controls')).hidden = false;
   }));
-  document.addEventListener('click', (e) => { if (!e.target.closest('.booking__field')) close(); });
+  // composedPath: el día pulsado ya se ha redibujado (no está en la página), pero el camino del clic sí se conserva
+  document.addEventListener('click', (e) => {
+    if (!e.composedPath().some((el) => el.classList && el.classList.contains('booking__field'))) close();
+  });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 
   bar.querySelectorAll('[data-month]').forEach((b) => b.addEventListener('click', () => {
@@ -715,4 +724,33 @@
       if (e.isIntersecting) close();
     }).observe(footer);
   }
+})();
+
+
+// ---------- Ruta de Sobre Córdoba ----------
+// La foto y el mapa se quedan quietos (sticky) con la frase a --route-top del borde de arriba;
+// durante --route-pin de scroll la línea se dibuja y, al completarse, la página sigue bajando.
+(function () {
+  const section = document.querySelector('.route');
+  const map = document.querySelector('.route__map');
+  const title = document.querySelector('.route__title');
+  const pin = document.querySelector('.route__pin');
+  if (!section || !map || !title || !pin) return;
+  const css = getComputedStyle(document.documentElement);
+  let stick = 0, ticking = false;
+  const measure = () => {
+    stick = Math.max(0, title.offsetTop - (parseFloat(css.getPropertyValue('--route-top')) || 0));
+    section.style.setProperty('--route-stick', stick + 'px');
+  };
+  const update = () => {
+    ticking = false;
+    const moved = -section.getBoundingClientRect().top - stick;   // scroll desde que se detuvo
+    const p = Math.min(1, Math.max(0, moved / pin.offsetHeight));
+    map.style.setProperty('--route-progress', p.toFixed(4));
+  };
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  window.addEventListener('resize', () => { measure(); update(); });
+  window.addEventListener('load', () => { measure(); update(); });
+  measure();
+  update();
 })();
