@@ -2,11 +2,6 @@
 // Viento 10 · interacciones
 // ==========================================================
 
-// ---------- Safari ----------
-// Marca la página con .is-safari para aligerar allí los efectos (ver style.css y el parallax).
-const IS_SAFARI = /Safari/.test(navigator.userAgent) && !/Chrome|Chromium|CriOS|FxiOS|Android/.test(navigator.userAgent);
-if (IS_SAFARI) document.documentElement.classList.add('is-safari');
-
 // ---------- Selector de idioma ----------
 // Solo cambia la etiqueta visible; las traducciones están pendientes.
 (function () {
@@ -95,7 +90,6 @@ if (IS_SAFARI) document.documentElement.classList.add('is-safari');
   const update = () => {
     const vh = window.innerHeight;
     const factor = mobile.matches ? 0.5 : 1; // en móvil, la mitad de movimiento
-    const safari = IS_SAFARI ? parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--safari-parallax')) : 1;
     // primero se mide todo y después se mueve todo: si se alterna medir y mover,
     // el navegador recalcula la página una vez por elemento y el scroll va a saltos
     const moves = [];
@@ -103,7 +97,7 @@ if (IS_SAFARI) document.documentElement.classList.add('is-safari');
       const rect = el.getBoundingClientRect();
       const top = rect.top - parseFloat(el.dataset.shift || 0); // posición real, sin parallax
       if (rect.bottom < -200 || top > vh + 200) return;         // fuera de pantalla
-      const offset = (top + rect.height / 2 - vh / 2) * parseFloat(el.dataset.parallax) * factor * (isNaN(safari) ? 1 : safari);
+      const offset = (top + rect.height / 2 - vh / 2) * parseFloat(el.dataset.parallax) * factor;
       moves.push([el, (-offset).toFixed(1)]);
     });
     moves.forEach(([el, shift]) => {
@@ -248,43 +242,53 @@ if (IS_SAFARI) document.documentElement.classList.add('is-safari');
 })();
 
 // ---------- Carrusel de fotos (Experiencia) ----------
-// Duplica las fotos: la animación CSS mueve media pista y vuelve al inicio sin que se note.
-// Sirve para todos los carruseles .strip (Experiencia en la Home, remodelación en El hotel).
+// Duplica las fotos y mueve la pista desde aquí, fotograma a fotograma: al llegar a la
+// mitad vuelve al inicio sin que se note. Velocidad: --strip-time (lo que tarda media pista).
+// Se hace con JS y no con animación CSS porque Safari, con una pista tan ancha, dejaba
+// huecos en blanco o daba tirones al hacer scroll.
+// Sirve para todos los carruseles .strip (Home, El hotel, Sobre Córdoba).
 (function () {
-  document.querySelectorAll('.strip .strip__track').forEach((track) => {
+  const time = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--strip-time')) || 120) * 1000;
+  const strips = [...document.querySelectorAll('.strip')].map((strip) => {
+    const track = strip.querySelector('.strip__track');
     [...track.children].forEach((img) => {
       const copy = img.cloneNode();
       copy.alt = '';
       copy.setAttribute('aria-hidden', 'true');
       track.appendChild(copy);
     });
-    // distancia que recorre cada foto en una vuelta: la mitad de la pista + media separación
-    const measure = () => {
-      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-      const shift = `${-(track.scrollWidth + gap) / 2}px`;
-      if (track.style.getPropertyValue('--strip-shift') === shift) return;
-      track.style.setProperty('--strip-shift', shift);
-      // Safari no relee la variable en una animación ya en marcha: se reinicia
-      [...track.children].forEach((img) => { img.style.animation = 'none'; });
-      track.offsetWidth;
-      [...track.children].forEach((img) => { img.style.animation = ''; });
-    };
-    measure();
-    window.addEventListener('load', measure);
-    window.addEventListener('resize', measure);
-    track.querySelectorAll('img').forEach((img) => img.addEventListener('load', measure));
+    return { strip, track, half: 0, visible: true };
   });
+  if (!strips.length) return;
 
-  // Solo se mueve mientras se ve: fuera de pantalla se pausa. En Safari, un carrusel
-  // en marcha (aunque no se vea) bajaba el scroll de toda la página a tirones.
-  if (!('IntersectionObserver' in window)) return;
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => e.target.classList.toggle('is-paused', !e.isIntersecting));
+  // media pista + media separación: lo que recorre en una vuelta
+  const measure = () => strips.forEach((s) => {
+    const gap = parseFloat(getComputedStyle(s.track).columnGap) || 0;
+    s.half = (s.track.scrollWidth + gap) / 2;
   });
-  document.querySelectorAll('.strip').forEach((strip) => {
-    strip.classList.add('is-paused');
-    io.observe(strip);
-  });
+  measure();
+  window.addEventListener('load', measure);
+  window.addEventListener('resize', measure);
+
+  // fuera de pantalla no se calcula nada (al volver sigue donde iba: no se nota)
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      const s = strips.find((x) => x.strip === e.target);
+      if (s) s.visible = e.isIntersecting;
+    }));
+    strips.forEach((s) => io.observe(s.strip));
+  }
+
+  const start = performance.now();
+  const frame = (now) => {
+    strips.forEach((s) => {
+      if (!s.visible || !s.half) return;
+      const x = (((now - start) / time) % 1) * s.half;
+      s.track.style.transform = `translate3d(${-x.toFixed(2)}px, 0, 0)`;
+    });
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
 })();
 
 // ---------- Carrusel de opiniones ----------
@@ -569,8 +573,9 @@ if (IS_SAFARI) document.documentElement.classList.add('is-safari');
     if (url.origin !== location.origin || !url.pathname.endsWith('.html')) return;
     if (url.pathname === location.pathname && url.hash) return; // ancla en la misma página
     e.preventDefault();
+    // solo baja la cortina; la página sigue visible debajo hasta que la tapa
+    // (antes se ponía también .is-loading y el fondo verde aparecía de golpe dejando ver las fotos)
     loader.classList.remove('is-mark', 'is-out', 'is-open');
-    root.classList.add('is-loading');
     wait(ms('--loader-time') + 100).then(() => { location.href = url.href; });
   });
 

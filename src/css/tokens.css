@@ -71,10 +71,10 @@
   --room-card-brightness: 0.6; /* fotos de portada: 1 = original · 0.6 = 40% más oscura (igual que el hero) */
 
   /* Pantalla de carga */
-  --loader-time: 1s;         /* subida y bajada de la cortina de carga (menos = más rápido) */
+  --loader-time: .7s;         /* subida y bajada de la cortina de carga (menos = más rápido) */
   --loader-mark-delay: 1s;  /* pausa con la pantalla vacía antes de que aparezca el símbolo */
   --loader-mark-fade: 1s;  /* entrada del texto del símbolo */
-  --loader-mark-out: .5s;   /* salida: lo que tarda el símbolo en fundirse antes de que suba la cortina (menos = más rápido) */
+  --loader-mark-out: .4s;   /* salida: lo que tarda el símbolo en fundirse antes de que suba la cortina (menos = más rápido) */
   --loader-mark-distance: 15px; /* cuánto sube el texto mientras aparece */
   --loader-draw: 1s;      /* lo que tarda en dibujarse cada línea del símbolo */
   --loader-draw-stagger: .08s; /* retraso entre una línea y la siguiente */
@@ -99,11 +99,9 @@
   --scroll-line-time: 2.4s; /* duración de cada ciclo de la línea bajo "Scroll" */
   --hero-ui-fade: 0.5;      /* navegación, logo e idioma desaparecen al llevar este % del hero tapado (0.3 = 30%) */
 
-  /* Safari: aguanta peor los efectos al hacer scroll, así que allí van más suaves */
-  --safari-parallax: 0.5;   /* deslizamiento de las fotos en Safari: 1 = igual que en Chrome · 0.5 = la mitad · 0 = sin deslizamiento */
   --hero-cover-max: 0.8; /* oscuridad máxima cuando la siguiente sección lo tapa del todo (1 = negro) */
-  --hero-time: 20s;  /* tiempo que se ve cada foto antes de pasar a la siguiente */
+  --hero-time: 10s;  /* tiempo que se ve cada foto antes de pasar a la siguiente */
   --hero-fade: 3s;   /* duración del fundido entre fotos */
   --hero-zoom: 1.05;   /* zoom final de cada foto (1.08 = 8% más grande) */
-  --hero-zoom-time: 25s; /* duración del zoom: conviene que sea algo más que --hero-time + --hero-fade */
+  --hero-zoom-time: 15s; /* duración del zoom: conviene que sea algo más que --hero-time + --hero-fade */
 }

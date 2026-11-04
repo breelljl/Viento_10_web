@@ -131,16 +131,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   gap: 4px;
   width: 238px;
   padding: 4px;
-  background: rgba(84, 86, 33, 0.7); /* green-800 al 70% */
-  -webkit-backdrop-filter: blur(2px);
-          backdrop-filter: blur(2px);
+  background: rgba(84, 86, 33, 0.85); /* green-800 al 85%, sin desenfoque: el desenfoque se recalculaba en cada paso del scroll */
   border-radius: 12px;
-}
-/* Safari: sin desenfoque (lo recalculaba en cada paso del scroll) y algo más opaco para compensar */
-.is-safari .header__actions {
-  -webkit-backdrop-filter: none;
-          backdrop-filter: none;
-  background: rgba(84, 86, 33, 0.85);
 }
 .header__actions .btn { height: 50px; }   /* 58 − 4 − 4 */
 .header__actions .btn--light { width: 140px; }
@@ -375,7 +367,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* Collage de fotos: posiciones proporcionales al Figma de 1440px (1vw = 14.4px) */
 .collage { display: flex; align-items: flex-start; }
-.collage__img { height: auto; border-radius: var(--radius); object-fit: cover; }
+.collage__img { position: relative; overflow: hidden; border-radius: var(--radius); }
+/* Parallax dentro del marco: el marco queda quieto y la foto, un 20% más alta, se desliza dentro (data-parallax) */
+.collage__photo { position: absolute; top: -10%; left: 0; width: 100%; height: 120%; max-width: none; object-fit: cover; }
 
 /* ==========================================================
    SECCIÓN · BIENVENIDA
@@ -425,6 +419,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: opacity var(--reveal-time) ease-out, transform var(--reveal-time) var(--ease);
 }
 .js .reveal.is-visible { opacity: 1; transform: none; }
+/* Variante sutil: solo fundido, sin deslizamiento (fotos de Bienvenida) */
+.js .reveal--fade { transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__bg.is-active { transform: none; }
@@ -558,8 +554,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center;
   font-size: var(--fs-room-details);
   letter-spacing: .05em;
+  transition: opacity calc(var(--rooms-text-move) / 2) ease;
 }
-.rooms__details.is-hidden { visibility: hidden; } /* cambia de golpe, sin fundido */
+.rooms__details.is-hidden { opacity: 0; } /* fundido al cambiar de habitación */
 
 /* Texto solo para lectores de pantalla */
 .visually-hidden {
@@ -623,12 +620,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: flex;
   gap: 12px;
   width: max-content;
-}
-/* Se mueve cada foto, no la pista entera: Safari no sabe pintar una pista tan ancha
-   en movimiento y dejaba huecos en blanco. --strip-shift lo calcula main.js
-   (media pista + media separación, en px) */
-@keyframes strip-loop {
-  to { transform: translateX(var(--strip-shift, 0px)); }
+  will-change: transform;          /* la mueve main.js */
 }
 .strip__img {
   flex: none;
@@ -636,9 +628,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   max-width: none;
   height: 45.1vw;                  /* 650px a 1440 */
   border-radius: 8px;
-  animation: strip-loop var(--strip-time) linear infinite;
 }
-.strip.is-paused .strip__img { animation-play-state: paused; } /* fuera de pantalla no se mueve (lo pone main.js) */
 
 
 @media (max-width: 767px) {
@@ -1996,5 +1986,8 @@ html.is-loading body { background: transparent; }
 .loader.is-mark .loader__text { opacity: 1; transform: none; transition-delay: var(--loader-draw); }
 /* Salida: símbolo y texto se funden antes de que suba la cortina */
 .loader__mark { transition: opacity var(--loader-mark-fade) var(--ease); }
+/* sin dibujar, los extremos redondeados de las líneas dejaban puntos sueltos en la cortina:
+   el símbolo solo se ve mientras se dibuja */
+.loader:not(.is-mark) .loader__mark { opacity: 0; transition: none; }
 .loader.is-out .loader__mark,
 .loader.is-out .loader__text { opacity: 0; transition: opacity var(--loader-mark-out) var(--ease); }
