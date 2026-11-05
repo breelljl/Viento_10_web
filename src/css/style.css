@@ -1457,6 +1457,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   .care { padding: 0 var(--gutter-sm) 100px; }
   .care__media { aspect-ratio: 4 / 3; }
   .care__body { flex-direction: column; gap: 25px; margin-top: 30px; }
+  .care__text { flex-basis: auto; }      /* mismo motivo: el ancho de escritorio (665px) no debe volverse alto en columna */
   .care__text .care__lead { margin-bottom: 30px; }
   .care__script { margin-top: calc(80px - .6em); }
 }
@@ -1699,6 +1700,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 
 @media (max-width: 767px) {
   .feature__body { margin-top: 30px; }
+  .feature__text { flex-basis: auto; }   /* en columna, los 550px de ancho del escritorio se convertían en 550px de alto vacío */
   .pair { flex-direction: column; gap: 60px; padding: 80px var(--gutter-sm) 120px; }   /* 80px desde el texto de la sección anterior */
   .pair__item { width: 100% !important; margin: 0 !important; }
   .pair--inset { padding-right: var(--gutter-sm); }
