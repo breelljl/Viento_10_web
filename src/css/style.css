@@ -626,7 +626,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex: none;
   width: auto;
   max-width: none;
-  height: 45.1vw;                  /* 650px a 1440 */
+  height: 41.67vw;                 /* 600px a 1440 · mismo alto en todos los carruseles (Home, El hotel, Sobre Córdoba) */
   border-radius: 8px;
 }
 
@@ -1579,14 +1579,10 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
    Figma 1440: carrusel continuo de fotos de 600px de alto con esquinas redondeadas;
    debajo, el bloque de dos columnas de "Una casa que acoge" */
 .remodel { padding-bottom: 12.5rem; }
-.strip--remodel .strip__img {
-  height: 41.67vw;                            /* 600px a 1440 */
-}
 .story__text p + p { margin-top: 24px; }     /* separación entre párrafos */
 
 @media (max-width: 767px) {
   .remodel { padding-bottom: 100px; }
-  .strip--remodel .strip__img { height: 84vw; }
 }
 
 /* ---------- Página El hotel · Dos fotos de la calle ----------
@@ -1979,7 +1975,7 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   align-items: center;
   gap: 6px;
   position: absolute;
-  top: calc(50% + 258px);                     /* 80px por debajo de la última etiqueta */
+  top: calc(50% + 11.25rem + 78px);           /* mitad de las etiquetas (6 × 60px / 2) + 80px por debajo de la última */
   margin: 0;
   font-size: .875rem;                         /* 14px */
 }
@@ -2313,4 +2309,39 @@ html.is-loading body { background: transparent; }
   }
   .header__actions .btn { height: calc(50px * var(--laptop-scale)); } /* el texto ya baja con --laptop-text-scale */
   .header__actions .btn--light { width: calc(140px * var(--laptop-scale)); }
+
+  /* Menú: las etiquetas y el contacto ya bajan con los textos; aquí, logo, iconos, foto y márgenes */
+  .menu__logo { top: calc(55px * var(--laptop-scale)); }
+  .menu__logo img { width: calc(150px * var(--laptop-scale)); }
+  .menu__col::after { top: calc(87px * var(--laptop-scale)); bottom: calc(87px * var(--laptop-scale)); }
+  .menu__contact { top: calc(50% + 11.25rem + 78px * var(--laptop-scale)); }
+  .menu__social { bottom: calc(54px * var(--laptop-scale)); gap: calc(20px * var(--laptop-scale)); }
+  .menu__social img { width: calc(40px * var(--laptop-scale)); height: calc(40px * var(--laptop-scale)); }
+  .menu__media { width: calc(300px * var(--laptop-scale)); }
+
+  /* Fotos que no ocupan todo el ancho: bajan con --laptop-scale para caber mejor en pantallas bajas */
+  :root { --room-max: calc(1125px * var(--laptop-scale)); }   /* fotos grandes de Vivir, Habitaciones y El hotel */
+  .pair__item--tall   { width: calc(30.2vw * var(--laptop-scale)); }
+  .pair__item--mid    { width: calc(46.2vw * var(--laptop-scale)); }
+  .pair__item--wide   { width: calc(54.5vw * var(--laptop-scale)); }
+  .pair__item--narrow { width: calc(38.2vw * var(--laptop-scale)); }
+  .pair__item--small  { width: calc(22.2vw * var(--laptop-scale)); }
+  .pair__item--low    { margin-top: calc(21vw * var(--laptop-scale)); }
+  .pair__item--lower  { margin-top: calc(17.7vw * var(--laptop-scale)); }
+  .street__item       { width: calc(38vw * var(--laptop-scale)); }
+  .street__item--low  { width: calc(38.2vw * var(--laptop-scale)); margin-top: calc(12.15vw * var(--laptop-scale)); }
+  .street__item--wide { width: calc(46.2vw * var(--laptop-scale)); }
+  .collage__img--pool   { width: calc(14.1vw * var(--laptop-scale)); }
+  .collage__img--book   { width: calc(37.85vw * var(--laptop-scale)); }
+  .collage__img--stairs { width: calc(46.3vw * var(--laptop-scale)); }
+  .collage__img--garden { width: calc(22.1vw * var(--laptop-scale)); }
+  .contact__media { flex-basis: calc(665px * var(--laptop-scale)); }
+  .contact__row--arrive .contact__media { flex-basis: calc(550px * var(--laptop-scale)); }
+  .guide__grid { grid-template-columns: 1fr minmax(0, calc(665px * var(--laptop-scale))) 1fr; }
+
+  /* Sobre Córdoba · mapa del paseo: con la página detenida, frase y mapa caben enteros en la pantalla */
+  .route__map {
+    margin-top: calc(160px * var(--laptop-scale));
+    width: min(78.5vw, (100vh - var(--route-top) - 11rem - 160px * var(--laptop-scale) - 40px) * 1130 / 449);
+  }
 }
