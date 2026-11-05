@@ -1920,19 +1920,19 @@ body.menu-open .menu__nav a span {
   transition-delay: calc(var(--menu-time) + var(--i) * var(--menu-stagger));
 }
 /* Logo, redes e imagen: fundido con un sutil deslizamiento, después de las etiquetas */
-.menu__logo, .menu__contact, .menu__social, .menu__media {
+.menu__logo, .menu__lang, .menu__contact, .menu__social, .menu__media {
   opacity: 0;
   transform: translateY(var(--reveal-distance));
   transition: opacity var(--menu-text-time) var(--ease), transform var(--menu-text-time) var(--ease);
 }
-body.menu-open :is(.menu__logo, .menu__contact, .menu__social, .menu__media) {
+body.menu-open :is(.menu__logo, .menu__lang, .menu__contact, .menu__social, .menu__media) {
   opacity: 1;
   transform: none;
   transition-delay: calc(var(--menu-time) + 6 * var(--menu-stagger));
 }
 /* Al pulsar una etiqueta del menú: el contenido se va igual que al pulsar Cerrar, antes de bajar la cortina */
 body.menu-leaving .menu__nav a span { translate: 0 100%; transition-delay: 0s; }
-body.menu-leaving :is(.menu__logo, .menu__contact, .menu__social, .menu__media) {
+body.menu-leaving :is(.menu__logo, .menu__lang, .menu__contact, .menu__social, .menu__media) {
   opacity: 0;
   transform: translateY(var(--reveal-distance));
   transition-delay: 0s;
@@ -1966,6 +1966,7 @@ body.menu-open .menu__col::after {
 }
 body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
 .menu__logo { position: absolute; top: 55px; }
+.menu__lang { display: none; }                 /* el idioma del menú solo se ve en móvil */
 .menu__logo img { display: block; width: 150px; height: auto; }
 .menu__nav {
   display: flex;
@@ -2044,6 +2045,18 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   .menu__contact { grid-row: 4; position: static; margin: 0; gap: 14px; }   /* email y teléfono separados: cómodos de pulsar */
   .menu__contact a { padding: 6px 0; }
   .menu__social { grid-row: 6; position: static; }
+  /* Idioma bajo el logo: ES · EN · FR · DE, el elegido resaltado */
+  .menu__lang { display: flex; position: absolute; top: 75px; gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .menu__lang button {
+    min-width: 44px;                            /* zona cómoda para el dedo */
+    height: 36px;
+    font-size: var(--fs-meta);
+    letter-spacing: .08em;
+    color: inherit;
+    opacity: .5;
+    transition: opacity .3s var(--ease);
+  }
+  .menu__lang button[aria-current="true"] { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
 }
 
 /* ==========================================================
