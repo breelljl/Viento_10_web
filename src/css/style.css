@@ -643,6 +643,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .experience__text { margin: 32px 0 0; }
   .experience__text p { margin-bottom: 36px; }
   .strip__img { height: 84vw; }
+  .strip { margin-block: 80px; }   /* al menos 80px por encima y por debajo de cada carrusel */
   }
 
 /* Saltos de línea solo para escritorio: en móvil el texto fluye libre */
@@ -2031,10 +2032,17 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   .menu__logo { top: 25px; }
   .menu__nav a { font-size: 2rem; }
   /* Etiquetas, contacto e iconos en columna, centrados y sin solaparse; abajo queda sitio para Reservar/Cerrar */
-  .menu__col { justify-content: center; padding-bottom: 70px; }
-  .menu__nav { margin: 0; }
-  .menu__contact { position: static; margin-top: 32px; }
-  .menu__social { position: static; margin-top: 32px; }
+  /* Etiquetas en el centro exacto de la pantalla; debajo, el mismo espacio entre etiquetas → contacto →
+     iconos → botones. La primera fila (71px, medido en Safari) compensa para que el centro no se desplace */
+  .menu__col {
+    display: grid;
+    grid-template-rows: 71px 3fr auto 1fr auto 1fr auto 1fr;
+    justify-items: center;
+    padding: 100px 0;                           /* arriba y abajo igual: deja sitio al logo y a Reservar/Cerrar */
+  }
+  .menu__nav { grid-row: 3; margin: 0; }
+  .menu__contact { grid-row: 5; position: static; margin: 0; }
+  .menu__social { grid-row: 7; position: static; }
 }
 
 /* ==========================================================
