@@ -20,8 +20,6 @@
   --c-white:      #ffffff;
   --c-line:       rgba(64, 66, 26, .25);
   --c-loader-mark: #dfe0c3; /* símbolo y texto de la pantalla de carga */
-  --c-olive-mid:  #6c6f2b;   /* móvil: texto y borde del botón Reservar */
-  --c-olive-soft: #8a8e37;   /* móvil: fondo del botón Menú */
   --booking-h: 70px;         /* alto de la barra de reserva fija */
   --booking-hide: .6s;       /* bajada y subida de la barra al llegar o salir del footer */
   --booking-panel-gap: 40px; /* separación entre la barra y los desplegables (calendario y huéspedes) */
