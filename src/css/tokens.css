@@ -77,6 +77,10 @@
   /* Pantalla de carga */
   --loader-time: .7s;         /* subida y bajada de la cortina de carga (menos = más rápido) */
 
+  /* Portátiles */
+  --laptop-scale: .85;       /* portátiles (pantalla de menos de 900px de alto): tamaño del logo y de Reservar/Menú (1 = como en el Figma) */
+  --laptop-text-scale: .88;  /* portátiles: tamaño de los textos (1 = como en el Figma). Ej.: «Nuestras habitaciones» 64px → 56px */
+
   /* Entrada en cada página (al subir la cortina) */
   --enter-delay: .3s;        /* espera desde que empieza a subir la cortina */
   --enter-zoom: 1.12;        /* tamaño inicial de la foto del hero (1 = sin zoom) */

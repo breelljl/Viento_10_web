@@ -2296,3 +2296,21 @@ html.is-loading body { background: transparent; }
 @media (prefers-reduced-motion: reduce) {
   .is-entering :is(.hero__slides, .hero__logo, .header__meta, .header__lang, .header__actions, .hero__title, .hero__bottom) { animation: none; }
 }
+
+/* ==========================================================
+   PORTÁTILES (pantallas de escritorio poco altas, como un MacBook Air)
+   Logo y botones Reservar/Menú más pequeños, según --laptop-scale.
+   Se mantienen centrados a la misma altura que en el Figma
+   ========================================================== */
+@media (min-width: 768px) and (max-height: 900px) {
+  /* Todos los textos medidos en rem (titulares del hero, frases, párrafos…) bajan a la vez */
+  html { font-size: calc(100% * var(--laptop-text-scale)); }
+  .hero__logo img { width: calc(150px * var(--laptop-scale)); }
+  .header__actions {
+    top: calc(59px - 29px * var(--laptop-scale));      /* el centro sigue a 59px del borde */
+    width: calc(238px * var(--laptop-scale));
+    border-radius: calc(12px * var(--laptop-scale));
+  }
+  .header__actions .btn { height: calc(50px * var(--laptop-scale)); } /* el texto ya baja con --laptop-text-scale */
+  .header__actions .btn--light { width: calc(140px * var(--laptop-scale)); }
+}
