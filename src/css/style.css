@@ -401,14 +401,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .script-title { font-size: 3rem; }
 
   .collage { flex-direction: column; }
-  .collage--welcome { margin: 40px 0 84px; }
+  .collage--welcome { margin: 40px 0 120px; }   /* 120px hasta el texto «El hotel» */
   .collage__img--pool   { width: 44.4vw; margin: 0 0 0 20px; aspect-ratio: 173 / 260; }
   .collage__img--book   { width: 79vw;   margin: 47px 0 0 16.4vw; }
 
   .statement__text { font-size: 1.65rem; }
   .statement .link-arrow { margin-top: 36px; }
 
-  .collage--hotel { margin-top: 80px; }
+  .collage--hotel { margin-top: 120px; }         /* 120px desde «Descubre el hotel» */
   .collage__img--stairs { width: 78.5vw; margin: 0 0 0 20px; aspect-ratio: 306 / 196; }
   .collage__img--garden { width: 44vw;   margin: 41px 0 0 50.5vw; aspect-ratio: 172 / 260; }
 }
@@ -2036,13 +2036,14 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
      iconos → botones. La primera fila (71px, medido en Safari) compensa para que el centro no se desplace */
   .menu__col {
     display: grid;
-    grid-template-rows: 71px 3fr auto 1fr auto 1fr auto 1fr;
+    grid-template-rows: 2.6fr auto 1fr auto 1.4fr auto 1fr;   /* etiquetas y contacto un poco por encima del centro */
     justify-items: center;
     padding: 100px 0;                           /* arriba y abajo igual: deja sitio al logo y a Reservar/Cerrar */
   }
-  .menu__nav { grid-row: 3; margin: 0; }
-  .menu__contact { grid-row: 5; position: static; margin: 0; }
-  .menu__social { grid-row: 7; position: static; }
+  .menu__nav { grid-row: 2; margin: 0; }
+  .menu__contact { grid-row: 4; position: static; margin: 0; gap: 14px; }   /* email y teléfono separados: cómodos de pulsar */
+  .menu__contact a { padding: 6px 0; }
+  .menu__social { grid-row: 6; position: static; }
 }
 
 /* ==========================================================
@@ -2372,4 +2373,11 @@ html.is-loading body { background: transparent; }
     margin-top: 60px;                            /* menos aire entre frase y mapa */
     width: min(78.5vw, (100vh - var(--route-top) - 6rem - 60px - 24px) * 1130 / 449);
   }
+}
+
+/* Pantalla de carga · móvil: símbolo algo más pequeño y centrado en el hueco que queda
+   por encima del texto inferior (no en toda la pantalla), con el mismo aire arriba y abajo */
+@media (max-width: 767px) {
+  .loader { padding-bottom: 130px; }          /* texto inferior (80px + su alto): el símbolo se centra en el resto */
+  .loader__mark { width: 84px; }              /* 104px en escritorio */
 }
