@@ -33,7 +33,7 @@
   --fs-display: clamp(2.4rem, 5.6vw, 4rem);     /* Bienvenidos (script) */
   --fs-lead:    clamp(1.5rem, 2.5vw, 2.25rem); /* párrafos destacados (intros de página, «Más sobre Viento 10», ruta): 36px (Figma: 40px) */
   --fs-page-title: 3.5rem;                       /* 56px · titular del hero de las páginas interiores (Figma: 64px) */
-  --fs-entradilla: 2rem;                         /* 32px · Entradilla_h3 (citas de opiniones) */
+  --fs-entradilla: 1.75rem;                      /* 28px (Figma: 32px) · Entradilla_h3: opiniones, entradilla de cuidado (Habitaciones), cita del fundador (El hotel) y entradilla de Sobre Córdoba */
   --fs-body:    0.95rem;
   --fs-caption: 0.875rem;                       /* 14px · pies de foto */
   --fs-label:   0.8rem;                          /* mayúsculas espaciadas */
