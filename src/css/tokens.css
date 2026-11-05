@@ -32,8 +32,8 @@
 
   --fs-display: clamp(2.4rem, 5.6vw, 4rem);     /* Bienvenidos (script) */
   --fs-h2:      clamp(1.75rem, 2.6vw, 2.25rem); /* titulares Canela */
-  --fs-lead:    clamp(1.65rem, 2.78vw, 40px);   /* párrafos destacados: Canela 40px en Figma */
-  --fs-page-title: 4rem;                         /* 64px · titular del hero de las páginas interiores */
+  --fs-lead:    clamp(1.5rem, 2.5vw, 2.25rem); /* párrafos destacados (intros de página, «Más sobre Viento 10», ruta): 36px (Figma: 40px) */
+  --fs-page-title: 3.5rem;                       /* 56px · titular del hero de las páginas interiores (Figma: 64px) */
   --fs-entradilla: 2rem;                         /* 32px · Entradilla_h3 (citas de opiniones) */
   --fs-quote:   clamp(1.2rem, 1.8vw, 1.6rem);
   --fs-body:    0.95rem;

@@ -2314,9 +2314,9 @@ html.is-loading body { background: transparent; }
   .menu__logo { top: calc(55px * var(--laptop-scale)); }
   .menu__logo img { width: calc(150px * var(--laptop-scale)); }
   .menu__col::after { top: calc(87px * var(--laptop-scale)); bottom: calc(87px * var(--laptop-scale)); }
-  .menu__contact { top: calc(50% + 11.25rem + 78px * var(--laptop-scale)); }
-  .menu__social { bottom: calc(54px * var(--laptop-scale)); gap: calc(20px * var(--laptop-scale)); }
-  .menu__social img { width: calc(40px * var(--laptop-scale)); height: calc(40px * var(--laptop-scale)); }
+  .menu__contact { top: calc(50% + 11.25rem + min(50px, 5vh)); }   /* más cerca de las etiquetas: deja sitio a los iconos */
+  .menu__social { bottom: min(40px, 4.5vh); gap: min(16px, 2vh); }
+  .menu__social img { width: min(34px, 4.2vh); height: min(34px, 4.2vh); }  /* iconos según el alto de la pantalla */
   .menu__media { width: calc(300px * var(--laptop-scale)); }
 
   /* Fotos que no ocupan todo el ancho: bajan con --laptop-scale para caber mejor en pantallas bajas */
@@ -2338,6 +2338,9 @@ html.is-loading body { background: transparent; }
   .contact__media { flex-basis: calc(665px * var(--laptop-scale)); }
   .contact__row--arrive .contact__media { flex-basis: calc(550px * var(--laptop-scale)); }
   .guide__grid { grid-template-columns: 1fr minmax(0, calc(665px * var(--laptop-scale))) 1fr; }
+
+  /* Barra de reserva: en portátiles no se muestra (queda Reservar arriba) */
+  .booking { display: none; }
 
   /* Sobre Córdoba · mapa del paseo: con la página detenida, frase y mapa caben enteros en la pantalla */
   .route__map {
