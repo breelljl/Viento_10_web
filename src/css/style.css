@@ -2339,12 +2339,17 @@ html.is-loading body { background: transparent; }
   .contact__row--arrive .contact__media { flex-basis: calc(550px * var(--laptop-scale)); }
   .guide__grid { grid-template-columns: 1fr minmax(0, calc(665px * var(--laptop-scale))) 1fr; }
 
+  /* Pantalla de carga: símbolo y su distancia del texto inferior */
+  .loader__mark { width: calc(104px * var(--laptop-scale)); }
+  .loader__text { bottom: calc(80px * var(--laptop-scale)); }   /* el tamaño del texto ya baja con --laptop-text-scale */
+
   /* Barra de reserva: en portátiles no se muestra (queda Reservar arriba) */
   .booking { display: none; }
 
   /* Sobre Córdoba · mapa del paseo: con la página detenida, frase y mapa caben enteros en la pantalla */
+  :root { --route-top: 90px; }                 /* frase más arriba (justo bajo el logo) para dejar sitio al mapa */
   .route__map {
-    margin-top: calc(160px * var(--laptop-scale));
-    width: min(78.5vw, (100vh - var(--route-top) - 11rem - 160px * var(--laptop-scale) - 40px) * 1130 / 449);
+    margin-top: 60px;                            /* menos aire entre frase y mapa */
+    width: min(78.5vw, (100vh - var(--route-top) - 6rem - 60px - 24px) * 1130 / 449);
   }
 }
