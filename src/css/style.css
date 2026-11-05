@@ -453,6 +453,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: center;
   min-height: 100vh;
   min-height: 100svh;              /* en móvil, sin contar la barra del navegador */
+  padding-bottom: var(--rooms-text-up);   /* sube el texto respecto al centro de la pantalla */
   /* Se queda quieto (no sube ni se oscurece): el pase de habitaciones lo tapa al subir
      y el texto se funde mientras tanto (--rooms-cover lo pone main.js) */
   position: sticky;
@@ -586,8 +587,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .rooms__slider { height: 100svh; }
   .rooms__count { top: 90px; }
   :root { --fs-room-name: 1.25rem; --fs-room-details: .875rem; } /* 20px y 14px */
-  .rooms__names { top: auto; bottom: 230px; transform: none; }
-  .rooms__details { top: auto !important; bottom: 200px; } /* en móvil va anclado abajo; ignora la posición que calcula main.js */
+  /* Solo el nombre, en el centro de la foto (sin personas ni cama) */
+  .rooms__details { display: none; }
   .rooms__cta { bottom: 150px; }   /* deja sitio a los botones fijos */
 }
 
