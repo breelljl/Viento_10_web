@@ -773,3 +773,15 @@
   if (!footer || !('IntersectionObserver' in window)) return;
   new IntersectionObserver(([e]) => document.body.classList.toggle('at-footer', e.isIntersecting)).observe(footer);
 })();
+
+// ---------- Móvil: el logo fijo se va al bajar y vuelve al subir del todo ----------
+// (si no, se monta sobre los títulos de las secciones)
+(function () {
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    document.body.classList.toggle('past-top', window.scrollY > window.innerHeight * 0.5);
+  };
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+})();
