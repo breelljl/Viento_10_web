@@ -26,6 +26,20 @@
     option.setAttribute('aria-current', 'true');
     current.textContent = option.lang.toUpperCase(); // abreviado: ES, EN, FR, DE
     setOpen(false);
+    sync(option.lang);
+  });
+
+  // Idioma dentro del menú (móvil): mismas opciones, siempre a la vista
+  const menuLang = document.querySelector('.menu__lang');
+  const sync = (code) => {
+    [list, menuLang].forEach((group) => group && group.querySelectorAll('button').forEach((b) => {
+      if (b.lang === code) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    }));
+    current.textContent = code.toUpperCase();
+  };
+  if (menuLang) menuLang.addEventListener('click', (e) => {
+    const option = e.target.closest('button');
+    if (option) sync(option.lang);
   });
 
   document.addEventListener('click', (e) => {
