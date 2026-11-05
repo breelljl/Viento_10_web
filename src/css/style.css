@@ -626,7 +626,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex: none;
   width: auto;
   max-width: none;
-  height: 45.1vw;                  /* 650px a 1440 */
+  height: 41.67vw;                 /* 600px a 1440 · mismo alto en todos los carruseles (Home, El hotel, Sobre Córdoba) */
   border-radius: 8px;
 }
 
@@ -1371,13 +1371,13 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
    con 100px a los lados, flechas a los lados de la foto y miniaturas abajo a la izquierda */
 @media (min-width: 768px) {
   .gallery[open] { display: block; padding: 0; }
-  .gallery__head { position: absolute; top: 62px; left: 200px; right: 200px; text-align: center; } /* centrado, como antes */
+  .gallery__head { position: absolute; top: 62px; left: 200px; right: 200px; text-align: center; } /* centrado */
   .gallery__details { display: none; }       /* el diseño nuevo solo lleva el nombre */
   .gallery__close { top: 62px; right: 120px; }
   .gallery__stage { position: absolute; top: 124px; right: 100px; bottom: 125px; left: 100px; width: auto; }
   /* la foto entera, sin recortar, centrada en el hueco (medidas en pantalla: Safari no respeta el % aquí) */
   .gallery__img { max-width: calc(100vw - 200px); max-height: calc(100vh - 249px); }
-  .gallery__thumbs { position: absolute; left: 100px; right: 100px; bottom: 40px; } /* centradas, como antes */
+  .gallery__thumbs { position: absolute; left: 100px; right: 100px; bottom: 40px; } /* centradas */
   /* flechas a media altura, a 30px de los bordes */
   .gallery__nav {
     position: absolute;
@@ -1579,14 +1579,10 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
    Figma 1440: carrusel continuo de fotos de 600px de alto con esquinas redondeadas;
    debajo, el bloque de dos columnas de "Una casa que acoge" */
 .remodel { padding-bottom: 12.5rem; }
-.strip--remodel .strip__img {
-  height: 41.67vw;                            /* 600px a 1440 */
-}
 .story__text p + p { margin-top: 24px; }     /* separación entre párrafos */
 
 @media (max-width: 767px) {
   .remodel { padding-bottom: 100px; }
-  .strip--remodel .strip__img { height: 84vw; }
 }
 
 /* ---------- Página El hotel · Dos fotos de la calle ----------
@@ -1648,14 +1644,9 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   border-radius: var(--radius);
 }
 .feature__img { position: absolute; top: -10%; left: 0; width: 100%; height: 120%; object-fit: cover; }
-.feature__img--static { position: static; display: block; height: auto; } /* sin deslizamiento: la foto se ve entera, con su proporción */
 .feature__body { margin-top: 50px; }
 .feature__text { flex-basis: 550px; }
 .feature__text p + p { margin-top: 1.7em; }
-/* Hammam: foto a todo el ancho, sin esquinas; título y texto a 40px de los bordes */
-.feature--full { padding: 0; }
-.feature--full .feature__media { aspect-ratio: auto; border-radius: 0; } /* el alto lo marca la propia foto: no se recorta */
-.feature--full .feature__body { padding: 0 max(40px, (100% - var(--room-max)) / 2) 0 40px; } /* texto alineado con el de las otras secciones */
 /* Frase manuscrita entre secciones */
 .vivir-script { padding: 0 var(--gutter-sm) 17.5rem; text-align: center; }
 .vivir-script--right { padding-bottom: 7.5rem; text-align: right; }  /* «Ummm…»: a la derecha */
@@ -1685,7 +1676,6 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .pair__item { margin: 0; }
 .pair__item--tall { width: 30.2vw; }        /* 435px a 1440 */
 .pair__item--mid { width: 46.2vw; }        /* 665px a 1440 */
-.pair__item--wide { width: 54.5vw; }       /* 785px a 1440 */
 .pair__item--narrow { width: 38.2vw; }     /* 550px a 1440 */
 .pair__item--small { width: 22.2vw; }      /* 320px a 1440 */
 .pair__item--low { margin-top: 21vw; }      /* 300px más baja a 1440 */
@@ -1763,7 +1753,7 @@ body.page-cream { background: var(--c-cream); }
 .guide__degrees { display: block; width: 143px; margin: 0 auto 45px; }
 
 /* Ruta: foto del río a todo el ancho con el título y el mapa encima */
-.route { position: relative; overflow: hidden; color: var(--c-white); }
+.route { position: relative; overflow: clip; color: var(--c-white); } /* clip (no hidden): así el mapa puede quedarse fijo */
 .route__bg { display: block; width: 100%; height: auto; }
 .route__inner { position: absolute; inset: 0; padding: 11.25rem var(--gutter) 0; } /* 180px arriba */
 .route__title {
@@ -1774,7 +1764,11 @@ body.page-cream { background: var(--c-cream); }
   font-size: var(--fs-lead);
   line-height: 1.2;
 }
-.route__map { display: block; width: 78.5vw; max-width: 1130px; margin: 220px 0 0 -4px; } /* 1130px a 1440 */
+.route__map { display: block; width: 78.5vw; max-width: 1130px; height: auto; margin: 160px auto 0; } /* 1130px a 1440 · 160px bajo el titular · centrado */
+/* La página se detiene con la frase y el mapa arriba; main.js calcula --route-stick */
+.route__sticky { position: sticky; top: calc(-1 * var(--route-stick, 0px)); }
+.route__pin { height: var(--route-pin); }
+.route__line { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--route-progress, 0)); }
 
 /* Recuadro de contacto */
 .guide__contact {
@@ -1975,7 +1969,7 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   align-items: center;
   gap: 6px;
   position: absolute;
-  top: calc(50% + 258px);                     /* 80px por debajo de la última etiqueta */
+  top: calc(50% + 11.25rem + 78px);           /* mitad de las etiquetas (6 × 60px / 2) + 80px por debajo de la última */
   margin: 0;
   font-size: .875rem;                         /* 14px */
 }
@@ -2118,14 +2112,16 @@ html.is-loading body { background: transparent; }
 }
 .booking.is-hidden { translate: 0 100%; }      /* al llegar al footer baja y se esconde */
 .booking__title {
-  margin: 0 0 0 63px;
-  width: 262px;                               /* las fechas empiezan a 325px */
+  flex: none;
+  margin: 0 0 0 4.4vw;                        /* 63px a 1440 */
+  width: 18.2vw;                              /* 262px a 1440: las fechas empiezan a 325px */
+  min-width: 175px;
   font-family: var(--f-serif);
   font-size: 1.125rem;                        /* 18px */
   text-transform: uppercase;
   letter-spacing: .02em;
 }
-.booking__field { position: relative; margin-right: 88px; }
+.booking__field { position: relative; flex: none; margin-right: clamp(28px, 6.1vw, 88px); } /* 88px a 1440 */
 .booking__toggle {
   display: flex;
   align-items: center;
@@ -2135,9 +2131,12 @@ html.is-loading body { background: transparent; }
   background: none;
   color: inherit;
   font: inherit;
+  white-space: nowrap;
   cursor: pointer;
+  transition: opacity .3s var(--ease);
 }
 .booking__toggle b { font-weight: 500; }
+.booking__toggle:hover { opacity: .7; }        /* mismo hover que Ver disponibilidad y el teléfono */
 .booking__chevron {
   width: 8px;
   height: 8px;
@@ -2159,15 +2158,19 @@ html.is-loading body { background: transparent; }
 }
 .booking__cta {
   margin-left: auto;
-  width: 320px;
+  flex: 0 1 22.2vw;                           /* 320px a 1440; se estrecha si falta sitio */
+  min-width: 170px;
+  white-space: nowrap;
   font-size: var(--fs-label);
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  transition: opacity .3s var(--ease);
 }
-.booking__cta { text-decoration: underline; text-underline-offset: 5px; transition: opacity .3s var(--ease); }
 .booking__cta:hover, .booking__phone:hover { opacity: .7; }
-.booking__phone { width: 90px; transition: opacity .3s var(--ease); }
+.booking__phone { flex: none; width: clamp(60px, 6.25vw, 90px); transition: opacity .3s var(--ease); } /* 90px a 1440 */
 
 /* Desplegables: 290px de ancho, por encima de la barra */
 .booking__panel {
@@ -2254,11 +2257,94 @@ html.is-loading body { background: transparent; }
 }
 .booking__confirm:hover { opacity: .7; }
 
-/* Tablet y móvil: sin diseño todavía → solo título, Ver disponibilidad y teléfono */
-@media (max-width: 1100px) {
-  .booking__field { display: none; }
+/* Tablet: sin diseño todavía → solo título, Ver disponibilidad y teléfono */
+@media (max-width: 1199px) {
+  .booking__field { display: none; }  /* por debajo de 1200px no caben las fechas y los huéspedes */
   .booking__title { margin-left: var(--gutter-sm); width: auto; }
   .booking__cta { width: auto; padding: 0 24px; }
   .booking__phone { width: var(--booking-h); }
 }
-@media (max-width: 600px) { .booking__title { display: none; } .booking__cta { flex: 1; margin-left: 0; border-left: 0; } }
+@media (max-width: 767px) { .booking { display: none; } }   /* en móvil no hay barra de reserva */
+
+
+/* ==========================================================
+   ENTRADA EN CADA PÁGINA · al subir la cortina de carga
+   La foto del hero hace zoom (de --enter-zoom a su tamaño) y logo, cabecera,
+   titular y textos aparecen con fundido subiendo --enter-distance.
+   main.js pone .is-entering en <html> al abrir la cortina
+   ========================================================== */
+@keyframes enter-zoom { from { scale: var(--enter-zoom); } }
+@keyframes enter-fade { from { opacity: 0; translate: 0 var(--enter-distance); } }
+.is-entering .hero__slides {
+  animation: enter-zoom var(--enter-zoom-time) var(--ease) var(--enter-delay) backwards;
+}
+.is-entering :is(.hero__logo, .header__meta, .header__lang, .header__actions, .hero__title, .hero__bottom) {
+  animation: enter-fade var(--enter-fade-time) var(--ease) backwards;
+}
+/* uno detrás de otro: cabecera → titular → textos de abajo */
+.is-entering :is(.hero__logo, .header__meta, .header__lang, .header__actions) { animation-delay: calc(var(--enter-delay) + var(--enter-stagger)); }
+.is-entering .hero__title  { animation-delay: calc(var(--enter-delay) + 2 * var(--enter-stagger)); }
+.is-entering .hero__bottom { animation-delay: calc(var(--enter-delay) + 3 * var(--enter-stagger)); }
+@media (prefers-reduced-motion: reduce) {
+  .is-entering :is(.hero__slides, .hero__logo, .header__meta, .header__lang, .header__actions, .hero__title, .hero__bottom) { animation: none; }
+}
+
+/* ==========================================================
+   PORTÁTILES (pantallas de escritorio poco altas, como un MacBook Air)
+   Logo y botones Reservar/Menú más pequeños, según --laptop-scale.
+   Se mantienen centrados a la misma altura que en el Figma
+   ========================================================== */
+@media (min-width: 768px) and (max-height: 900px) {
+  /* Todos los textos medidos en rem (titulares del hero, frases, párrafos…) bajan a la vez */
+  html { font-size: calc(100% * var(--laptop-text-scale)); }
+  .hero__logo img { width: calc(150px * var(--laptop-scale)); }
+  .header__actions {
+    top: calc(59px - 29px * var(--laptop-scale));      /* el centro sigue a 59px del borde */
+    width: calc(238px * var(--laptop-scale));
+    border-radius: calc(12px * var(--laptop-scale));
+  }
+  .header__actions .btn { height: calc(50px * var(--laptop-scale)); } /* el texto ya baja con --laptop-text-scale */
+  .header__actions .btn--light { width: calc(140px * var(--laptop-scale)); }
+
+  /* Menú: las etiquetas y el contacto ya bajan con los textos; aquí, logo, iconos, foto y márgenes */
+  .menu__logo { top: calc(55px * var(--laptop-scale)); }
+  .menu__logo img { width: calc(150px * var(--laptop-scale)); }
+  .menu__col::after { top: calc(87px * var(--laptop-scale)); bottom: calc(87px * var(--laptop-scale)); }
+  .menu__contact { top: calc(50% + 11.25rem + min(50px, 5vh)); }   /* más cerca de las etiquetas: deja sitio a los iconos */
+  .menu__social { bottom: min(40px, 4.5vh); gap: min(16px, 2vh); }
+  .menu__social img { width: min(34px, 4.2vh); height: min(34px, 4.2vh); }  /* iconos según el alto de la pantalla */
+  .menu__media { width: calc(300px * var(--laptop-scale)); }
+
+  /* Fotos que no ocupan todo el ancho: bajan con --laptop-scale para caber mejor en pantallas bajas */
+  :root { --room-max: calc(1125px * var(--laptop-scale)); }   /* fotos grandes de Vivir, Habitaciones y El hotel */
+  .pair__item--tall   { width: calc(30.2vw * var(--laptop-scale)); }
+  .pair__item--mid    { width: calc(46.2vw * var(--laptop-scale)); }
+  .pair__item--narrow { width: calc(38.2vw * var(--laptop-scale)); }
+  .pair__item--small  { width: calc(22.2vw * var(--laptop-scale)); }
+  .pair__item--low    { margin-top: calc(21vw * var(--laptop-scale)); }
+  .pair__item--lower  { margin-top: calc(17.7vw * var(--laptop-scale)); }
+  .street__item       { width: calc(38vw * var(--laptop-scale)); }
+  .street__item--low  { width: calc(38.2vw * var(--laptop-scale)); margin-top: calc(12.15vw * var(--laptop-scale)); }
+  .street__item--wide { width: calc(46.2vw * var(--laptop-scale)); }
+  .collage__img--pool   { width: calc(14.1vw * var(--laptop-scale)); }
+  .collage__img--book   { width: calc(37.85vw * var(--laptop-scale)); }
+  .collage__img--stairs { width: calc(46.3vw * var(--laptop-scale)); }
+  .collage__img--garden { width: calc(22.1vw * var(--laptop-scale)); }
+  .contact__media { flex-basis: calc(665px * var(--laptop-scale)); }
+  .contact__row--arrive .contact__media { flex-basis: calc(550px * var(--laptop-scale)); }
+  .guide__grid { grid-template-columns: 1fr minmax(0, calc(665px * var(--laptop-scale))) 1fr; }
+
+  /* Pantalla de carga: símbolo y su distancia del texto inferior */
+  .loader__mark { width: calc(104px * var(--laptop-scale)); }
+  .loader__text { bottom: calc(80px * var(--laptop-scale)); }   /* el tamaño del texto ya baja con --laptop-text-scale */
+
+  /* Barra de reserva: en portátiles no se muestra (queda Reservar arriba) */
+  .booking { display: none; }
+
+  /* Sobre Córdoba · mapa del paseo: con la página detenida, frase y mapa caben enteros en la pantalla */
+  :root { --route-top: 90px; }                 /* frase más arriba (justo bajo el logo) para dejar sitio al mapa */
+  .route__map {
+    margin-top: 60px;                            /* menos aire entre frase y mapa */
+    width: min(78.5vw, (100vh - var(--route-top) - 6rem - 60px - 24px) * 1130 / 449);
+  }
+}
