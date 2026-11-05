@@ -20,6 +20,8 @@
   --c-white:      #ffffff;
   --c-line:       rgba(64, 66, 26, .25);
   --c-loader-mark: #dfe0c3; /* símbolo y texto de la pantalla de carga */
+  --c-olive-mid:  #6c6f2b;   /* móvil: texto y borde del botón Reservar */
+  --c-olive-soft: #8a8e37;   /* móvil: fondo del botón Menú */
   --booking-h: 70px;         /* alto de la barra de reserva fija */
   --booking-hide: .6s;       /* bajada y subida de la barra al llegar o salir del footer */
   --booking-panel-gap: 40px; /* separación entre la barra y los desplegables (calendario y huéspedes) */
@@ -34,6 +36,7 @@
   --fs-lead:    clamp(1.5rem, 2.5vw, 2.25rem); /* párrafos destacados (intros de página, «Más sobre Viento 10», ruta): 36px (Figma: 40px) */
   --fs-page-title: 3.5rem;                       /* 56px · titular del hero de las páginas interiores (Figma: 64px) */
   --fs-entradilla: 1.75rem;                      /* 28px (Figma: 32px) · Entradilla_h3: opiniones, entradilla de cuidado (Habitaciones), cita del fundador (El hotel) y entradilla de Sobre Córdoba */
+  --fs-ladillo: 1.5rem;                          /* 24px · ladillos en mayúsculas («Cuidado de cada día», «El paseo»…) */
   --fs-body:    0.95rem;
   --fs-caption: 0.875rem;                       /* 14px · pies de foto */
   --fs-label:   0.8rem;                          /* mayúsculas espaciadas */
@@ -123,4 +126,13 @@
   --hero-fade: 3s;   /* duración del fundido entre fotos */
   --hero-zoom: 1.05;   /* zoom final de cada foto (1.08 = 8% más grande) */
   --hero-zoom-time: 15s; /* duración del zoom: conviene que sea algo más que --hero-time + --hero-fade */
+}
+
+/* Móvil: tamaños de texto propios */
+@media (max-width: 767px) {
+  :root {
+    --fs-entradilla: 1.375rem;  /* 22px · opiniones y textos con ese estilo */
+    --fs-ladillo: 1.25rem;      /* 20px · ladillos («Cuidado de cada día»…) */
+    --fs-page-title: 2.375rem;  /* 38px · titulares del hero («Nuestras habitaciones»…); antes 44px */
+  }
 }

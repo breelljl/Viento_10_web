@@ -752,3 +752,10 @@
   measure();
   update();
 })();
+
+// ---------- Móvil: Reservar/Menú se esconden al llegar al footer ----------
+(function () {
+  const footer = document.querySelector('footer');
+  if (!footer || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([e]) => document.body.classList.toggle('at-footer', e.isIntersecting)).observe(footer);
+})();
