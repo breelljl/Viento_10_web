@@ -133,5 +133,6 @@
     --fs-entradilla: 1.375rem;  /* 22px · opiniones y textos con ese estilo */
     --fs-ladillo: 1.25rem;      /* 20px · ladillos («Cuidado de cada día»…) */
     --fs-page-title: 2.375rem;  /* 38px · titulares del hero («Nuestras habitaciones»…); antes 44px */
+    --fs-display: 2.5rem;       /* 40px · textos caligráficos Bon Vivant («Bienvenidos»…); antes 48px */
   }
 }
