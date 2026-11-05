@@ -1371,13 +1371,13 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
    con 100px a los lados, flechas a los lados de la foto y miniaturas abajo a la izquierda */
 @media (min-width: 768px) {
   .gallery[open] { display: block; padding: 0; }
-  .gallery__head { position: absolute; top: 62px; left: 200px; right: 200px; text-align: center; } /* centrado, como antes */
+  .gallery__head { position: absolute; top: 62px; left: 200px; right: 200px; text-align: center; } /* centrado */
   .gallery__details { display: none; }       /* el diseño nuevo solo lleva el nombre */
   .gallery__close { top: 62px; right: 120px; }
   .gallery__stage { position: absolute; top: 124px; right: 100px; bottom: 125px; left: 100px; width: auto; }
   /* la foto entera, sin recortar, centrada en el hueco (medidas en pantalla: Safari no respeta el % aquí) */
   .gallery__img { max-width: calc(100vw - 200px); max-height: calc(100vh - 249px); }
-  .gallery__thumbs { position: absolute; left: 100px; right: 100px; bottom: 40px; } /* centradas, como antes */
+  .gallery__thumbs { position: absolute; left: 100px; right: 100px; bottom: 40px; } /* centradas */
   /* flechas a media altura, a 30px de los bordes */
   .gallery__nav {
     position: absolute;
@@ -1644,14 +1644,9 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   border-radius: var(--radius);
 }
 .feature__img { position: absolute; top: -10%; left: 0; width: 100%; height: 120%; object-fit: cover; }
-.feature__img--static { position: static; display: block; height: auto; } /* sin deslizamiento: la foto se ve entera, con su proporción */
 .feature__body { margin-top: 50px; }
 .feature__text { flex-basis: 550px; }
 .feature__text p + p { margin-top: 1.7em; }
-/* Hammam: foto a todo el ancho, sin esquinas; título y texto a 40px de los bordes */
-.feature--full { padding: 0; }
-.feature--full .feature__media { aspect-ratio: auto; border-radius: 0; } /* el alto lo marca la propia foto: no se recorta */
-.feature--full .feature__body { padding: 0 max(40px, (100% - var(--room-max)) / 2) 0 40px; } /* texto alineado con el de las otras secciones */
 /* Frase manuscrita entre secciones */
 .vivir-script { padding: 0 var(--gutter-sm) 17.5rem; text-align: center; }
 .vivir-script--right { padding-bottom: 7.5rem; text-align: right; }  /* «Ummm…»: a la derecha */
@@ -1681,7 +1676,6 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .pair__item { margin: 0; }
 .pair__item--tall { width: 30.2vw; }        /* 435px a 1440 */
 .pair__item--mid { width: 46.2vw; }        /* 665px a 1440 */
-.pair__item--wide { width: 54.5vw; }       /* 785px a 1440 */
 .pair__item--narrow { width: 38.2vw; }     /* 550px a 1440 */
 .pair__item--small { width: 22.2vw; }      /* 320px a 1440 */
 .pair__item--low { margin-top: 21vw; }      /* 300px más baja a 1440 */
@@ -2137,11 +2131,11 @@ html.is-loading body { background: transparent; }
   background: none;
   color: inherit;
   font: inherit;
+  white-space: nowrap;
   cursor: pointer;
+  transition: opacity .3s var(--ease);
 }
 .booking__toggle b { font-weight: 500; }
-.booking__toggle { white-space: nowrap; }
-.booking__toggle { transition: opacity .3s var(--ease); }
 .booking__toggle:hover { opacity: .7; }        /* mismo hover que Ver disponibilidad y el teléfono */
 .booking__chevron {
   width: 8px;
@@ -2171,8 +2165,10 @@ html.is-loading body { background: transparent; }
   font-weight: 500;
   letter-spacing: .12em;
   text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  transition: opacity .3s var(--ease);
 }
-.booking__cta { text-decoration: underline; text-underline-offset: 5px; transition: opacity .3s var(--ease); }
 .booking__cta:hover, .booking__phone:hover { opacity: .7; }
 .booking__phone { flex: none; width: clamp(60px, 6.25vw, 90px); transition: opacity .3s var(--ease); } /* 90px a 1440 */
 
@@ -2261,14 +2257,14 @@ html.is-loading body { background: transparent; }
 }
 .booking__confirm:hover { opacity: .7; }
 
-/* Tablet y móvil: sin diseño todavía → solo título, Ver disponibilidad y teléfono */
+/* Tablet: sin diseño todavía → solo título, Ver disponibilidad y teléfono */
 @media (max-width: 1199px) {
   .booking__field { display: none; }  /* por debajo de 1200px no caben las fechas y los huéspedes */
   .booking__title { margin-left: var(--gutter-sm); width: auto; }
   .booking__cta { width: auto; padding: 0 24px; }
   .booking__phone { width: var(--booking-h); }
 }
-@media (max-width: 600px) { .booking__title { display: none; } .booking__cta { flex: 1; margin-left: 0; border-left: 0; } }
+@media (max-width: 767px) { .booking { display: none; } }   /* en móvil no hay barra de reserva */
 
 
 /* ==========================================================
@@ -2323,7 +2319,6 @@ html.is-loading body { background: transparent; }
   :root { --room-max: calc(1125px * var(--laptop-scale)); }   /* fotos grandes de Vivir, Habitaciones y El hotel */
   .pair__item--tall   { width: calc(30.2vw * var(--laptop-scale)); }
   .pair__item--mid    { width: calc(46.2vw * var(--laptop-scale)); }
-  .pair__item--wide   { width: calc(54.5vw * var(--laptop-scale)); }
   .pair__item--narrow { width: calc(38.2vw * var(--laptop-scale)); }
   .pair__item--small  { width: calc(22.2vw * var(--laptop-scale)); }
   .pair__item--low    { margin-top: calc(21vw * var(--laptop-scale)); }

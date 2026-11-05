@@ -518,7 +518,6 @@
     link.addEventListener('focus', () => show(page));
   });
   menu.querySelector('.menu__nav').addEventListener('mouseleave', () => show('index.html'));
-  imgs.forEach((img) => { img.loading = 'eager'; });   // cargadas de antemano: el cambio es inmediato
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
 })();
 
@@ -580,7 +579,6 @@
     if (url.pathname === location.pathname && url.hash) return; // ancla en la misma página
     e.preventDefault();
     // solo baja la cortina; la página sigue visible debajo hasta que la tapa
-    // (antes se ponía también .is-loading y el fondo verde aparecía de golpe dejando ver las fotos)
     // Desde el menú abierto: primero se va su contenido (como al pulsar Cerrar) y luego baja la cortina
     const fromMenu = document.body.classList.contains('menu-open') && link.closest('.menu');
     if (fromMenu) document.body.classList.add('menu-leaving');

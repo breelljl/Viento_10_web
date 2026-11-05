@@ -31,21 +31,17 @@
   --f-script: "Bon Vivant", "Brush Script MT", cursive;
 
   --fs-display: clamp(2.4rem, 5.6vw, 4rem);     /* Bienvenidos (script) */
-  --fs-h2:      clamp(1.75rem, 2.6vw, 2.25rem); /* titulares Canela */
   --fs-lead:    clamp(1.5rem, 2.5vw, 2.25rem); /* párrafos destacados (intros de página, «Más sobre Viento 10», ruta): 36px (Figma: 40px) */
   --fs-page-title: 3.5rem;                       /* 56px · titular del hero de las páginas interiores (Figma: 64px) */
   --fs-entradilla: 2rem;                         /* 32px · Entradilla_h3 (citas de opiniones) */
-  --fs-quote:   clamp(1.2rem, 1.8vw, 1.6rem);
   --fs-body:    0.95rem;
   --fs-caption: 0.875rem;                       /* 14px · pies de foto */
   --fs-label:   0.8rem;                          /* mayúsculas espaciadas */
   --fs-meta:    13px;                            /* teléfono e idiomas (13pt en Figma) */
-  --ls-label:   0.12em;
 
   /* Espaciado y layout */
   --gutter:     clamp(20px, 10.8vw, 156px);      /* margen lateral de 156px a 1440 */
   --gutter-sm:  clamp(20px, 3vw, 42px);
-  --section:    clamp(80px, 12vw, 180px);
   --radius:     6px;
 
   --ease: cubic-bezier(.25, .6, .3, 1);
