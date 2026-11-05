@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viento 10 • Hotel boutique en Córdoba</title>
-  <link rel="stylesheet" href="css/tokens.css?v=2026-11-05e">
-  <link rel="stylesheet" href="css/style.css?v=2026-11-05e">
+  <link rel="stylesheet" href="css/tokens.css?v=2026-11-05f">
+  <link rel="stylesheet" href="css/style.css?v=2026-11-05f">
 </head>
 <body>
 
@@ -88,7 +88,10 @@
       <!-- Pase de fotos: para añadir una foto, copia una línea <img> y cambia el src -->
       <div class="hero__slides" id="heroSlides">
         <img class="hero__bg is-active" src="assets/img/home/slider_hero/img_hero_01.jpg" alt="Alberca del hotel Viento 10">
-        <img class="hero__bg" src="assets/img/home/slider_hero/img_hero_02.jpg" alt="pasillo de habitaciones del hotel Viento 10">
+        <picture>
+          <source media="(max-width: 767px)" srcset="assets/img/home/slider_hero/img_hero_02_movil.jpg">
+          <img class="hero__bg" src="assets/img/home/slider_hero/img_hero_02.jpg" alt="pasillo de habitaciones del hotel Viento 10">
+        </picture>
         <img class="hero__bg" src="assets/img/home/slider_hero/img_hero_03.jpg" alt="pasillo escalera del hotel Viento 10">
         <img class="hero__bg" src="assets/img/home/slider_hero/img_hero_04.jpg" alt="salon con sillón y mesa del hotel Viento 10">
         <img class="hero__bg" src="assets/img/home/slider_hero/img_hero_05.jpg" alt="Camarera con toallas pasando bajo el arco del patio">
@@ -230,7 +233,10 @@
 
     <!-- ============ CÓRDOBA ============ -->
     <section class="city" data-dark id="cordoba">
-      <img class="city__img" src="assets/img/home/cordoba/img_plaza_potro.jpg" alt="Plaza del Potro de Córdoba bajo el cielo azul">
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/img/home/cordoba/img_plaza_potro_movil.jpg">
+        <img class="city__img" src="assets/img/home/cordoba/img_plaza_potro.jpg" alt="Plaza del Potro de Córdoba bajo el cielo azul">
+      </picture>
       <div class="city__content reveal">
         <p class="eyebrow city__eyebrow">Sobre Córdoba</p>
         <h2 class="city__title">Córdoba, la ciudad que empieza<br>al cruzar la puerta</h2>
@@ -333,6 +339,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-11-05e"></script>
+  <script src="js/main.js?v=2026-11-05f"></script>
 </body>
 </html>
