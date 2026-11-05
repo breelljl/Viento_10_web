@@ -56,6 +56,7 @@
   /* Pase de habitaciones */
   
   --rooms-text-fade: 0.6;   /* el texto de entrada desaparece al llevar este % tapado por el pase */
+  --rooms-text-up: 12vh;     /* texto de entrada de Habitaciones (Home): sube la mitad de este valor sobre el centro (12vh → 6% del alto de pantalla) */
   --rooms-fade: 3.5s;        /* fundido entre fotos */
   --rooms-autoplay: 5s;      /* tiempo que se ve cada habitación */
   --rooms-text-move: 2.2s;     /* deslizamiento de la cinta de nombres */
