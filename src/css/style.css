@@ -11,7 +11,7 @@ body {
   font-family: var(--f-sans);
   font-size: var(--fs-body);
   color: var(--c-olive-dark);
-  background: var(--c-white);
+  background: var(--c-bg);
   -webkit-font-smoothing: antialiased;
 }
 img { display: block; max-width: 100%; }
@@ -33,13 +33,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: var(--fs-label);
   letter-spacing: .05em; /* 5% */
   text-transform: uppercase;
-  transition: background-color .3s var(--ease), color .3s var(--ease);
+  transition: background-color var(--btn-hover-time) var(--ease), color var(--btn-hover-time) var(--ease), box-shadow var(--btn-hover-time) var(--ease);
 }
 /* Reservar: oliva oscuro · Menú: transparente */
 .btn--light { width: 160px; background: var(--c-olive-dark); color: var(--c-white); } /* Reservar */
-.btn--light:hover { background: var(--c-green-800); }
 .btn--olive { background: transparent; color: var(--c-cream); }       /* Menú: solo texto sobre el contenedor */
-.btn--olive:hover { background: rgba(245, 245, 237, .12); }
+.btn--light:hover,
+.btn--olive:hover { box-shadow: inset 0 0 0 100px rgba(245, 245, 237, .12); } /* mismo velo claro (crema al 12%) en Reservar y Menú */
 
 /* ---------- Header ---------- */
 /* La cabecera no es una capa propia: cada parte se coloca en su capa.
@@ -75,7 +75,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .header__lang {
   position: fixed;
   top: 36px;                       /* centrado con el contenedor de botones */
-  right: var(--gutter-sm);
+  right: calc(var(--edge) + 238px + 32px); /* delante (a la izquierda) de Reservar/Menú, con 32px de aire */
   z-index: 1;
   display: flex;
   align-items: center;
@@ -104,7 +104,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 0;
   padding: 8px 0;
   list-style: none;
-  background: var(--c-white);
+  background: var(--c-bg);
   border-radius: 4px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
 }
@@ -127,7 +127,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .header__actions {
   position: fixed;
   top: 30px;
-  right: 100px;                    /* 1440 − 1102 − 238 = 100px: deja sitio al idioma */
+  right: var(--edge);              /* pegado al margen derecho; el idioma va delante */
   z-index: 20;
   display: flex;
   gap: 4px;
@@ -314,7 +314,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .statement {
   max-width: 880px;
   margin: 0 auto;
-  padding: 0 var(--gutter-sm);
+  padding: 0 var(--edge);          /* ya va centrado con margin auto: sin el espacio extra de pantallas grandes */
   text-align: center;
 }
 .statement__text {
@@ -386,14 +386,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero ~ section {
   position: relative;
   z-index: 1;
-  background: var(--c-white);
+  background: var(--c-bg);
 }
 
 .welcome { padding: 11vw 0 10vw; }
 
 .collage--welcome { margin: 3vw 0 13.5vw; } /* 1er valor: distancia del título a la foto */
-.collage__img--pool   { width: 14.1vw;  aspect-ratio: 203 / 305; margin: 14.6vw 0 0 10.8vw; }
-.collage__img--book   { width: 37.85vw; aspect-ratio: 545 / 363; margin-left: 34.4vw; }
+.collage__img--pool   { width: 30.2vw;  aspect-ratio: 435 / 291; margin: 12.7vw 0 0 10.8vw; } /* Figma: 435×291, 183px más baja que el libro */
+.collage__img--book   { width: 37.85vw; aspect-ratio: 545 / 363; margin-left: 18.4vw; } /* el libro se queda donde estaba (x 854) */
 
 .collage--hotel { margin-top: 14.5vw; }
 .collage__img--stairs { width: 46.3vw;  aspect-ratio: 667 / 426; margin: 7.9vw 0 0 2.7vw; }
@@ -406,7 +406,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
   .collage { flex-direction: column; }
   .collage--welcome { margin: 40px 0 120px; }   /* 120px hasta el texto «El hotel» */
-  .collage__img--pool   { width: 44.4vw; margin: 0 0 0 20px; aspect-ratio: 173 / 260; }
+  .collage__img--pool   { width: 44.4vw; margin: 0 0 0 20px; aspect-ratio: 435 / 291; }
   .collage__img--book   { width: 79vw;   margin: 47px 0 0 16.4vw; }
 
   .statement__text { font-size: 1.65rem; }
@@ -497,15 +497,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .rooms__details,
 .rooms__cta { position: absolute; z-index: 3; }
 
-/* Contador "1 ——— 10": la línea se rellena mientras dura cada habitación */
+/* Contador "1 ——— 10": la línea se rellena mientras dura cada habitación.
+   Prueba: esquina inferior derecha, a la altura del enlace «Nuestras habitaciones» */
 .rooms__count {
-  top: 127px;
-  left: 50%;
+  bottom: calc(var(--rooms-cta-bottom) + 6px); /* misma altura que el enlace «Nuestras habitaciones» (+ su línea inferior) */
+  right: var(--edge);              /* esquina inferior derecha, alineado con el botón Menú */
   display: flex;
   align-items: center;
   gap: 16px;
   margin: 0;
-  transform: translateX(-50%);
   font-size: var(--fs-meta);
   letter-spacing: .05em;
 }
@@ -576,12 +576,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   white-space: nowrap;
 }
 
-.rooms__cta { bottom: 110px; left: 50%; transform: translateX(-50%); white-space: nowrap; }
+.rooms__cta { bottom: var(--rooms-cta-bottom); left: 50%; transform: translateX(-50%); white-space: nowrap; }
 
 /* ---------- Habitaciones · móvil ---------- */
 @media (max-width: 767px) {
   .rooms__slider { height: 100svh; }
-  .rooms__count { top: 90px; }
+  .rooms__count { top: 90px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); } /* móvil: sigue arriba en el centro (abajo chocaría con el enlace) */
   :root { --fs-room-name: 1.625rem; --fs-room-details: .875rem; } /* 26px y 14px */
   /* Si el nombre no cabe dejando 40px a cada lado, pasa a dos líneas */
   .rooms__names-track span { white-space: normal; max-width: calc(100vw - 80px); }
@@ -600,8 +600,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* Entrada: etiqueta + titular a la izquierda; texto y enlace en la columna derecha */
 .experience__intro {
-  padding: 0 var(--gutter);
-  margin-bottom: 13.9vw;           /* ≈ 200px hasta el carrusel */
+  padding: 0 calc(var(--gutter) - var(--page-spread)); /* pantallas grandes: titular y texto se abren hacia los lados */
+  margin-bottom: calc(13.9 * var(--u));           /* ≈ 200px hasta el carrusel */
 }
 .experience__title {
   margin: 20px 0 0;                /* 20px desde "Vivir Viento 10" */
@@ -613,7 +613,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .experience__text {
   max-width: 540px;
-  margin: 58px 0 0 calc(51vw - var(--gutter)); /* la columna empieza a ≈ 735px de 1440 */
+  margin: 58px 0 0 calc(51 * var(--u) - var(--gutter) + var(--page-side) + 2 * var(--page-spread)); /* y el texto hacia la derecha */ /* la columna empieza a ≈ 735px de 1440 */
   color: var(--c-olive-dark);
 }
 .experience__text p {
@@ -626,7 +626,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* Carrusel continuo: la pista lleva las fotos dos veces y se desplaza
    media pista en bucle (velocidad en --strip-time) */
-.strip { overflow: hidden; }
+.strip { overflow: hidden; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; } /* se puede arrastrar; en móvil el gesto vertical sigue haciendo scroll */
+.strip.is-dragging { cursor: grabbing; }
 .strip__track {
   display: flex;
   gap: 12px;
@@ -637,7 +638,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex: none;
   width: auto;
   max-width: none;
-  height: 41.67vw;                 /* 600px a 1440 · mismo alto en todos los carruseles (Home, El hotel, Sobre Córdoba) */
+  height: calc(41.67 * var(--u));                 /* 600px a 1440 · mismo alto en todos los carruseles (Home, El hotel, Sobre Córdoba) */
   border-radius: 8px;
 }
 
@@ -671,15 +672,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .eyebrow--pre { color: color-mix(in srgb, var(--c-olive-dark) 60%, transparent); }
 
 .hero ~ section.testimonials {
-  padding: 12.5rem var(--gutter);  /* 200px arriba y abajo */
+  padding: var(--reviews-pad) var(--gutter) var(--reviews-pad) calc(var(--gutter) - var(--page-spread));  /* espacio arriba y abajo en tokens · pantallas grandes: el texto se abre hacia la izquierda */
 }
 /* Dientes de león: asoman por encima del borde de la sección.
    PNG con fondo transparente */
 .testimonials__deco {
   position: absolute;
-  top: 3vw;                        /* dentro de la sección, a la derecha del titular */
-  right: 3vw;
-  width: 37.6vw;                   /* 542px a 1440 */
+  top: calc(3 * var(--u));                        /* dentro de la sección, a la derecha del titular */
+  right: calc(3 * var(--u) + var(--page-side) - var(--page-spread)); /* y los dientes de león hacia la derecha */
+  width: calc(37.6 * var(--u));                   /* 542px a 1440 */
   max-width: 542px;
   pointer-events: none;
 }
@@ -710,6 +711,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .testimonial__quote { grid-row: 1; align-self: end; }
 .testimonial .eyebrow { grid-row: 3; translate: none !important; } /* el autor solo se funde, sin desplazarse */
+/* Nombre del autor: enlace a la reseña original (se abre en otra pestaña); mismo aspecto, subrayado al pasar */
+.testimonial__link { color: inherit; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color var(--btn-hover-time) ease; }
+.testimonial__link:hover, .testimonial__link:focus-visible { text-decoration-color: currentColor; }
 .testimonial.is-active .testimonial__quote,
 .testimonial.is-active .eyebrow {
   opacity: 1;
@@ -784,7 +788,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .city__img { width: 100%; height: auto; }
 .city__content {
   position: absolute;
-  top: 15.6vw;                     /* 225px a 1440 */
+  top: calc(var(--city-text-top) / 14.4 * var(--u)); /* margen superior medido a 1440 (crece y decrece con la pantalla) */
   left: 0;
   right: 0;
   padding: 0 var(--gutter-sm);
@@ -836,7 +840,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Menú · dirección · redes */
 .footer__main {
   display: grid;
-  grid-template-columns: 40.1vw 1fr auto; /* "Dirección" empieza a 620px */
+  grid-template-columns: calc(40.1 * var(--u)) 1fr auto; /* "Dirección" empieza a 620px */
   padding: 48px var(--gutter-sm) 70px;
   border-top: 1px solid rgba(245, 245, 237, .2);
 }
@@ -867,7 +871,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Fila inferior */
 .footer__bottom {
   display: grid;
-  grid-template-columns: 40.1vw 1fr auto;
+  grid-template-columns: calc(40.1 * var(--u)) 1fr auto;
   align-items: center;
   padding: 28px var(--gutter-sm);
   border-top: 1px solid rgba(245, 245, 237, .2);
@@ -923,7 +927,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Página Habitaciones · listado ----------
    Medidas del Figma de 1440: foto 1125×670, márgenes laterales 156px, 200px entre habitaciones */
-.room-list { padding: 0 var(--gutter) 12.5rem; } /* 200px hasta Amenidades (padding, no margin) */
+.room-list { padding: 0 var(--gutter) var(--room-list-end); } /* espacio hasta la foto de la camarera (padding, no margin) */
 .room-card {
   max-width: var(--room-max);                 /* no crece más allá del diseño; centrada */
   margin: 0 auto 9.375rem;                    /* 150px hasta la siguiente */
@@ -1009,8 +1013,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Botón con borde (Reservar habitación) */
 .btn--outline {
   flex: none;
-  height: 40px;
-  padding: 0 20px;
+  height: 45px;
+  padding: 3px 20px 0 calc(20px + .05em);    /* centrado óptico: las mayúsculas bajan 1,5px y se compensa el espacio de letra del final */
   white-space: nowrap;                        /* la etiqueta siempre en una línea */
   border: 1px solid var(--c-green-800);
   font-size: .75rem;                          /* 12px */
@@ -1030,13 +1034,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ---------- Página Habitaciones · Amenidades ----------
-   Figma 1440: foto a todo el ancho de 1080px de alto; titular a la izquierda y
-   caja crema de 665px a la derecha, ambos a 165px del borde superior */
+   Solo la foto a todo el ancho, 1080px de alto (se quitaron el titular y la lista de comodidades) */
 .amenities {
   position: relative;
   overflow: hidden;                           /* recorta la foto mientras se desliza */
   min-height: 1080px;
-  padding: 165px var(--gutter);
 }
 /* Foto un 20% más alta que la sección: el sobrante permite el deslizamiento (data-parallax) */
 .amenities__bg {
@@ -1047,52 +1049,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   height: 120%;
   object-fit: cover;
 }
-.amenities__inner {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
-}
-.amenities__title {
-  margin: 0;
-  font-family: var(--f-serif);
-  font-weight: 300;
-  font-size: 3rem;                            /* 48px */
-  line-height: 1.15;
-  color: var(--c-white);
-}
-.amenities__box {
-  flex: 0 1 665px;
-  padding: 45px 60px;
-  border-radius: var(--radius);
-  background: var(--c-cream);
-}
-.amenities__list {
-  margin: 50px 0 80px;
-  padding: 0;
-  list-style: none;
-  font-family: var(--f-serif);
-  font-size: 1.5rem;                          /* 24px */
-  line-height: 1.2;
-  text-transform: uppercase;
-  color: var(--c-green-800);
-}
-.amenities__list li + li { margin-top: 20px; }
-.amenities__note {
-  margin: 0;
-  font-size: .8125rem;                        /* 13px */
-  line-height: 1.5;
-  color: var(--c-olive-dark);
-}
-
 @media (max-width: 767px) {
-  .amenities { min-height: 0; padding: 100px var(--gutter-sm); }
-  .amenities__inner { flex-direction: column; gap: 30px; }
-  .amenities__title { font-size: 2.25rem; }
-  .amenities__box { flex: none; width: 100%; padding: 30px 25px; }
-  .amenities__list { margin: 30px 0 40px; font-size: 1.25rem; }
-  .amenities__list li + li { margin-top: 15px; }
+  .amenities { min-height: 0; padding: 0; aspect-ratio: 3 / 4; } /* móvil: solo la foto, en vertical */
 }
 
 /* ---------- Página Habitaciones · Preguntas frecuentes ----------
@@ -1230,7 +1188,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 15px 0 0;
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: var(--fs-lead);                  /* 40px */
+  font-size: var(--fs-more);                  /* 40px a 1440 (ver --fs-more) */
   line-height: 1.2;
 }
 /* Enlaces en cursiva y subrayados; en hover bajan la opacidad */
@@ -1281,35 +1239,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 body.no-scroll { overflow: hidden; }
 html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de detrás sigue haciendo scroll */
 
+/* "Cerrar": mismo estilo que los botones secundarios subrayados (.link-arrow), en blanco y sin flecha */
 .gallery__close {
   position: absolute;
   top: 50px;
   right: 60px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: .875rem;                         /* 14px */
+  padding: 0 0 6px;
+  border: 0;
+  border-bottom: 1.5px solid currentColor;
+  background: none;
+  font-family: var(--f-sans);
+  font-size: var(--fs-meta);
   font-weight: 500;
-  letter-spacing: .1em;
+  letter-spacing: .05em;
   text-transform: uppercase;
   color: var(--c-white);
-  transition: opacity .3s var(--ease);
+  cursor: pointer;
+  transition: opacity .4s var(--ease);
 }
 .gallery__close:hover { opacity: .7; }
-/* "×" de dos líneas finas */
-.gallery__x { position: relative; width: 12px; height: 12px; }
-.gallery__x::before,
-.gallery__x::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: -2px;
-  width: 16px;
-  height: 1px;
-  background: currentColor;
-  rotate: 45deg;
-}
-.gallery__x::after { rotate: -45deg; }
 
 .gallery__head { text-align: center; }
 .gallery__name {
@@ -1606,10 +1554,10 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 0 40px 12.5rem;
+  padding: 0 calc(40px + var(--page-side)) 12.5rem;
 }
-.street__item { width: 38vw; margin: 0; }   /* 548px a 1440 */
-.street__item--low { width: 38.2vw; margin-top: 12.15vw; }  /* rótulo: 550px de ancho, 175px más bajo a 1440 */
+.street__item { width: calc(38 * var(--u)); margin: 0; }   /* 548px a 1440 */
+.street__item--low { width: calc(38.2 * var(--u)); margin-top: calc(12.15 * var(--u)); }  /* rótulo: 550px de ancho, 175px más bajo a 1440 */
 .street__item img {
   display: block;
   width: 100%;
@@ -1618,7 +1566,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 }
 .street__item .caption { margin-top: 20px; }
 /* Tercera foto: 665px de ancho, alineada con el margen de la página, 80px por debajo del rótulo */
-.street__item--wide { width: 46.2vw; margin: 5rem 0 0 calc(var(--gutter) - 40px); }
+.street__item--wide { width: calc(46.2 * var(--u)); margin: 5rem 0 0 calc(var(--gutter) - 40px - var(--page-side)); }
 .street__item--wide .caption { margin-top: 25px; }
 
 @media (max-width: 767px) {
@@ -1648,7 +1596,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .founder__sign-off strong { font-weight: 500; }
 
 /* Hojas de El hotel: mismo bloque que la pluma, a su tamaño de Figma (140px) */
-.farewell__leaf { width: 140px; margin-bottom: 60px; }
+.farewell__leaf { width: 140px; margin-bottom: var(--leaf-gap); } /* distancia hoja → «Te esperamos en Viento 10» */
 
 /* ==========================================================
    VIVIR VIENTO 10
@@ -1674,7 +1622,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .feature--offset .feature__media { aspect-ratio: 2143 / 2846; } /* proporción de la foto del hammam; se mueve con parallax como las demás */
 /* Hammam: foto y texto desplazados a la derecha (empiezan a 387px en el Figma de 1440) */
 @media (min-width: 768px) {
-  .vivir-script--right { padding-right: 7.3vw; }
+  .vivir-script--right { padding-right: calc(7.3 * var(--u)); }
   .feature--offset .feature__media,
   .feature--offset .feature__body { margin-left: min(20.4%, 229px); }
 }
@@ -1689,15 +1637,15 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 9.375rem 40px 17.5rem;            /* 150px arriba · 280px abajo */
+  padding: 9.375rem calc(40px + var(--page-side)) 17.5rem;            /* 150px arriba · 280px abajo */
 }
 .pair__item { margin: 0; }
-.pair__item--tall { width: 30.2vw; }        /* 435px a 1440 */
-.pair__item--mid { width: 46.2vw; }        /* 665px a 1440 */
-.pair__item--narrow { width: 38.2vw; }     /* 550px a 1440 */
-.pair__item--small { width: 22.2vw; }      /* 320px a 1440 */
-.pair__item--low { margin-top: 21vw; }      /* 300px más baja a 1440 */
-.pair__item--lower { margin-top: 17.7vw; }  /* 255px más baja a 1440 */
+.pair__item--tall { width: calc(30.2 * var(--u)); }        /* 435px a 1440 */
+.pair__item--mid { width: calc(46.2 * var(--u)); }        /* 665px a 1440 */
+.pair__item--narrow { width: calc(38.2 * var(--u)); }     /* 550px a 1440 */
+.pair__item--small { width: calc(22.2 * var(--u)); }      /* 320px a 1440 */
+.pair__item--low { margin-top: calc(21 * var(--u)); }      /* 300px más baja a 1440 */
+.pair__item--lower { margin-top: calc(17.7 * var(--u)); }  /* 255px más baja a 1440 */
 .pair--inset { padding-right: var(--gutter); } /* la foto de la derecha se alinea con el texto (masaje) */
 .pair__item img,
 .pair__item video { display: block; width: 100%; height: auto; border-radius: var(--radius); }
@@ -1716,7 +1664,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
    SOBRE CÓRDOBA · página sin hero, fondo crema
    Columna central de 665px; notas laterales de 320px a los lados
    ========================================================== */
-body.page-cream { background: var(--c-cream); }
+body.page-cream { background: var(--c-bg); }
 .page-cream .header__meta, .page-cream .header__lang { color: var(--c-olive-dark); } /* sin hero: menú en oscuro sobre el crema */
 
 .guide__intro {
@@ -1783,7 +1731,7 @@ body.page-cream { background: var(--c-cream); }
   font-size: var(--fs-lead);
   line-height: 1.2;
 }
-.route__map { display: block; width: 78.5vw; max-width: 1130px; height: auto; margin: 160px auto 0; } /* 1130px a 1440 · 160px bajo el titular · centrado */
+.route__map { display: block; width: calc(78.5 * var(--u)); max-width: 1130px; height: auto; margin: 160px auto 0; } /* 1130px a 1440 · 160px bajo el titular · centrado */
 /* La página se detiene con la frase y el mapa arriba; main.js calcula --route-stick */
 .route__sticky { position: sticky; top: calc(-1 * var(--route-stick, 0px)); }
 .route__pin { height: var(--route-pin); }
@@ -1840,7 +1788,7 @@ body.page-cream { background: var(--c-cream); }
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
-  padding: 5rem 40px 8.125rem var(--gutter);             /* 80px arriba · 130px abajo */
+  padding: 5rem calc(40px + var(--page-side)) 8.125rem var(--gutter);             /* 80px arriba · 130px abajo */
   border-top: 1px solid var(--c-line);
 }
 .contact__info { flex: 0 1 440px; }
@@ -1868,7 +1816,7 @@ body.page-cream { background: var(--c-cream); }
   border-radius: var(--radius);
 }
 /* Llegada: foto vertical a la izquierda (550px) y texto a la derecha */
-.contact__row--arrive { padding-left: 40px; padding-right: var(--gutter); }
+.contact__row--arrive { padding-left: calc(40px + var(--page-side)); padding-right: var(--gutter); }
 .contact__row--arrive .contact__media { flex-basis: 550px; }
 .contact__row--arrive .contact__media img { aspect-ratio: 550 / 765; }
 .contact__faq { padding-top: 9.375rem; padding-bottom: 12.5rem; border-top: 1px solid var(--c-line); }
@@ -2097,7 +2045,7 @@ html.is-loading body { background: transparent; }
 .loader__mark path {
   fill: none;
   stroke: var(--c-loader-mark);
-  stroke-width: 1.8;
+  stroke-width: 1.5;                          /* viewBox de 85: ≈1.8px en pantalla */
   stroke-linecap: butt;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;                       /* línea sin dibujar */
@@ -2105,8 +2053,8 @@ html.is-loading body { background: transparent; }
 }
 .loader.is-mark .loader__mark path {
   stroke-dashoffset: 0;
-  /* --i = orden de salida · --after: 1 = espera a que termine el palillo (las espigas) */
-  transition-delay: calc(var(--i) * var(--loader-draw-stagger) + var(--after, 0) * var(--loader-draw));
+  /* --i = orden de salida: contorno, línea, los 18 rayos a la vez (florecen) y el «10» */
+  transition-delay: calc(var(--i) * var(--loader-draw-stagger));
 }
 /* Texto inferior: aparece con un fundido y un sutil deslizamiento */
 .loader__text {
@@ -2154,20 +2102,21 @@ html.is-loading body { background: transparent; }
   color: var(--c-white);
   font-family: var(--f-sans);
   font-size: var(--fs-meta);                  /* 13px */
+  padding-right: var(--page-side);            /* pantallas grandes: el contenido se centra, el fondo sigue a todo el ancho */
   transition: translate var(--booking-hide) var(--ease);
 }
 .booking.is-hidden { translate: 0 100%; }      /* al llegar al footer baja y se esconde */
 .booking__title {
   flex: none;
-  margin: 0 0 0 4.4vw;                        /* 63px a 1440 */
-  width: 18.2vw;                              /* 262px a 1440: las fechas empiezan a 325px */
+  margin: 0 0 0 calc(4.4 * var(--u) + var(--page-side));                        /* 63px a 1440 */
+  width: calc(18.2 * var(--u));                              /* 262px a 1440: las fechas empiezan a 325px */
   min-width: 175px;
-  font-family: var(--f-serif);
-  font-size: 1.125rem;                        /* 18px */
+  font-weight: 500;                           /* mismo texto que los enlaces subrayados (.link-arrow), sin línea */
+  font-size: var(--fs-meta);
+  letter-spacing: .05em;
   text-transform: uppercase;
-  letter-spacing: .02em;
 }
-.booking__field { position: relative; flex: none; margin-right: clamp(28px, 6.1vw, 88px); } /* 88px a 1440 */
+.booking__field { position: relative; flex: none; margin-right: clamp(28px, calc(6.1 * var(--u)), 88px); } /* 88px a 1440 */
 .booking__toggle {
   display: flex;
   align-items: center;
@@ -2204,7 +2153,7 @@ html.is-loading body { background: transparent; }
 }
 .booking__cta {
   margin-left: auto;
-  flex: 0 1 22.2vw;                           /* 320px a 1440; se estrecha si falta sitio */
+  flex: 0 1 calc(22.2 * var(--u));                           /* 320px a 1440; se estrecha si falta sitio */
   min-width: 170px;
   white-space: nowrap;
   font-size: var(--fs-label);
@@ -2216,7 +2165,7 @@ html.is-loading body { background: transparent; }
   transition: opacity .3s var(--ease);
 }
 .booking__cta:hover, .booking__phone:hover { opacity: .7; }
-.booking__phone { flex: none; width: clamp(60px, 6.25vw, 90px); transition: opacity .3s var(--ease); } /* 90px a 1440 */
+.booking__phone { flex: none; width: clamp(60px, calc(6.25 * var(--u)), 90px); transition: opacity .3s var(--ease); } /* 90px a 1440 */
 
 /* Desplegables: 290px de ancho, por encima de la barra */
 .booking__panel {
@@ -2351,6 +2300,7 @@ html.is-loading body { background: transparent; }
   }
   .header__actions .btn { height: calc(50px * var(--laptop-scale)); } /* el texto ya baja con --laptop-text-scale */
   .header__actions .btn--light { width: calc(140px * var(--laptop-scale)); }
+  .header__lang { right: calc(var(--edge) + 238px * var(--laptop-scale) + 32px); }
 
   /* Menú: las etiquetas y el contacto ya bajan con los textos; aquí, logo, iconos, foto y márgenes */
   .menu__logo { top: calc(55px * var(--laptop-scale)); }
@@ -2363,16 +2313,16 @@ html.is-loading body { background: transparent; }
 
   /* Fotos que no ocupan todo el ancho: bajan con --laptop-scale para caber mejor en pantallas bajas */
   :root { --room-max: calc(1125px * var(--laptop-scale)); }   /* fotos grandes de Vivir, Habitaciones y El hotel */
-  .pair__item--tall   { width: calc(30.2vw * var(--laptop-scale)); }
-  .pair__item--mid    { width: calc(46.2vw * var(--laptop-scale)); }
-  .pair__item--narrow { width: calc(38.2vw * var(--laptop-scale)); }
-  .pair__item--small  { width: calc(22.2vw * var(--laptop-scale)); }
-  .pair__item--low    { margin-top: calc(21vw * var(--laptop-scale)); }
-  .pair__item--lower  { margin-top: calc(17.7vw * var(--laptop-scale)); }
-  .street__item       { width: calc(38vw * var(--laptop-scale)); }
-  .street__item--low  { width: calc(38.2vw * var(--laptop-scale)); margin-top: calc(12.15vw * var(--laptop-scale)); }
-  .street__item--wide { width: calc(46.2vw * var(--laptop-scale)); }
-  .collage__img--pool   { width: calc(14.1vw * var(--laptop-scale)); }
+  .pair__item--tall   { width: calc(calc(30.2 * var(--u)) * var(--laptop-scale)); }
+  .pair__item--mid    { width: calc(calc(46.2 * var(--u)) * var(--laptop-scale)); }
+  .pair__item--narrow { width: calc(calc(38.2 * var(--u)) * var(--laptop-scale)); }
+  .pair__item--small  { width: calc(calc(22.2 * var(--u)) * var(--laptop-scale)); }
+  .pair__item--low    { margin-top: calc(calc(21 * var(--u)) * var(--laptop-scale)); }
+  .pair__item--lower  { margin-top: calc(calc(17.7 * var(--u)) * var(--laptop-scale)); }
+  .street__item       { width: calc(calc(38 * var(--u)) * var(--laptop-scale)); }
+  .street__item--low  { width: calc(calc(38.2 * var(--u)) * var(--laptop-scale)); margin-top: calc(calc(12.15 * var(--u)) * var(--laptop-scale)); }
+  .street__item--wide { width: calc(calc(46.2 * var(--u)) * var(--laptop-scale)); }
+  .collage__img--pool   { width: calc(30.2vw * var(--laptop-scale)); }
   .collage__img--book   { width: calc(37.85vw * var(--laptop-scale)); }
   .collage__img--stairs { width: calc(46.3vw * var(--laptop-scale)); }
   .collage__img--garden { width: calc(22.1vw * var(--laptop-scale)); }
@@ -2381,7 +2331,7 @@ html.is-loading body { background: transparent; }
   .guide__grid { grid-template-columns: 1fr minmax(0, calc(665px * var(--laptop-scale))) 1fr; }
 
   /* Opiniones (Home): dientes de león decorativos */
-  .testimonials__deco { width: calc(37.6vw * var(--laptop-scale) * .8); }   /* más pequeños que el resto: aquí estorbaban */
+  .testimonials__deco { width: calc(calc(37.6 * var(--u)) * var(--laptop-scale) * .8); }   /* más pequeños que el resto: aquí estorbaban */
 
   /* Pantalla de carga: símbolo y su distancia del texto inferior */
   .loader__mark { width: calc(104px * var(--laptop-scale)); }

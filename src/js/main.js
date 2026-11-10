@@ -293,12 +293,77 @@
     strips.forEach((s) => io.observe(s.strip));
   }
 
-  const start = performance.now();
+  // Control del usuario: arrastrar (ratón o dedo), rueda/trackpad en horizontal
+  // y pausa suave con el ratón encima. Al soltar, la cinta sigue sola desde ahí.
+  const toSeconds = (name) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
+  const pauseTime = toSeconds('--strip-pause-time') * 1000 || 600;
+  strips.forEach((s) => {
+    s.x = 0;        // desplazamiento actual (px)
+    s.speed = 1;    // 1 = velocidad normal · 0 = parada
+    s.target = 1;
+    s.push = 0;     // inercia al soltar (px por fotograma)
+    s.drag = null;
+    s.track.querySelectorAll('img').forEach((img) => { img.draggable = false; });
+
+    s.strip.addEventListener('mouseenter', () => { s.target = 0; });
+    s.strip.addEventListener('mouseleave', () => { s.target = 1; });
+
+    s.strip.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      s.drag = { id: e.pointerId, x: e.clientX, y: e.clientY, last: e.clientX, v: 0, horizontal: e.pointerType === 'mouse' };
+      s.push = 0;
+      if (e.pointerType === 'mouse') { s.strip.setPointerCapture(e.pointerId); s.strip.classList.add('is-dragging'); }
+    });
+    s.strip.addEventListener('pointermove', (e) => {
+      const d = s.drag;
+      if (!d || d.id !== e.pointerId) return;
+      if (!d.horizontal) {
+        // con el dedo: solo arrastra si el gesto es horizontal (si no, se hace scroll de la página)
+        if (Math.abs(e.clientX - d.x) < 6 && Math.abs(e.clientY - d.y) < 6) return;
+        if (Math.abs(e.clientY - d.y) > Math.abs(e.clientX - d.x)) { s.drag = null; return; }
+        d.horizontal = true;
+        s.strip.setPointerCapture(e.pointerId);
+        s.strip.classList.add('is-dragging');
+      }
+      const dx = e.clientX - d.last;
+      d.last = e.clientX;
+      d.v = dx;
+      s.x -= dx;
+    });
+    const end = (e) => {
+      const d = s.drag;
+      if (!d || d.id !== e.pointerId) return;
+      if (d.horizontal) s.push = -d.v;   // sigue un poco con el impulso del gesto
+      s.drag = null;
+      s.strip.classList.remove('is-dragging');
+      if (e.pointerType !== 'mouse') s.target = 1;
+    };
+    s.strip.addEventListener('pointerup', end);
+    s.strip.addEventListener('pointercancel', end);
+
+    // trackpad / rueda: solo el gesto horizontal mueve la cinta (el vertical hace scroll)
+    s.strip.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      s.x += e.deltaX;
+    }, { passive: false });
+  });
+
+  let prev = performance.now();
   const frame = (now) => {
+    const dt = Math.min(now - prev, 100);   // si la pestaña estuvo oculta, no da un salto
+    prev = now;
     strips.forEach((s) => {
       if (!s.visible || !s.half) return;
-      const x = (((now - start) / time) % 1) * s.half;
-      s.track.style.transform = `translate3d(${-x.toFixed(2)}px, 0, 0)`;
+      // la velocidad se acerca poco a poco a la deseada: la pausa y la vuelta son suaves
+      s.speed += (s.target - s.speed) * Math.min(1, dt / (pauseTime / 4));
+      if (!s.drag) {
+        s.x += (dt / time) * s.half * s.speed + s.push;
+        s.push *= 0.92;
+        if (Math.abs(s.push) < 0.05) s.push = 0;
+      }
+      s.x = ((s.x % s.half) + s.half) % s.half;   // vuelta infinita en los dos sentidos
+      s.track.style.transform = `translate3d(${-s.x.toFixed(2)}px, 0, 0)`;
     });
     requestAnimationFrame(frame);
   };
@@ -573,7 +638,7 @@
       await wait(ms('--loader-mark-delay'));
       loader.classList.add('is-mark');
       // termina de dibujarse (líneas escalonadas + texto) y la página está cargada
-      const drawn = 2 * ms('--loader-draw') + 14 * ms('--loader-draw-stagger') + ms('--loader-mark-fade'); // palillo + espigas
+      const drawn = ms('--loader-draw') + 4 * ms('--loader-draw-stagger') + ms('--loader-mark-fade'); // 4 = último --i del símbolo
       await Promise.all([loaded, wait(drawn)]);
       await wait(ms('--loader-hold'));
       loader.classList.add('is-out');
