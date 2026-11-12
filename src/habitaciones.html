@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Habitaciones • Viento 10, hotel boutique en Córdoba</title>
-  <link rel="stylesheet" href="css/tokens.css?v=2026-11-12g">
-  <link rel="stylesheet" href="css/style.css?v=2026-11-12g">
+  <link rel="stylesheet" href="css/tokens.css?v=2026-11-12h">
+  <link rel="stylesheet" href="css/style.css?v=2026-11-12h">
 </head>
 <body>
 
@@ -139,7 +139,7 @@
         <div class="room-card__media">
           <img class="room-card__img" data-parallax="0.1" src="assets/img/habitaciones/pequena-terraza/00_hab203-doble-pequena.jpg" alt="Habitación Doble pequeña con terraza">
           <header class="room-card__head">
-            <h2 class="room-card__name">Doble pequeña con terraza</h2>
+            <h2 class="room-card__name">Doble pequeña con&nbsp;terraza</h2>
             <p class="room-card__details">2 personas • Cama doble</p>
           </header>
           <button class="room-card__gallery link-arrow" type="button" data-gallery="assets/img/habitaciones/pequena-terraza/00_hab203-doble-pequena.jpg,assets/img/habitaciones/pequena-terraza/01_hab203-doble-pequena.jpg,assets/img/habitaciones/pequena-terraza/02_hab203-doble-pequena.jpg,assets/img/habitaciones/pequena-terraza/03_hab203-doble-pequena.jpg,assets/img/habitaciones/pequena-terraza/04_hab203-doble-pequena.jpg,assets/img/habitaciones/pequena-terraza/05_hab203-doble-pequena.jpg,assets/img/habitaciones/pequena-terraza/06_hab203-doble-pequena.jpg">Ver galería
@@ -259,13 +259,16 @@
 
     <!-- Amenidades: foto a todo el ancho con el titular y la caja de comodidades encima -->
     <section data-dark class="amenities">
-      <img class="amenities__bg" data-parallax="0.1" src="assets/img/habitaciones/amenidades/img_camarera-pisos.jpg" alt="Camarera de pisos preparando una habitación">
+      <picture>
+        <source media="(max-width: 767px)" srcset="assets/img/habitaciones/amenidades/img_camarera-pisos_movil.jpg">
+        <img class="amenities__bg" data-parallax="0.1" src="assets/img/habitaciones/amenidades/img_camarera-pisos.jpg" alt="Camarera de pisos preparando una habitación">
+      </picture>
     </section>
     <!-- Preguntas frecuentes: acordeón -->
     <section class="faq">
       <div class="faq__intro reveal">
         <p class="eyebrow eyebrow--pre">Información adicional</p>
-        <h2 class="faq__title">Todo lo que necesitas saber antes de reservar</h2>
+        <h2 class="faq__title">Lo esencial antes de reservar</h2>
       </div>
       <ul class="faq__list reveal">
           <li class="faq__item">
@@ -512,6 +515,6 @@
     </div>
   </dialog>
 
-  <script src="js/main.js?v=2026-11-12g"></script>
+  <script src="js/main.js?v=2026-11-12h"></script>
 </body>
 </html>

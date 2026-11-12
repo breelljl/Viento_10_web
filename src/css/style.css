@@ -1064,7 +1064,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   object-fit: cover;
 }
 @media (max-width: 767px) {
-  .amenities { min-height: 0; padding: 0; aspect-ratio: 3 / 4; } /* móvil: solo la foto, en vertical */
+  .amenities { min-height: 0; padding: 0; aspect-ratio: 905 / 1335; } /* móvil: solo la foto, vertical con la proporción de img_camarera-pisos_movil.jpg */
 }
 
 /* ---------- Página Habitaciones · Preguntas frecuentes ----------
@@ -1218,7 +1218,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @media (max-width: 767px) {
   .faq { padding-bottom: 0; }
   .farewell { padding: 100px var(--gutter-sm); }
-  .farewell__feather { width: 80px; }
+  .farewell__feather { width: var(--leaf-size-mobile); }   /* móvil: pluma del mismo tamaño que la hoja (antes 80px) */
   .more { min-height: 450px; padding: 80px var(--gutter-sm); }
 }
 
@@ -1457,7 +1457,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 
 @media (max-width: 767px) {
   .story { padding-bottom: 100px; }
-  .story__media { aspect-ratio: 4 / 3; }
+  .story__media { aspect-ratio: 904 / 1335; }   /* móvil: vertical, proporción de img_pasillo_movil.jpg (antes 4/3) */
   .story__body { margin-top: 40px; padding: 0 var(--gutter-sm); }
   .story__text p { font-size: .875rem; }
 }
@@ -1611,6 +1611,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 
 /* Hojas de El hotel: mismo bloque que la pluma, a su tamaño de Figma (140px) */
 .farewell__leaf { width: 140px; margin-bottom: var(--leaf-gap); } /* distancia hoja → «Te esperamos en Viento 10» */
+@media (max-width: 767px) { .farewell__leaf { width: var(--leaf-size-mobile); margin-bottom: var(--leaf-gap-mobile); } }
 
 /* ==========================================================
    VIVIR VIENTO 10
@@ -1701,6 +1702,11 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 }
 .feature--offset .feature__media { aspect-ratio: 2477 / 2846; } /* proporción de la foto del hammam; se mueve con parallax como las demás */
 .feature--offset .feature__img { object-position: 0% 50%; } /* hammam: mismo parallax que las demás; el recorte se hace solo por la derecha (pared azul) para no cortar al huésped */
+/* Móvil: las fotos con versión _movil (vertical) toman su propia proporción */
+@media (max-width: 767px) {
+  .feature__media:has(source[srcset*="01_piscina_jardin_movil"]) { aspect-ratio: 1335 / 2000; }
+  .feature__media:has(source[srcset*="04_desayuno_movil"])       { aspect-ratio: 1106 / 1335; }
+}
 /* Hammam: foto y texto desplazados a la derecha (empiezan a 387px en el Figma de 1440) */
 @media (min-width: 768px) {
   .feature--offset .feature__media,

@@ -136,6 +136,8 @@
   --caption-gap: 20px;      /* espacio entre una foto y su pie de foto (todas las páginas) */
   --guide-note-max: 330px;  /* Sobre Córdoba (móvil y tableta): ancho máximo de las notas de 40°C y salmorejo */
   --leaf-gap: 20px; /* El hotel: espacio entre la hoja y «Te esperamos en Viento 10»; antes 60px */
+  --leaf-size-mobile: 140px;  /* móvil · El hotel: ancho de la hoja (antes 140px, como en escritorio) */
+  --leaf-gap-mobile: 0px;     /* móvil: espacio entre la hoja y el texto de debajo (escritorio: --leaf-gap) */
   --city-text-top: 400; /* escritorio: distancia en px (a 1440) del texto «Sobre Córdoba» al borde superior de su foto; antes 225 */
   --city-text-top-mobile: 100px; /* móvil: distancia del texto «Sobre Córdoba» al borde superior de su foto (antes 64px) */
   --footer-side-mobile: 60px;  /* móvil · footer: margen a izquierda y derecha del contenido */
