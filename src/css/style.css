@@ -405,17 +405,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .welcome { padding: 64px 0 80px; }
 
 
-  .collage { flex-direction: column; gap: 20px; padding: 0 var(--gutter-sm); }   /* fotos al ancho del texto, sin sangre, 20px entre ellas */
+  .collage { flex-direction: column; gap: var(--pair-gap-mobile); padding: 0 var(--gutter-sm); }   /* composición escalonada (Figma móvil) */
   .collage--welcome { margin: 40px 0 120px; }   /* 120px hasta el texto «El hotel» */
-  .collage__img--pool,
-  .collage__img--book { width: 100%; margin: 0; }
+  .collage__img--pool { width: var(--pair-narrow-mobile); margin: 0; }                    /* estrecha, a la izquierda */
+  .collage__img--book { width: var(--pair-wide-mobile); margin: 0; align-self: flex-end; } /* ancha, a la derecha */
 
   .statement__text { font-size: 1.65rem; }
   .statement .link-arrow { margin-top: var(--statement-link-gap-mobile); }
 
   .collage--hotel { margin-top: 120px; }         /* 120px desde «Descubre el hotel» */
-  .collage__img--stairs { width: 100%; margin: 0; aspect-ratio: 306 / 196; }
-  .collage__img--garden { width: 100%; margin: 0; aspect-ratio: 172 / 260; }
+  .collage__img--stairs { width: var(--pair-wide-mobile); margin: 0; aspect-ratio: 306 / 196; }                     /* ancha, a la izquierda */
+  .collage__img--garden { width: var(--pair-narrow-mobile); margin: 0; aspect-ratio: 172 / 260; align-self: flex-end; } /* estrecha, a la derecha */
 }
 
 /* ==========================================================
@@ -1198,6 +1198,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .more__inner { position: relative; z-index: 1; color: var(--c-white); }
 .more__eyebrow { color: var(--c-white); }
+@media (max-width: 767px) { .more__inner { display: none; } }   /* móvil: solo la foto, sin texto */
 .more__text {
   margin: 15px 0 0;
   font-family: var(--f-serif);
@@ -1746,8 +1747,13 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 @media (max-width: 767px) {
   .feature__body { margin-top: 30px; }
   .feature__text { flex-basis: auto; }   /* en columna, los 550px de ancho del escritorio se convertían en 550px de alto vacío */
-  .pair { flex-direction: column; gap: 60px; padding: 80px var(--gutter-sm) 120px; }   /* 80px desde el texto de la sección anterior */
+  .pair { flex-direction: column; gap: var(--pair-gap-mobile); padding: 40px var(--gutter-sm) 120px; }   /* 40px desde el texto de la sección anterior */
   .pair__item { width: 100% !important; margin: 0 !important; }
+  /* Composición escalonada (Figma móvil): 1ª foto a la izquierda, 2ª a la derecha; cada foto conserva su forma */
+  .pair__item:first-child:not(:only-child) { width: var(--pair-narrow-mobile) !important; }
+  .pair__item:nth-child(2) { width: var(--pair-wide-mobile) !important; align-self: flex-end; }
+  .pair__item--mid:first-child:not(:only-child) { width: var(--pair-wide-mobile) !important; }      /* «Toallas frescas»: la ancha va primero */
+  .pair__item--mid + .pair__item { width: var(--pair-tall-mobile) !important; }    /* y el baño, vertical, a la derecha */
   .pair--inset { padding-right: var(--gutter-sm); }
 }
 
@@ -1830,6 +1836,11 @@ body.page-cream { background: var(--c-bg); }
 .route__sticky { position: sticky; top: calc(-1 * var(--route-stick, 0px)); }
 .route__pin { height: var(--route-pin); }
 .route__line { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--route-progress, 0)); }
+.route__map--movil { display: none; }          /* mapa vertical: solo en móvil */
+@media (max-width: 767px) {
+  .route__map:not(.route__map--movil) { display: none; }
+  .route__map--movil { display: block; width: 100%; max-width: 250px; margin-inline: auto; }   /* 250px: cabe entero sobre la foto */
+}
 
 /* Recuadro de contacto */
 .guide__contact {
@@ -1848,7 +1859,8 @@ body.page-cream { background: var(--c-bg); }
 .guide__contact:hover { opacity: .7; }
 .guide__contact .eyebrow { display: block; color: inherit; }
 
-.guide__strip { padding-bottom: 6.25rem; }
+.guide__strip { padding-bottom: 0; }   /* el aire hasta la hoja lo pone .farewell, como en El hotel (antes 100px de más) */
+@media (max-width: 767px) { .guide__strip .strip { margin-bottom: 0; } }   /* móvil: sin los 80px del carrusel; queda igual que en El hotel */
 
 
 @media (max-width: 1023px) {
@@ -1858,7 +1870,7 @@ body.page-cream { background: var(--c-bg); }
   .guide__figure:not(.guide__figure--inline) { margin-bottom: 0; } /* 40px entre foto y ladillo */
   .guide__text { margin-top: 20px; }                                 /* 20px entre ladillo y texto */
   .route__inner { padding: 80px var(--gutter-sm) 0; }
-  .guide__contact { width: calc(100% - 2 * var(--gutter-sm)); } /* mismo ancho que el texto */
+  .guide__contact { width: calc(100% - 2 * var(--gutter-sm)); margin-bottom: 80px; } /* mismo ancho que el texto */
   .route__map { width: 100%; margin-top: 60px; }
 }
 @media (max-width: 767px) {
@@ -1923,6 +1935,8 @@ body.page-cream { background: var(--c-bg); }
   .contact__title { font-size: 1.75rem; }
   .contact__row, .contact__row--arrive { flex-direction: column; padding: 60px var(--gutter-sm) 80px; }
   .contact__row--arrive .contact__media { order: 1; }
+  .contact__row:not(.contact__row--arrive) .contact__media { order: -1; margin-bottom: 40px; }   /* el mapa, encima del texto «Donde contactar» */
+  .contact__row:not(.contact__row--arrive) .contact__media img { aspect-ratio: 980 / 1308; }   /* mapa vertical: proporción de 02_mapa_viento_movil.jpg */
   .contact__info, .contact__media { flex-basis: auto; width: 100%; }
   .contact__faq { padding: 80px var(--gutter-sm) 100px; }
 }

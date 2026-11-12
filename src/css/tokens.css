@@ -21,7 +21,7 @@
   --c-bg:         #fdfdf6;   /* fondo general de páginas, secciones y cajas (sustituye a blanco y crema) */
   --c-line:       rgba(64, 66, 25, .25);
   --c-on-dark:    #dfe0c3;   /* textos, líneas e iconos sobre el verde oscuro #404219 (footer, barra de reserva, menú, botón Reservar) */
-  --c-menu-btn-bg: #ffffff;           /* botón Menú/Cerrar: fondo (prueba; antes transparent, se veía el verde del contenedor) */
+  --c-menu-btn-bg: var(--c-bg);       /* botón Menú/Cerrar: fondo, el mismo crema del fondo de la web (antes blanco; al principio transparent) */
   --c-menu-btn-text: var(--c-olive-dark); /* botón Menú/Cerrar: texto (antes var(--c-on-dark)) */
   --c-loader-mark: var(--c-on-dark); /* símbolo y texto de la pantalla de carga */
   --booking-h: 70px;         /* alto de la barra de reserva fija */
@@ -140,6 +140,10 @@
   --leaf-gap: 20px; /* El hotel: espacio entre la hoja y «Te esperamos en Viento 10»; antes 60px */
   --leaf-size-mobile: 140px;  /* móvil · El hotel: ancho de la hoja (antes 140px, como en escritorio) */
   --leaf-gap-mobile: 0px;     /* móvil: espacio entre la hoja y el texto de debajo (escritorio: --leaf-gap) */
+  --pair-narrow-mobile: 48%;  /* móvil · fotos escalonadas (Home y Vivir): ancho de la foto estrecha */
+  --pair-wide-mobile: 86%;    /* móvil · fotos escalonadas: ancho de la foto ancha */
+  --pair-tall-mobile: 61%;    /* móvil · Vivir: ancho del baño (vertical) junto a «Toallas frescas» */
+  --pair-gap-mobile: 40px;    /* móvil · fotos escalonadas: espacio vertical entre ellas (antes 20px) */
   --city-text-top: 400; /* escritorio: distancia en px (a 1440) del texto «Sobre Córdoba» al borde superior de su foto; antes 225 */
   --city-text-top-mobile: 100px; /* móvil: distancia del texto «Sobre Córdoba» al borde superior de su foto (antes 64px) */
   --footer-side-mobile: 60px;  /* móvil · footer: margen a izquierda y derecha del contenido */
