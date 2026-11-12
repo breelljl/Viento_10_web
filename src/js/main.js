@@ -945,7 +945,7 @@ function arrowCursor(box, go) {
     ticking = false;
     const moved = -section.getBoundingClientRect().top - stick;   // scroll desde que se detuvo
     const p = Math.min(1, Math.max(0, moved / pin.offsetHeight));
-    map.style.setProperty('--route-progress', p.toFixed(4));
+    section.style.setProperty('--route-progress', p.toFixed(4)); // lo heredan los dos mapas (escritorio y móvil)
   };
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   window.addEventListener('resize', () => { measure(); update(); });
