@@ -271,10 +271,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     right: 24px;
     width: auto;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 120px;          /* ancho fijo para Menú/Cerrar: no se mueve al cambiar el texto */
   }
   .header__actions .btn--light { width: auto; }
-  .header__actions .btn--olive { padding: 0 24px; }
+  .header__actions .btn--olive { padding: 0; }
   /* al llegar al footer bajan y se esconden (salvo con el menú abierto) */
   .header__actions { transition: translate var(--booking-hide) var(--ease), opacity var(--booking-hide) var(--ease); }
   body.at-footer:not(.menu-open) .header__actions { translate: 0 calc(100% + 20px); opacity: 0; pointer-events: none; }
@@ -2090,14 +2090,14 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   }
   .menu__nav { grid-row: 2; margin: 0; }
   .menu__contact { grid-row: 6; position: static; margin: 0; gap: 2px; }   /* email y teléfono en el sitio de las redes · separados: cómodos de pulsar */
-  .menu__contact a { padding: 6px 0; }
+  .menu__contact a { padding: 6px 0; font-size: 1rem; }   /* correo y teléfono: 16px */
   .menu__social { display: none; }             /* móvil: sin redes sociales en el menú */
   /* Idioma bajo el logo: ES · EN · FR · DE, el elegido resaltado */
   .menu__lang { display: flex; grid-row: 7; align-self: start; gap: 4px; margin: 24px 0 0; padding: 0; list-style: none; } /* debajo del teléfono */
   .menu__lang button {
     min-width: 44px;                            /* zona cómoda para el dedo */
     height: 36px;
-    font-size: var(--fs-meta);
+    font-size: .9375rem;                        /* 15px */
     letter-spacing: .08em;
     color: inherit;
     opacity: .5;
