@@ -21,6 +21,8 @@
   --c-bg:         #fdfdf6;   /* fondo general de páginas, secciones y cajas (sustituye a blanco y crema) */
   --c-line:       rgba(64, 66, 25, .25);
   --c-on-dark:    #dfe0c3;   /* textos, líneas e iconos sobre el verde oscuro #404219 (footer, barra de reserva, menú, botón Reservar) */
+  --c-menu-btn-bg: #ffffff;           /* botón Menú/Cerrar: fondo (prueba; antes transparent, se veía el verde del contenedor) */
+  --c-menu-btn-text: var(--c-olive-dark); /* botón Menú/Cerrar: texto (antes var(--c-on-dark)) */
   --c-loader-mark: var(--c-on-dark); /* símbolo y texto de la pantalla de carga */
   --booking-h: 70px;         /* alto de la barra de reserva fija */
   --booking-hide: .6s;       /* bajada y subida de la barra al llegar o salir del footer */
@@ -113,6 +115,7 @@
   --loader-draw: 1s;      /* lo que tarda en dibujarse cada línea del símbolo */
   --loader-draw-stagger: .08s; /* retraso entre una línea y la siguiente */
   --loader-hold: .5s;        /* tiempo que se queda el símbolo después de cargar la página */
+  --loader-max: 2s;          /* espera máxima a que cargue la foto del hero (conexión lenta: la cortina sube igual) */
 
   /* Menú desplegable */
   --menu-time: .9s;          /* bajada y subida de la cortina verde */
@@ -135,8 +138,16 @@
   --caption-gap: 20px;      /* espacio entre una foto y su pie de foto (todas las páginas) */
   --guide-note-max: 330px;  /* Sobre Córdoba (móvil y tableta): ancho máximo de las notas de 40°C y salmorejo */
   --leaf-gap: 20px; /* El hotel: espacio entre la hoja y «Te esperamos en Viento 10»; antes 60px */
+  --leaf-size-mobile: 140px;  /* móvil · El hotel: ancho de la hoja (antes 140px, como en escritorio) */
+  --leaf-gap-mobile: 0px;     /* móvil: espacio entre la hoja y el texto de debajo (escritorio: --leaf-gap) */
   --city-text-top: 400; /* escritorio: distancia en px (a 1440) del texto «Sobre Córdoba» al borde superior de su foto; antes 225 */
+  --city-text-top-mobile: 100px; /* móvil: distancia del texto «Sobre Córdoba» al borde superior de su foto (antes 64px) */
+  --footer-side-mobile: 60px;  /* móvil · footer: margen a izquierda y derecha del contenido */
+  --footer-block-mobile: 40px; /* móvil · footer: espacio arriba y abajo de cada bloque (entre líneas) */
   --reviews-pad: 16.25rem;      /* espacio arriba y abajo de la sección de opiniones (240px); antes 12.5rem = 200px */
+  --eyebrow-gap-mobile: 10px;   /* móvil: espacio entre el antetítulo y el texto de debajo (antes 20px) */
+  --statement-link-gap-mobile: 24px; /* móvil: espacio entre el texto y su enlace («Descubre el hotel»…); antes 36px */
+  --reviews-deco-top-mobile: 140px; /* móvil · opiniones: altura de los dientes de león desde arriba de la sección (antes 40px); más alto = más cerca de la cita */
   --reviews-move: 30px;      /* distancia que sube cada opinión al aparecer (0 = solo fundido) */
   --reviews-fade-delay: .6s; /* la nueva entra cuando la anterior ya casi se ha ido */
 
@@ -155,9 +166,9 @@
 /* Móvil: tamaños de texto propios */
 @media (max-width: 767px) {
   :root {
-    --fs-entradilla: 1.375rem;  /* 22px · opiniones y textos con ese estilo */
+    --fs-entradilla: 1.5rem;    /* 24px · opiniones y textos con ese estilo; antes 22px */
     --fs-ladillo: 1.25rem;      /* 20px · ladillos («Cuidado de cada día»…) */
     --fs-page-title: 2.375rem;  /* 38px · titulares del hero («Nuestras habitaciones»…); antes 44px */
-    --fs-display: 2.5rem;       /* 40px · textos caligráficos Bon Vivant («Bienvenidos»…); antes 48px */
+    --fs-display: 2.75rem;      /* 44px · textos caligráficos Bon Vivant («Bienvenidos»…); antes 40px */
   }
 }
