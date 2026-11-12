@@ -39,8 +39,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Reservar: oliva oscuro · Menú: transparente */
 .btn--light { width: 160px; background: var(--c-olive-dark); color: var(--c-on-dark); } /* Reservar */
 .btn--olive { background: var(--c-menu-btn-bg); color: var(--c-menu-btn-text); }     /* Menú / Cerrar: colores en tokens (prueba: blanco con texto oscuro) */
-.btn--light:hover,
-.btn--olive:hover { box-shadow: inset 0 0 0 100px rgba(245, 245, 237, .12); } /* mismo velo claro (crema al 12%) en Reservar y Menú */
+@media (hover: hover) { /* solo con ratón: en el móvil el toque dejaba el velo puesto, como si el botón siguiera activado */
+  .btn--light:hover,
+  .btn--olive:hover { box-shadow: inset 0 0 0 100px rgba(245, 245, 237, .12); } /* mismo velo claro (crema al 12%) en Reservar y Menú */
+}
 
 /* ---------- Header ---------- */
 /* La cabecera no es una capa propia: cada parte se coloca en su capa.
