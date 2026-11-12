@@ -588,6 +588,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .rooms__names-track span { white-space: normal; max-width: calc(100vw - 80px); }
   /* Solo el nombre, en el centro de la foto (sin personas ni cama) */
   .rooms__details { display: none; }
+  /* Nombre a medio camino entre el contador (arriba: 90px + 16px de alto) y el enlace (abajo: 150px + 19px de alto) */
+  .rooms__names { top: calc(50% + ((90px + 16px) - (150px + 19px)) / 2); }
   .rooms__cta { bottom: 150px; }   /* deja sitio a los botones fijos */
 }
 
