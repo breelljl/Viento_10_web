@@ -136,7 +136,12 @@
   --guide-note-max: 330px;  /* Sobre Córdoba (móvil y tableta): ancho máximo de las notas de 40°C y salmorejo */
   --leaf-gap: 20px; /* El hotel: espacio entre la hoja y «Te esperamos en Viento 10»; antes 60px */
   --city-text-top: 400; /* escritorio: distancia en px (a 1440) del texto «Sobre Córdoba» al borde superior de su foto; antes 225 */
+  --city-text-top-mobile: 100px; /* móvil: distancia del texto «Sobre Córdoba» al borde superior de su foto (antes 64px) */
+  --footer-side-mobile: 60px;  /* móvil · footer: margen a izquierda y derecha del contenido */
+  --footer-block-mobile: 40px; /* móvil · footer: espacio arriba y abajo de cada bloque (entre líneas) */
   --reviews-pad: 16.25rem;      /* espacio arriba y abajo de la sección de opiniones (240px); antes 12.5rem = 200px */
+  --eyebrow-gap-mobile: 10px;   /* móvil: espacio entre el antetítulo y el texto de debajo (antes 20px) */
+  --reviews-deco-top-mobile: 140px; /* móvil · opiniones: altura de los dientes de león desde arriba de la sección (antes 40px); más alto = más cerca de la cita */
   --reviews-move: 30px;      /* distancia que sube cada opinión al aparecer (0 = solo fundido) */
   --reviews-fade-delay: .6s; /* la nueva entra cuando la anterior ya casi se ha ido */
 
