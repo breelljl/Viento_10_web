@@ -36,8 +36,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: background-color var(--btn-hover-time) var(--ease), color var(--btn-hover-time) var(--ease), box-shadow var(--btn-hover-time) var(--ease);
 }
 /* Reservar: oliva oscuro · Menú: transparente */
-.btn--light { width: 160px; background: var(--c-olive-dark); color: var(--c-white); } /* Reservar */
-.btn--olive { background: transparent; color: var(--c-cream); }       /* Menú: solo texto sobre el contenedor */
+.btn--light { width: 160px; background: var(--c-olive-dark); color: var(--c-on-dark); } /* Reservar */
+.btn--olive { background: transparent; color: var(--c-on-dark); }     /* Menú / Cerrar: solo texto sobre el contenedor, mismo color que Reservar (#dfe0c3) */
 .btn--light:hover,
 .btn--olive:hover { box-shadow: inset 0 0 0 100px rgba(245, 245, 237, .12); } /* mismo velo claro (crema al 12%) en Reservar y Menú */
 
@@ -285,7 +285,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .hero__bg { object-position: 72% center; }
   .hero__logo { top: 25px; left: 50%; transform: translateX(-50%); } /* en móvil, fijo arriba en el centro */
   .hero__logo { transition: opacity .4s var(--ease), visibility 0s linear .4s; }
-  body.past-top:not(.menu-open) .hero__logo { opacity: 0; visibility: hidden; }   /* al pasar media pantalla se funde: no tapa los títulos */
+  body.past-top:not(.menu-open, .menu-closing) .hero__logo { opacity: 0; visibility: hidden; }   /* al pasar media pantalla se funde: no tapa los títulos */
   body:not(.past-top) .hero__logo { transition-delay: 0s; }
   .hero__bottom { bottom: 120px; gap: 32px; } /* por encima de los botones */
   .hero__tagline { font-size: .95rem; }
@@ -816,8 +816,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .footer {
   position: relative;
   z-index: 1;                      /* tapa el hero fijo, como las secciones */
-  background: var(--c-green-800);
-  color: var(--c-cream);
+  background: var(--c-olive-dark);   /* mismo verde que el botón Reservar (#404219) */
+  color: var(--c-on-dark);
 }
 .footer a { transition: opacity .3s var(--ease); }
 .footer a:hover { opacity: .7; }
@@ -842,7 +842,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: grid;
   grid-template-columns: calc(40.1 * var(--u)) 1fr auto; /* "Dirección" empieza a 620px */
   padding: 48px var(--gutter-sm) 70px;
-  border-top: 1px solid rgba(245, 245, 237, .2);
+  border-top: 1px solid rgba(223, 224, 195, .2);
 }
 /* Etiquetas MENÚ / DIRECCIÓN: mismas características que los antetítulos (.eyebrow),
    pero en crema al 100% */
@@ -874,7 +874,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   grid-template-columns: calc(40.1 * var(--u)) 1fr auto;
   align-items: center;
   padding: 28px var(--gutter-sm);
-  border-top: 1px solid rgba(245, 245, 237, .2);
+  border-top: 1px solid rgba(223, 224, 195, .2);
   font-size: .75rem;               /* 12px */
   line-height: 1.2;
   letter-spacing: .05em;
@@ -1162,7 +1162,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: center;
   justify-content: center;                    /* texto centrado en la foto */
   text-align: center;
-  min-height: 600px;
+  min-height: 625px;                         /* alto del Figma */
   padding: 100px var(--gutter);
 }
 .more__bg {
@@ -1564,10 +1564,10 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   height: auto;
   border-radius: var(--radius);
 }
-.street__item .caption { margin-top: 20px; }
+.street__item .caption { margin-top: var(--caption-gap); }
 /* Tercera foto: 665px de ancho, alineada con el margen de la página, 80px por debajo del rótulo */
 .street__item--wide { width: calc(46.2 * var(--u)); margin: 5rem 0 0 calc(var(--gutter) - 40px - var(--page-side)); }
-.street__item--wide .caption { margin-top: 25px; }
+.street__item--wide .caption { margin-top: var(--caption-gap); }
 
 @media (max-width: 767px) {
   .street { flex-direction: column; gap: 60px; padding: 0 var(--gutter-sm) 100px; }
@@ -1615,14 +1615,79 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .feature__text p + p { margin-top: 1.7em; }
 /* Frase manuscrita entre secciones */
 .vivir-script { padding: 0 var(--gutter-sm) 17.5rem; text-align: center; }
-.vivir-script--right { padding-bottom: 7.5rem; text-align: right; }  /* «Ummm…»: a la derecha */
-.vivir-script--left { padding: 7.5rem max(var(--gutter-sm), (100% - var(--room-max)) / 2) 9rem; text-align: left; } /* «Luz de mañana…»: alineada con el texto */
+.vivir-script--above { padding: var(--vivir-script-top) var(--gutter-sm) var(--vivir-script-gap); } /* «Luz de mañana…»: centrada, en una línea, justo encima del pase de fotos */
 /* Foto a todo el ancho de la pantalla, sin esquinas */
 .wide-photo img { display: block; width: 100%; height: auto; }
-.feature--offset .feature__media { aspect-ratio: 2143 / 2846; } /* proporción de la foto del hammam; se mueve con parallax como las demás */
+/* Pase de fotos de Vivir Viento 10: a todo el ancho, fundido entre fotos como el de habitaciones.
+   Alto de la pantalla (como el pase de habitaciones); botón redondo de 94px a 95px del borde derecho, centrado en alto */
+.slider {
+  position: relative;
+  height: 100vh;                              /* ocupa el alto de la pantalla, como el pase de habitaciones */
+  height: 100svh;                             /* móvil: sin saltos al aparecer/ocultarse la barra del navegador */
+  min-height: 560px;
+  margin-bottom: var(--slider-after);
+  overflow: hidden;
+  color: var(--c-white);
+  touch-action: pan-y;                        /* deja deslizar en horizontal sin bloquear el scroll */
+}
+.slider__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--slider-fade) ease-in-out;
+}
+.slider__slide.is-active { opacity: 1; }
+/* Contador: mismo estilo y sitio que el del pase de habitaciones; la línea dura --slider-autoplay */
+.slider__count { bottom: calc(var(--rooms-cta-bottom) + 6px); }
+.slider .rooms__progress.is-running span { animation-duration: var(--slider-autoplay); }
+/* Flecha: en reposo a 95px del borde derecho y centrada en alto (Figma).
+   Con ratón, sigue al puntero como si fuera el cursor (main.js la mueve con transform). */
+.slider__next {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 94px;
+  height: 94px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(223, 224, 195, .45);       /* crema claro al 45% (Figma) */
+  -webkit-backdrop-filter: blur(2px);
+          backdrop-filter: blur(2px);
+  color: var(--c-olive-dark);                 /* flecha verde oscuro (Figma: #404219) */
+  cursor: pointer;
+  transform: translate(calc(100cqw - 95px - 94px), calc(50cqh - 47px));
+  transition: background-color var(--btn-hover-time) ease;
+  will-change: transform;
+}
+/* La flecha-cursor se usa en el pase de Vivir Viento 10 (.slider) y en el de habitaciones de la Home (.rooms__slider) */
+.slider,
+.rooms__slider { container-type: size; }      /* para colocar la flecha en reposo con cqw/cqh */
+.rooms__slider .slider__next { z-index: 4; }   /* por encima de nombres y contador */
+.slider:hover .slider__next,
+.rooms__slider:hover .slider__next { background: rgba(223, 224, 195, .65); }
+@media (hover: hover) and (pointer: fine) {
+  .slider,
+  .rooms__slider { cursor: none; }            /* la flecha hace de cursor */
+  .rooms__cta { cursor: pointer; }            /* sobre el enlace vuelve el cursor normal */
+  /* el clic lo recoge toda la foto; fuera de la foto la flecha no se ve */
+  .slider__next { pointer-events: none; opacity: 0; transition: background-color var(--btn-hover-time) ease, opacity var(--slider-cursor-fade) ease; }
+  .is-pointing > .slider__next,
+  .slider__next:focus-visible { opacity: 1; }
+}
+.slider__next svg { display: block; width: 100%; height: 100%; transition: rotate var(--slider-cursor-fade) ease; }
+.is-back > .slider__next svg { rotate: 180deg; } /* mitad izquierda: apunta atrás */
+@media (max-width: 767px) {
+  .slider__next { width: 56px; height: 56px; transform: translate(calc(100cqw - var(--gutter-sm) - 56px), calc(50cqh - 28px)); }
+}
+.feature--offset .feature__media { aspect-ratio: 2477 / 2846; } /* proporción de la foto del hammam; se mueve con parallax como las demás */
+.feature--offset .feature__img { object-position: 0% 50%; } /* hammam: mismo parallax que las demás; el recorte se hace solo por la derecha (pared azul) para no cortar al huésped */
 /* Hammam: foto y texto desplazados a la derecha (empiezan a 387px en el Figma de 1440) */
 @media (min-width: 768px) {
-  .vivir-script--right { padding-right: calc(7.3 * var(--u)); }
   .feature--offset .feature__media,
   .feature--offset .feature__body { margin-left: min(20.4%, 229px); }
 }
@@ -1646,10 +1711,11 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .pair__item--small { width: calc(22.2 * var(--u)); }      /* 320px a 1440 */
 .pair__item--low { margin-top: calc(21 * var(--u)); }      /* 300px más baja a 1440 */
 .pair__item--lower { margin-top: calc(17.7 * var(--u)); }  /* 255px más baja a 1440 */
+.pair__item--lowest { margin-top: calc(27.8 * var(--u)); } /* 400px más baja a 1440 (escalera de Espacios comunes) */
 .pair--inset { padding-right: var(--gutter); } /* la foto de la derecha se alinea con el texto (masaje) */
 .pair__item img,
 .pair__item video { display: block; width: 100%; height: auto; border-radius: var(--radius); }
-.pair__item .caption { margin-top: 25px; }
+.pair__item .caption { margin-top: var(--caption-gap); }
 
 
 @media (max-width: 767px) {
@@ -1670,7 +1736,7 @@ body.page-cream { background: var(--c-bg); }
 .guide__intro {
   max-width: 920px;
   margin: 0 auto;
-  padding: 18.75rem var(--gutter-sm) 4.375rem;  /* 300px arriba · 70px abajo */
+  padding: 18.75rem var(--edge) 4.375rem;       /* 300px arriba · 70px abajo · a los lados el margen fijo (la caja ya se centra sola) */
   text-align: center;
 }
 .guide__title {
@@ -1700,22 +1766,24 @@ body.page-cream { background: var(--c-bg); }
 }
 .guide__grid > * { grid-column: 2; }
 .guide__grid--solo { padding-top: 7.5rem; }   /* 120px bajo la foto del río */
+.guide__grid--table { padding-bottom: 5rem; } /* 80px entre «La mesa» y «Lo que no sale en las guías» */
 .guide__figure { margin: 0 0 50px; }
 .guide__figure img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+.guide__figure .caption { margin-top: var(--caption-gap); }
 .guide__figure--inline { margin: 40px 0; }
 .guide__text { margin-top: 30px; }
 .guide__text p { margin: 0; font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
 .guide__text p + p, .guide__text p + ul { margin-top: 24px; }
-.guide__list { margin: 24px 0 0; padding-left: 24px; }
+.guide__list { margin: 24px 0 0; padding-left: 1.1em; } /* el punto queda en el margen del texto, sin sangría extra */
 .guide__list li { line-height: 1.5; }
 .guide__list li + li { margin-top: 24px; }
 .guide__list strong { font-weight: 500; }
 
 /* Notas laterales (40°C y salmorejo) */
-.guide__aside { font-size: .875rem; line-height: 1.5; }
+.guide__aside { max-width: 318px; font-size: .875rem; line-height: 1.5; } /* 318px como en el Figma de 1440: en pantallas grandes no se ensancha */
 .guide__aside p { margin: 0; }
 .guide__aside--right { grid-column: 3; grid-row: 2; align-self: start; }
-.guide__aside--left { grid-column: 1; grid-row: 1; align-self: start; margin-top: 210px; } /* a la altura de la foto */
+.guide__aside--left { grid-column: 1; grid-row: 1; align-self: start; justify-self: end; margin-top: 210px; } /* a la altura de la foto */
 .guide__illus { display: block; width: 220px; margin: 0 auto 70px; } /* ilustración sobre la nota del salmorejo */
 .guide__degrees { display: block; width: 143px; margin: 0 auto 45px; }
 
@@ -1725,13 +1793,14 @@ body.page-cream { background: var(--c-bg); }
 .route__inner { position: absolute; inset: 0; padding: 11.25rem var(--gutter) 0; } /* 180px arriba */
 .route__title {
   max-width: 600px;
-  margin: 0;
+  margin: 0 auto;                             /* centrado en la foto */
+  text-align: center;
   font-family: var(--f-serif);
   font-weight: 300;
   font-size: var(--fs-lead);
   line-height: 1.2;
 }
-.route__map { display: block; width: calc(78.5 * var(--u)); max-width: 1130px; height: auto; margin: 160px auto 0; } /* 1130px a 1440 · 160px bajo el titular · centrado */
+.route__map { display: block; width: calc(78.5 * var(--u)); max-width: 1130px; height: auto; margin: var(--route-map-gap) auto 0; } /* 1130px a 1440 · bajo el titular · centrado */
 /* La página se detiene con la frase y el mapa arriba; main.js calcula --route-stick */
 .route__sticky { position: sticky; top: calc(-1 * var(--route-stick, 0px)); }
 .route__pin { height: var(--route-pin); }
@@ -1740,8 +1809,8 @@ body.page-cream { background: var(--c-bg); }
 /* Recuadro de contacto */
 .guide__contact {
   display: block;
-  width: min(435px, calc(100% - 40px));
-  margin: -5rem auto 5rem;
+  width: min(665px, calc(100% - 80px));      /* mismo ancho que la columna de texto */
+  margin: -5rem auto 10rem;                   /* abajo: 120px visibles hasta el carrusel */
   padding: 55px 30px;
   box-sizing: border-box;
   border: 1px solid var(--c-green-800);
@@ -1760,9 +1829,11 @@ body.page-cream { background: var(--c-bg); }
 @media (max-width: 1023px) {
   .guide__grid { grid-template-columns: minmax(0, 1fr); padding: 0 var(--gutter-sm) 100px; }
   .guide__grid > *, .guide__aside--right, .guide__aside--left { grid-column: 1; grid-row: auto; margin-top: 40px; }
+  .guide__aside { justify-self: center; max-width: var(--guide-note-max); text-align: center; } /* notas (40°C, salmorejo): estrechas y centradas, como en el diseño de móvil */
   .guide__figure:not(.guide__figure--inline) { margin-bottom: 0; } /* 40px entre foto y ladillo */
   .guide__text { margin-top: 20px; }                                 /* 20px entre ladillo y texto */
   .route__inner { padding: 80px var(--gutter-sm) 0; }
+  .guide__contact { width: calc(100% - 2 * var(--gutter-sm)); } /* mismo ancho que el texto */
   .route__map { width: 100%; margin-top: 60px; }
 }
 @media (max-width: 767px) {
@@ -1843,7 +1914,7 @@ body.page-cream { background: var(--c-bg); }
   display: flex;
   align-items: center;
   background: var(--c-olive-dark);
-  color: var(--c-cream);
+  color: var(--c-on-dark);
   visibility: hidden;
   translate: 0 -100%;                         /* cortina: espera arriba, fuera de la pantalla */
   /* Cierre: primero se va el contenido y después sube la cortina */
@@ -1859,12 +1930,15 @@ body.menu-open { overflow: hidden; }
 html:has(body.menu-open) { overflow: hidden; } /* la página de detrás no hace scroll con el menú abierto */
 .menu { overflow: hidden; }                    /* el menú tampoco: todo cabe en pantalla */
 /* Con el menú abierto se ocultan el logo y las etiquetas de la cabecera (el menú lleva su logo) */
-body.menu-open .hero__logo,
 body.menu-open .header__meta,
 body.menu-open .header__lang { visibility: hidden; }
 /* al cerrar, reaparecen cuando la cortina ya ha subido */
-.hero__logo, .header__meta, .header__lang { transition: visibility 0s linear calc(var(--menu-time) + var(--menu-text-time)); }
-body.menu-open :is(.hero__logo, .header__meta, .header__lang) { transition-delay: 0s; }
+.header__meta, .header__lang { transition: visibility 0s linear calc(var(--menu-time) + var(--menu-text-time)); }
+body.menu-open :is(.header__meta, .header__lang) { transition-delay: 0s; }
+/* El logo de la cabecera se queda quieto sobre el menú, como Reservar y Menú (sin animación);
+   sobre el verde del menú siempre en su versión clara */
+:is(body.menu-open, body.menu-closing) .hero__logo img { content: url("../assets/img/home/slider_hero/logo-viento.svg"); } /* también mientras la cortina se va */
+.menu__logo { display: none; }                 /* el menú ya no lleva logo propio: se ve el de la cabecera */
 
 /* Etiquetas: suben desde una línea invisible (corte), una detrás de otra */
 .menu__nav a { display: block; overflow: hidden; }
@@ -1937,7 +2011,7 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 20px;                                  /* espacio entre correo y teléfono */
   position: absolute;
   top: calc(50% + 11.25rem + 78px);           /* mitad de las etiquetas (6 × 60px / 2) + 80px por debajo de la última */
   margin: 0;
@@ -2098,11 +2172,10 @@ html.is-loading body { background: transparent; }
   display: flex;
   align-items: center;
   height: var(--booking-h);
-  background: var(--c-green-800);  /* mismo verde que el footer */
-  color: var(--c-white);
+  background: var(--c-olive-dark);  /* mismo verde que el footer y el botón Reservar (#404219) */
+  color: var(--c-on-dark);
   font-family: var(--f-sans);
   font-size: var(--fs-meta);                  /* 13px */
-  padding-right: var(--page-side);            /* pantallas grandes: el contenido se centra, el fondo sigue a todo el ancho */
   transition: translate var(--booking-hide) var(--ease);
 }
 .booking.is-hidden { translate: 0 100%; }      /* al llegar al footer baja y se esconde */
@@ -2149,7 +2222,7 @@ html.is-loading body { background: transparent; }
   align-items: center;
   justify-content: center;
   height: 100%;
-  border-left: 1px solid rgba(255, 255, 255, .25);
+  border-left: 1px solid rgba(223, 224, 195, .25);
 }
 .booking__cta {
   margin-left: auto;
@@ -2175,7 +2248,7 @@ html.is-loading body { background: transparent; }
   width: 290px;
   padding: 22px 24px 25px;
   border-radius: var(--radius);
-  background: var(--c-green-800);  /* mismo verde que el footer */
+  background: var(--c-olive-dark);  /* mismo verde que la barra y el footer (#404219) */
   box-shadow: 0 6px 20px rgba(0, 0, 0, .25);
 }
 .booking__panel[hidden] { display: none; }
@@ -2198,8 +2271,8 @@ html.is-loading body { background: transparent; }
   width: 7px;
   height: 7px;
   margin: auto;
-  border-left: 1.2px solid var(--c-white);
-  border-bottom: 1.2px solid var(--c-white);
+  border-left: 1.2px solid currentColor;
+  border-bottom: 1.2px solid currentColor;
   rotate: 45deg;
 }
 .booking__nav--next::before { rotate: 225deg; }
@@ -2217,9 +2290,9 @@ html.is-loading body { background: transparent; }
 }
 .booking__day:hover:not(:disabled) { background: rgba(0, 0, 0, .15); }
 .booking__day:disabled { opacity: .35; cursor: default; }
-.booking__day.is-other:not(.is-range, .is-end) { color: rgba(255, 255, 255, .4); } /* días de otro mes: tenues */
-.booking__day.is-range { background: var(--c-olive-dark); }               /* noches elegidas */
-.booking__day.is-end { background: var(--c-olive-dark); outline: 1px solid rgba(255, 255, 255, .25); outline-offset: -1px; }
+.booking__day.is-other:not(.is-range, .is-end) { color: rgba(223, 224, 195, .4); } /* días de otro mes: tenues */
+.booking__day.is-range { background: rgba(223, 224, 195, .12); }          /* noches elegidas: velo crema, se ve sobre el verde del panel */
+.booking__day.is-end { background: rgba(223, 224, 195, .25); outline: 1px solid rgba(223, 224, 195, .5); outline-offset: -1px; } /* entrada y salida: algo más marcadas */
 /* Huéspedes */
 .booking__guests { padding: 28px 24px 22px 29px; }
 .booking__row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
@@ -2303,7 +2376,6 @@ html.is-loading body { background: transparent; }
   .header__lang { right: calc(var(--edge) + 238px * var(--laptop-scale) + 32px); }
 
   /* Menú: las etiquetas y el contacto ya bajan con los textos; aquí, logo, iconos, foto y márgenes */
-  .menu__logo { top: calc(55px * var(--laptop-scale)); }
   .menu__logo img { width: calc(150px * var(--laptop-scale)); }
   .menu__col::after { top: calc(87px * var(--laptop-scale)); bottom: calc(87px * var(--laptop-scale)); }
   .menu__contact { top: calc(50% + 11.25rem + min(50px, 5vh)); }   /* más cerca de las etiquetas: deja sitio a los iconos */
@@ -2319,6 +2391,7 @@ html.is-loading body { background: transparent; }
   .pair__item--small  { width: calc(calc(22.2 * var(--u)) * var(--laptop-scale)); }
   .pair__item--low    { margin-top: calc(calc(21 * var(--u)) * var(--laptop-scale)); }
   .pair__item--lower  { margin-top: calc(calc(17.7 * var(--u)) * var(--laptop-scale)); }
+  .pair__item--lowest { margin-top: calc(calc(27.8 * var(--u)) * var(--laptop-scale)); }
   .street__item       { width: calc(calc(38 * var(--u)) * var(--laptop-scale)); }
   .street__item--low  { width: calc(calc(38.2 * var(--u)) * var(--laptop-scale)); margin-top: calc(calc(12.15 * var(--u)) * var(--laptop-scale)); }
   .street__item--wide { width: calc(calc(46.2 * var(--u)) * var(--laptop-scale)); }
@@ -2329,6 +2402,7 @@ html.is-loading body { background: transparent; }
   .contact__media { flex-basis: calc(665px * var(--laptop-scale)); }
   .contact__row--arrive .contact__media { flex-basis: calc(550px * var(--laptop-scale)); }
   .guide__grid { grid-template-columns: 1fr minmax(0, calc(665px * var(--laptop-scale))) 1fr; }
+  .guide__contact { width: min(calc(665px * var(--laptop-scale)), calc(100% - 80px)); }
 
   /* Opiniones (Home): dientes de león decorativos */
   .testimonials__deco { width: calc(calc(37.6 * var(--u)) * var(--laptop-scale) * .8); }   /* más pequeños que el resto: aquí estorbaban */

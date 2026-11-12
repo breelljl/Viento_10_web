@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vivir Viento 10 • Viento 10, hotel boutique en Córdoba</title>
-  <link rel="stylesheet" href="css/tokens.css?v=2026-11-10a">
-  <link rel="stylesheet" href="css/style.css?v=2026-11-10a">
+  <link rel="stylesheet" href="css/tokens.css?v=2026-11-12a">
+  <link rel="stylesheet" href="css/style.css?v=2026-11-12a">
 </head>
 <body>
 
@@ -98,7 +98,7 @@
     <!-- ============ ENTRADA ============ -->
     <section class="page-intro">
       <div class="statement reveal">
-        <p class="statement__text">En Viento 10, la casa entera está pensada para que vivas cada día a tu manera, con un equipo cerca para lo que necesites.</p>
+        <p class="statement__text">En Viento 10, la casa entera está pensada para que vivas cada día a tu manera, con un equipo cerca <br> para lo que necesites.</p>
       </div>
     </section>
     <!-- ============ ESPACIOS COMUNES ============ -->
@@ -118,9 +118,8 @@
       <figure class="pair__item pair__item--tall reveal">
         <img src="assets/img/vivir_viento%2010/02_piscina.jpg" alt="Ducha de cobre entre cipreses junto a la alberca">
       </figure>
-      <figure class="pair__item pair__item--narrow pair__item--low reveal">
-        <video src="assets/img/vivir_viento%2010/Espacios.mp4" autoplay muted loop playsinline aria-label="Huésped leyendo en el salón"></video>
-        <figcaption class="caption">Espacios para quedarse, y para dejarse llevar.</figcaption>
+      <figure class="pair__item pair__item--narrow pair__item--lowest reveal">
+        <img src="assets/img/vivir_viento%2010/03_zonas-comunes.jpg" alt="Escalera con barandilla de cristal junto a una ventana con flores">
       </figure>
     </section>
     <!-- ============ DESAYUNO ============ -->
@@ -143,18 +142,32 @@
       </figure>
     </section>
 
-    <section class="vivir-script vivir-script--right">
-      <p class="script-title reveal">Ummm…<br>hecho aquí, con cariño</p>
+    <section class="vivir-script vivir-script--above">
+      <p class="script-title reveal">Luz de mañana, silencio y todo el tiempo del mundo</p>
     </section>
 
-    <!-- ============ FOTO A TODO EL ANCHO ============ -->
-    <section class="wide-photo">
-      <img src="assets/img/vivir_viento%2010/08_piscina-jardin.jpg" alt="Butaca de madera junto a la alberca del patio">
+    <!-- ============ PASE DE FOTOS (como el de habitaciones de la Home) ============ -->
+    <section class="slider" data-dark aria-roledescription="carrusel" aria-label="Espacios de la casa">
+        <img class="slider__slide is-active" src="assets/img/vivir_viento%2010/slider_viento%2010/01_salon-cafe_vivir.jpg" alt="Salón de la casa">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/02_patio_vivir.jpg" alt="Patio de columnas" loading="lazy">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/03_piscina-jardin_vivir.jpg" alt="Alberca y jardín" loading="lazy">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/04_zonas-comunes_vivir.jpg" alt="Zonas comunes de la casa" loading="lazy">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/05_solarium_vivir.jpg" alt="Solárium en la azotea" loading="lazy">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/06_piscina-jardin_vivir.jpg" alt="Alberca y jardín" loading="lazy">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/07_salon-cafe_vivir.jpg" alt="Salón de la casa" loading="lazy">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/08_zonas-comunes_vivir.jpg" alt="Zonas comunes de la casa" loading="lazy">
+        <img class="slider__slide" src="assets/img/vivir_viento%2010/slider_viento%2010/10_piscina-jardin_vivir.jpg" alt="Butaca de madera junto a la alberca del patio" loading="lazy">
+      <!-- Contador como el del pase de habitaciones: número actual, línea de progreso y total -->
+      <p class="rooms__count slider__count">
+        <span data-current>1</span>
+        <span class="rooms__progress" aria-hidden="true"><span></span></span>
+        <span data-total>9</span>
+      </p>
+      <button class="slider__next" type="button" aria-label="Siguiente foto">
+        <svg viewBox="0 0 94 94" aria-hidden="true"><path d="M50.93 40.3a1 1 0 0 1 1.41 0l6.37 6.48a1.03 1.03 0 0 1 0 1.44l-6.37 6.48a1 1 0 0 1-1.41 0 1.03 1.03 0 0 1 0-1.44l4.66-4.74H34v-2.04h21.59l-4.66-4.74a1.03 1.03 0 0 1 0-1.44Z" fill="currentColor"/></svg>
+      </button>
     </section>
 
-    <section class="vivir-script vivir-script--left">
-      <p class="script-title reveal">Luz de mañana, silencio<br>y todo el tiempo del mundo</p>
-    </section>
 
     <!-- ============ HAMMAM Y MASAJE ============ -->
     <section class="feature feature--offset">
@@ -184,7 +197,7 @@
     <!-- ============ COMODIDADES ============ -->
     <section class="feature">
       <div class="feature__media reveal">
-        <img class="feature__img" data-parallax="0.1" src="assets/img/vivir_viento%2010/09_ameneties_web.jpg" alt="Armario abierto y ventana con asiento en una habitación">
+        <img class="feature__img" data-parallax="0.1" src="assets/img/vivir_viento%2010/09_ameneties.jpg" alt="Cocina de una habitación con el dormitorio al fondo">
       </div>
       <div class="care__body feature__body">
         <h2 class="care__title reveal">Comodidades</h2>
@@ -283,6 +296,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-11-10a"></script>
+  <script src="js/main.js?v=2026-11-12a"></script>
 </body>
 </html>

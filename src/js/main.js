@@ -190,8 +190,9 @@
     progress.classList.add('is-running');
   }
 
+  let queued = 0; // clic durante el movimiento: se hace al terminar
   function go(dir) {
-    if (busy) return;
+    if (busy) { queued = dir; return; }
     busy = true;
 
     const from = slides[current];
@@ -225,6 +226,7 @@
         center(false);
       }
       busy = false;
+      if (queued) { const d = queued; queued = 0; go(d); }
     }, MOVE);
   }
 
@@ -247,12 +249,98 @@
     startX = null;
   });
 
+  // Flecha-cursor: clic en la foto = siguiente (mitad derecha) o anterior (mitad izquierda)
+  arrowCursor(slider, (dir) => { go(dir); restart(); });
+
   // Recolocar al cambiar el tamaño de la ventana o al cargar las fuentes
   window.addEventListener('resize', () => center(false));
   document.fonts && document.fonts.ready.then(() => center(false));
 
   center(false);
   restart();
+})();
+
+// ---------- Flecha-cursor de los pases de fotos ----------
+// Con ratón, la flecha redonda hace de cursor: aparece bajo el puntero, lo sigue con un poco
+// de retraso y desaparece al salir de la foto. En la mitad derecha avanza; en la izquierda se
+// gira y retrocede. Sobre un enlace (p. ej. «Nuestras habitaciones») se oculta y el clic es del enlace.
+// En pantallas táctiles la flecha se queda fija a la derecha y se toca.
+function arrowCursor(box, go) {
+  const btn = box.querySelector('.slider__next');
+  if (!btn) return;
+  const mouse = window.matchMedia('(hover: hover) and (pointer: fine)');
+  let x = 0, y = 0, tx = 0, ty = 0, raf = null;
+
+  box.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    go(mouse.matches && box.classList.contains('is-back') ? -1 : 1);
+  });
+
+  function frame() {
+    x += (tx - x) * 0.18;
+    y += (ty - y) * 0.18;
+    btn.style.transform = `translate(${x - btn.offsetWidth / 2}px, ${y - btn.offsetHeight / 2}px)`;
+    raf = box.classList.contains('is-pointing') ? requestAnimationFrame(frame) : null;
+  }
+  function target(e) {
+    const r = box.getBoundingClientRect();
+    tx = e.clientX - r.left; ty = e.clientY - r.top;
+    box.classList.toggle('is-back', tx < r.width / 2);
+    box.classList.toggle('is-pointing', !e.target.closest('a'));
+    if (!raf && box.classList.contains('is-pointing')) raf = requestAnimationFrame(frame);
+  }
+  box.addEventListener('mouseenter', (e) => {
+    if (!mouse.matches) return;
+    target(e); x = tx; y = ty; // aparece ya bajo el puntero
+  });
+  box.addEventListener('mousemove', (e) => { if (mouse.matches) target(e); });
+  box.addEventListener('mouseleave', () => box.classList.remove('is-pointing'));
+}
+
+// ---------- Pase de fotos (Vivir Viento 10) ----------
+// Fundido entre fotos como el pase de habitaciones, con el mismo contador: cuando la línea
+// termina de llenarse (--slider-autoplay) pasa a la siguiente foto.
+// Con ratón, la flecha redonda hace de cursor: en la mitad derecha avanza, en la izquierda se gira
+// y retrocede; fuera de la foto desaparece. En móvil: tocar la flecha o deslizar con el dedo.
+(function () {
+  document.querySelectorAll('.slider').forEach((slider) => {
+    const slides = [...slider.querySelectorAll('.slider__slide')];
+    if (slides.length < 2) return;
+    const counter = slider.querySelector('[data-current]');
+    const progress = slider.querySelector('.rooms__progress');
+    slider.querySelector('[data-total]').textContent = slides.length;
+    let current = 0;
+
+    function restart() {
+      progress.classList.remove('is-running');
+      progress.offsetWidth; // reinicia la animación de la línea
+      progress.classList.add('is-running');
+    }
+    function go(dir) {
+      slides[current].classList.remove('is-active');
+      current = (current + dir + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      slides[(current + 1) % slides.length].loading = 'eager'; // la siguiente, ya cargada
+      counter.textContent = current + 1;
+      restart();
+    }
+    progress.addEventListener('animationend', () => go(1));
+
+    arrowCursor(slider, go);
+
+    // Deslizar con el dedo
+    let startX = null;
+    slider.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+      startX = null;
+    });
+
+    slides[1].loading = 'eager';
+    restart();
+  });
 })();
 
 // ---------- Carrusel de fotos (Experiencia) ----------
@@ -580,7 +668,25 @@
   const btn = document.querySelector('.menu-toggle');
   const menu = document.getElementById('menu');
   if (!btn || !menu) return;
+  // Al cerrar, «menu-closing» dura lo que tarda la cortina en irse: mientras, el logo sigue en su versión clara
+  const css = getComputedStyle(document.documentElement);
+  const sec = (v) => parseFloat(v) * (v.trim().endsWith('ms') ? 1 : 1000);
   const setOpen = (open) => {
+    const wasOpen = document.body.classList.contains('menu-open');
+    document.body.classList.toggle('menu-closing', wasOpen && !open);
+    if (wasOpen && !open) {
+      // se quita justo cuando el borde de la cortina pasa por la mitad del logo (o al acabar, como tope)
+      const logo = document.querySelector('.hero__logo');
+      const end = performance.now() + sec(css.getPropertyValue('--menu-text-time')) + sec(css.getPropertyValue('--menu-time'));
+      const watch = () => {
+        if (document.body.classList.contains('menu-open')) return;
+        const r = logo && logo.getBoundingClientRect();
+        if (!r || menu.getBoundingClientRect().bottom <= r.top + r.height / 2 || performance.now() > end) {
+          document.body.classList.remove('menu-closing');
+        } else requestAnimationFrame(watch);
+      };
+      requestAnimationFrame(watch);
+    }
     document.body.classList.toggle('menu-open', open);
     btn.setAttribute('aria-expanded', open);
     btn.textContent = open ? 'Cerrar' : 'Menú';

@@ -14,13 +14,14 @@
 
 :root {
   /* Color */
-  --c-olive-dark: #40421a;   /* footer, texto principal */
+  --c-olive-dark: #404219;   /* el más oscuro: texto principal, botón Reservar, menú, carga y galería (antes #40421a) */
   --c-green-800:  #545621;   /* green-800 (Figma): footer, botones, enlaces, script */
   --c-cream:      #f5f5ed;   /* fondo testimonios */
   --c-white:      #ffffff;
   --c-bg:         #fdfdf6;   /* fondo general de páginas, secciones y cajas (sustituye a blanco y crema) */
-  --c-line:       rgba(64, 66, 26, .25);
-  --c-loader-mark: #dfe0c3; /* símbolo y texto de la pantalla de carga */
+  --c-line:       rgba(64, 66, 25, .25);
+  --c-on-dark:    #dfe0c3;   /* textos, líneas e iconos sobre el verde oscuro #404219 (footer, barra de reserva, menú, botón Reservar) */
+  --c-loader-mark: var(--c-on-dark); /* símbolo y texto de la pantalla de carga */
   --booking-h: 70px;         /* alto de la barra de reserva fija */
   --booking-hide: .6s;       /* bajada y subida de la barra al llegar o salir del footer */
   --booking-panel-gap: 40px; /* separación entre la barra y los desplegables (calendario y huéspedes) */
@@ -66,6 +67,12 @@
   --rooms-cta-bottom: 70px;  /* distancia del enlace «Nuestras habitaciones» al borde inferior de la foto (el contador lo sigue); antes 110px */
   --rooms-fade: 3.5s;        /* fundido entre fotos */
   --rooms-autoplay: 5s;      /* tiempo que se ve cada habitación */
+  --vivir-script-top: 0rem;   /* Vivir Viento 10 · espacio extra sobre «Luz de mañana…» (la sección del desayuno ya deja 240px) */
+  --vivir-script-gap: 2.375rem; /* Vivir Viento 10 · espacio entre «Luz de mañana…» y el pase de fotos: 38px de relleno = 40px visibles (la línea de texto suma 2px) */
+  --slider-after: 13.75rem;  /* Vivir Viento 10 · espacio bajo el pase de fotos hasta el hammam (220px) */
+  --slider-fade: 1.5s;       /* Vivir Viento 10 · pase de fotos: fundido entre fotos */
+  --slider-autoplay: 5s;     /* Vivir Viento 10 · pase de fotos: tiempo que se ve cada foto (lo marca la línea del contador) */
+  --slider-cursor-fade: .3s; /* Vivir Viento 10 · flecha-cursor: lo que tarda en aparecer, desaparecer y girarse */
   --rooms-text-move: 2.2s;     /* deslizamiento de la cinta de nombres */
   --rooms-names-gap: clamp(500px, 24vw, 600px); /* separación entre nombres: controla cuánto asoman los vecinos */
   --ease-names: cubic-bezier(.65, 0, .35, 1);   /* arranque y llegada suaves */
@@ -124,6 +131,9 @@
   --reviews-fade: 1s;        /* fundido entre opiniones */
   --reviews-max: 1000px;     /* ancho máximo del texto de cada opinión (unos 70 caracteres por línea); antes 900px */
   --room-list-end: 16.25rem; /* Habitaciones: relleno bajo la última tarjeta (260px); deja 220px visibles hasta la foto a todo el ancho; antes 12.5rem = 160px visibles */
+  --route-map-gap: 250px;   /* Sobre Córdoba: espacio entre la frase «La mejor forma de recorrer…» y el mapa; antes 160px */
+  --caption-gap: 20px;      /* espacio entre una foto y su pie de foto (todas las páginas) */
+  --guide-note-max: 330px;  /* Sobre Córdoba (móvil y tableta): ancho máximo de las notas de 40°C y salmorejo */
   --leaf-gap: 20px; /* El hotel: espacio entre la hoja y «Te esperamos en Viento 10»; antes 60px */
   --city-text-top: 400; /* escritorio: distancia en px (a 1440) del texto «Sobre Córdoba» al borde superior de su foto; antes 225 */
   --reviews-pad: 16.25rem;      /* espacio arriba y abajo de la sección de opiniones (240px); antes 12.5rem = 200px */
