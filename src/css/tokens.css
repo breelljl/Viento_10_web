@@ -113,6 +113,7 @@
   --loader-draw: 1s;      /* lo que tarda en dibujarse cada línea del símbolo */
   --loader-draw-stagger: .08s; /* retraso entre una línea y la siguiente */
   --loader-hold: .5s;        /* tiempo que se queda el símbolo después de cargar la página */
+  --loader-max: 2s;          /* espera máxima a que cargue la foto del hero (conexión lenta: la cortina sube igual) */
 
   /* Menú desplegable */
   --menu-time: .9s;          /* bajada y subida de la cortina verde */
@@ -163,6 +164,6 @@
     --fs-entradilla: 1.375rem;  /* 22px · opiniones y textos con ese estilo */
     --fs-ladillo: 1.25rem;      /* 20px · ladillos («Cuidado de cada día»…) */
     --fs-page-title: 2.375rem;  /* 38px · titulares del hero («Nuestras habitaciones»…); antes 44px */
-    --fs-display: 2.5rem;       /* 40px · textos caligráficos Bon Vivant («Bienvenidos»…); antes 48px */
+    --fs-display: 2.75rem;      /* 44px · textos caligráficos Bon Vivant («Bienvenidos»…); antes 40px */
   }
 }

@@ -719,10 +719,18 @@ function arrowCursor(box, go) {
   const css = getComputedStyle(root);
   const ms = (name) => parseFloat(css.getPropertyValue(name)) * 1000 || 0;
   const wait = (t) => new Promise((resolve) => setTimeout(resolve, t));
+  // «Cargada» = la primera foto del hero ya está (el resto de fotos sigue descargándose detrás).
+  // Páginas sin foto de hero: la página entera.
+  const heroImg = document.querySelector('.hero img');
   const loaded = new Promise((resolve) => {
-    if (document.readyState === 'complete') resolve();
+    if (heroImg) {
+      if (heroImg.complete) resolve();
+      else { heroImg.addEventListener('load', resolve, { once: true }); heroImg.addEventListener('error', resolve, { once: true }); }
+    } else if (document.readyState === 'complete') resolve();
     else window.addEventListener('load', resolve, { once: true });
   });
+  // Con conexión lenta no se espera más de --loader-max
+  const ready = () => Promise.race([loaded, wait(ms('--loader-max'))]);
 
   let first = true;
   try {
@@ -745,12 +753,12 @@ function arrowCursor(box, go) {
       loader.classList.add('is-mark');
       // termina de dibujarse (líneas escalonadas + texto) y la página está cargada
       const drawn = ms('--loader-draw') + 4 * ms('--loader-draw-stagger') + ms('--loader-mark-fade'); // 4 = último --i del símbolo
-      await Promise.all([loaded, wait(drawn)]);
+      await Promise.race([Promise.all([loaded, wait(drawn)]), wait(drawn + ms('--loader-max'))]);
       await wait(ms('--loader-hold'));
       loader.classList.add('is-out');
       await wait(ms('--loader-mark-out'));
     } else {
-      await loaded;
+      await ready();
     }
     open();
   })();

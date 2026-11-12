@@ -582,7 +582,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- Habitaciones · móvil ---------- */
 @media (max-width: 767px) {
   .rooms__slider { height: 100svh; }
-  .rooms__count { top: 90px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); } /* móvil: sigue arriba en el centro (abajo chocaría con el enlace) */
+  .rooms__count { top: 90px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); font-size: 1rem; } /* 16px; antes 13px */ /* móvil: sigue arriba en el centro (abajo chocaría con el enlace) */
   :root { --fs-room-name: 1.625rem; --fs-room-details: .875rem; } /* 26px y 14px */
   /* Si el nombre no cabe dejando 40px a cada lado, pasa a dos líneas */
   .rooms__names-track span { white-space: normal; max-width: calc(100vw - 80px); }
