@@ -899,7 +899,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    margen lateral --footer-side-mobile y aire vertical --footer-block-mobile */
 @media (max-width: 767px) {
   .footer__claim { padding: 120px var(--gutter-sm); }
-  .footer__logo { width: 52px; }
+  .footer__logo { width: 65px; }   /* como en escritorio; antes 52px */
   .footer__title { font-size: 1.75rem; }
   .footer__main,
   .footer__bottom { grid-template-columns: 1fr; gap: 0; padding: 0; }
@@ -1708,6 +1708,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   .feature__media:has(source[srcset*="01_piscina_jardin_movil"]) { aspect-ratio: 1335 / 2000; }
   .feature__media:has(source[srcset*="04_desayuno_movil"])       { aspect-ratio: 1106 / 1335; }
   .feature__media:has(source[srcset*="09_amenities_movil"])      { aspect-ratio: 1335 / 2000; }
+  .feature__media:has(source[srcset*="12_equipo_movil"])         { aspect-ratio: 1354 / 1335; }
   .feature--offset .feature__media { aspect-ratio: 2 / 3; }   /* hammam: más vertical (escritorio 2477/2846) */
   .slider { margin-bottom: 80px; }                             /* del pase al hammam: 80px (escritorio --slider-after) */
 }
