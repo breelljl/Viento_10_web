@@ -142,6 +142,7 @@
   --footer-block-mobile: 40px; /* móvil · footer: espacio arriba y abajo de cada bloque (entre líneas) */
   --reviews-pad: 16.25rem;      /* espacio arriba y abajo de la sección de opiniones (240px); antes 12.5rem = 200px */
   --eyebrow-gap-mobile: 10px;   /* móvil: espacio entre el antetítulo y el texto de debajo (antes 20px) */
+  --statement-link-gap-mobile: 24px; /* móvil: espacio entre el texto y su enlace («Descubre el hotel»…); antes 36px */
   --reviews-deco-top-mobile: 140px; /* móvil · opiniones: altura de los dientes de león desde arriba de la sección (antes 40px); más alto = más cerca de la cita */
   --reviews-move: 30px;      /* distancia que sube cada opinión al aparecer (0 = solo fundido) */
   --reviews-fade-delay: .6s; /* la nueva entra cuando la anterior ya casi se ha ido */
@@ -161,7 +162,7 @@
 /* Móvil: tamaños de texto propios */
 @media (max-width: 767px) {
   :root {
-    --fs-entradilla: 1.375rem;  /* 22px · opiniones y textos con ese estilo */
+    --fs-entradilla: 1.5rem;    /* 24px · opiniones y textos con ese estilo; antes 22px */
     --fs-ladillo: 1.25rem;      /* 20px · ladillos («Cuidado de cada día»…) */
     --fs-page-title: 2.375rem;  /* 38px · titulares del hero («Nuestras habitaciones»…); antes 44px */
     --fs-display: 2.75rem;      /* 44px · textos caligráficos Bon Vivant («Bienvenidos»…); antes 40px */

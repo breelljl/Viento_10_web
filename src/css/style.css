@@ -405,17 +405,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .welcome { padding: 64px 0 80px; }
 
 
-  .collage { flex-direction: column; }
+  .collage { flex-direction: column; gap: 20px; padding: 0 var(--gutter-sm); }   /* fotos al ancho del texto, sin sangre, 20px entre ellas */
   .collage--welcome { margin: 40px 0 120px; }   /* 120px hasta el texto «El hotel» */
-  .collage__img--pool   { width: 44.4vw; margin: 0 0 0 20px; aspect-ratio: 435 / 291; }
-  .collage__img--book   { width: 79vw;   margin: 47px 0 0 16.4vw; }
+  .collage__img--pool,
+  .collage__img--book { width: 100%; margin: 0; }
 
   .statement__text { font-size: 1.65rem; }
-  .statement .link-arrow { margin-top: 36px; }
+  .statement .link-arrow { margin-top: var(--statement-link-gap-mobile); }
 
   .collage--hotel { margin-top: 120px; }         /* 120px desde «Descubre el hotel» */
-  .collage__img--stairs { width: 78.5vw; margin: 0 0 0 20px; aspect-ratio: 306 / 196; }
-  .collage__img--garden { width: 44vw;   margin: 41px 0 0 50.5vw; aspect-ratio: 172 / 260; }
+  .collage__img--stairs { width: 100%; margin: 0; aspect-ratio: 306 / 196; }
+  .collage__img--garden { width: 100%; margin: 0; aspect-ratio: 172 / 260; }
 }
 
 /* ==========================================================
@@ -1041,9 +1041,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .room-list { padding: 0 var(--gutter-sm) 100px; }
   .room-card { margin-bottom: 100px; }
   .room-card__name { font-size: 1.5rem; }
-  .room-card__details { font-size: .8125rem; }
-  .room-card__media { aspect-ratio: 4 / 3; }
-  .room-card__gallery { bottom: 20px; }
+  .room-card__details { display: none; }   /* móvil: sin personas ni camas */
+  .room-card__media { aspect-ratio: 4 / 5; }   /* móvil: vertical (antes 4/3) */
+  .room-card__gallery { bottom: 40px; }
   .room-card__foot { flex-direction: column; gap: 25px; margin-top: 25px; }
 }
 
@@ -1423,7 +1423,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 
 @media (max-width: 767px) {
   .care { padding: 0 var(--gutter-sm) 100px; }
-  .care__media { aspect-ratio: 4 / 3; }
+  .care__media { aspect-ratio: 810 / 1200; }   /* vertical, la proporción de img_salon_movil.jpg (antes 4/3 horizontal) */
   .care__body { flex-direction: column; gap: 20px; margin-top: 40px; } /* 40px entre foto y ladillo, 20px entre ladillo y texto */
   .care__text { flex-basis: auto; }      /* mismo motivo: el ancho de escritorio (665px) no debe volverse alto en columna */
   .care__text .care__lead { margin-bottom: 30px; }
@@ -2126,6 +2126,11 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   transition: transform var(--loader-time) var(--ease-names);
 }
 .loader.is-open { transform: translateY(-200vh); pointer-events: none; } /* sube del todo, sombra incluida */
+/* Desde el menú: la cortina pasa por DEBAJO del logo y de Reservar/Menú (z-index 20), que no se mueven */
+body.menu-leaving .menu { z-index: 18; }
+body.menu-leaving .loader,
+html.from-menu .loader { z-index: 19; }
+html.from-menu.is-entering :is(.hero__logo, .header__actions) { animation: none; }
 html.is-loading { overflow: hidden; background: var(--c-olive-dark); } /* desde el primer instante: sin barras de scroll y todo el fondo en verde */
 html.is-loading body { background: transparent; }
 

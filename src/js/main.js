@@ -746,6 +746,10 @@ function arrowCursor(box, go) {
     wait(ms('--loader-time') + ms('--enter-zoom-time') + 1000).then(() => root.classList.remove('is-entering'));
   };
   root.classList.add('is-loading');
+  // Venimos del menú: logo y botones se quedan quietos por encima de la cortina
+  try {
+    if (sessionStorage.getItem('v10-from-menu')) { root.classList.add('from-menu'); sessionStorage.removeItem('v10-from-menu'); }
+  } catch (e) {}
 
   (async () => {
     if (first) {
@@ -774,7 +778,11 @@ function arrowCursor(box, go) {
     // solo baja la cortina; la página sigue visible debajo hasta que la tapa
     // Desde el menú abierto: primero se va su contenido (como al pulsar Cerrar) y luego baja la cortina
     const fromMenu = document.body.classList.contains('menu-open') && link.closest('.menu');
-    if (fromMenu) document.body.classList.add('menu-leaving');
+    if (!fromMenu) root.classList.remove('from-menu'); // enlace normal: la cortina tapa todo
+    if (fromMenu) {
+      document.body.classList.add('menu-leaving');
+      try { sessionStorage.setItem('v10-from-menu', '1'); } catch (e) {} // la página nueva no anima logo ni botones
+    }
     wait(fromMenu ? ms('--menu-text-time') : 0).then(() => {
       loader.classList.remove('is-mark', 'is-out', 'is-open');
       return wait(ms('--loader-time') + 100);
