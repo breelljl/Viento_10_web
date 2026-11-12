@@ -286,7 +286,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .hero__bg { object-position: 72% center; }
   .hero__logo { top: 25px; left: 50%; transform: translateX(-50%); } /* en móvil, fijo arriba en el centro */
   .hero__logo { transition: opacity .4s var(--ease), visibility 0s linear .4s; }
-  body.past-top:not(.menu-open, .menu-closing) .hero__logo { opacity: 0; visibility: hidden; }   /* al pasar media pantalla se funde: no tapa los títulos */
+  body.past-top:not(.menu-open) .hero__logo { opacity: 0; visibility: hidden; }   /* al pasar media pantalla se funde: no tapa los títulos · al cerrar el menú se funde en claro con la cortina, sin pasar a oscuro */
   body:not(.past-top) .hero__logo { transition-delay: 0s; }
   .hero__bottom { bottom: 120px; gap: 32px; } /* por encima de los botones */
   .hero__tagline { font-size: .95rem; }
