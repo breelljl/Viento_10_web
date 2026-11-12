@@ -38,7 +38,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 /* Reservar: oliva oscuro · Menú: transparente */
 .btn--light { width: 160px; background: var(--c-olive-dark); color: var(--c-on-dark); } /* Reservar */
-.btn--olive { background: transparent; color: var(--c-on-dark); }     /* Menú / Cerrar: solo texto sobre el contenedor, mismo color que Reservar (#dfe0c3) */
+.btn--olive { background: var(--c-menu-btn-bg); color: var(--c-menu-btn-text); }     /* Menú / Cerrar: colores en tokens (prueba: blanco con texto oscuro) */
 .btn--light:hover,
 .btn--olive:hover { box-shadow: inset 0 0 0 100px rgba(245, 245, 237, .12); } /* mismo velo claro (crema al 12%) en Reservar y Menú */
 
@@ -912,7 +912,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   #contacto { padding-bottom: 0; }                          /* redes en el mismo bloque que la dirección */
   .footer__social { gap: 20px; margin-top: 0 !important; }
   .footer__michelin { border-bottom: 1px solid rgba(223, 224, 195, .2); }
-  .footer__michelin img { width: 68px; }
+  .footer__michelin img { width: 54px; }   /* como en escritorio; antes 68px */
   .footer__legal { flex-direction: column; gap: 14px; padding-bottom: 14px !important; }
   .footer__copy { padding-top: 0 !important; padding-bottom: 60px !important; }
 }
@@ -1657,6 +1657,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .slider__slide.is-active { opacity: 1; }
 /* Contador: mismo estilo y sitio que el del pase de habitaciones; la línea dura --slider-autoplay */
 .slider__count { bottom: calc(var(--rooms-cta-bottom) + 6px); }
+@media (max-width: 767px) { .slider .slider__count { top: 40px; bottom: auto; } }   /* móvil · Vivir: arriba, a 40px del borde de la foto */
 .slider .rooms__progress.is-running span { animation-duration: var(--slider-autoplay); }
 /* Flecha: en reposo a 95px del borde derecho y centrada en alto (Figma).
    Con ratón, sigue al puntero como si fuera el cursor (main.js la mueve con transform). */
@@ -1697,8 +1698,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .slider__next svg { display: block; width: 100%; height: 100%; transition: rotate var(--slider-cursor-fade) ease; }
 .is-back > .slider__next svg { rotate: 180deg; } /* mitad izquierda: apunta atrás */
 @media (max-width: 767px) {
-  .slider__next { width: 56px; height: 56px; transform: translate(calc(100cqw - var(--gutter-sm) - 56px), calc(50cqh - 28px)); }
-  .rooms__slider .slider__next { display: none; } /* Home · habitaciones: sin flecha en móvil (se desliza con el dedo) */
+  .slider__next { display: none; } /* móvil: sin flecha en ningún pase; se desliza con el dedo */
 }
 .feature--offset .feature__media { aspect-ratio: 2477 / 2846; } /* proporción de la foto del hammam; se mueve con parallax como las demás */
 .feature--offset .feature__img { object-position: 0% 50%; } /* hammam: mismo parallax que las demás; el recorte se hace solo por la derecha (pared azul) para no cortar al huésped */
@@ -1706,6 +1706,9 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 @media (max-width: 767px) {
   .feature__media:has(source[srcset*="01_piscina_jardin_movil"]) { aspect-ratio: 1335 / 2000; }
   .feature__media:has(source[srcset*="04_desayuno_movil"])       { aspect-ratio: 1106 / 1335; }
+  .feature__media:has(source[srcset*="09_amenities_movil"])      { aspect-ratio: 1335 / 2000; }
+  .feature--offset .feature__media { aspect-ratio: 2 / 3; }   /* hammam: más vertical (escritorio 2477/2846) */
+  .slider { margin-bottom: 80px; }                             /* del pase al hammam: 80px (escritorio --slider-after) */
 }
 /* Hammam: foto y texto desplazados a la derecha (empiezan a 387px en el Figma de 1440) */
 @media (min-width: 768px) {
@@ -1717,6 +1720,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .text-link:hover { opacity: .7; }
 /* Frase del equipo: menos aire que la entrada de la página */
 .page-intro--team { padding: 0 0 9.375rem; }
+@media (max-width: 767px) { .page-intro--team { padding-bottom: 60px; } }   /* móvil: el equipo más cerca del texto (escritorio 150px) */
 
 /* Pareja de fotos: vertical a la izquierda (435px) y horizontal más baja a la derecha (665px) */
 .pair {

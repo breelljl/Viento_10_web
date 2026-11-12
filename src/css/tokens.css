@@ -21,6 +21,8 @@
   --c-bg:         #fdfdf6;   /* fondo general de páginas, secciones y cajas (sustituye a blanco y crema) */
   --c-line:       rgba(64, 66, 25, .25);
   --c-on-dark:    #dfe0c3;   /* textos, líneas e iconos sobre el verde oscuro #404219 (footer, barra de reserva, menú, botón Reservar) */
+  --c-menu-btn-bg: #ffffff;           /* botón Menú/Cerrar: fondo (prueba; antes transparent, se veía el verde del contenedor) */
+  --c-menu-btn-text: var(--c-olive-dark); /* botón Menú/Cerrar: texto (antes var(--c-on-dark)) */
   --c-loader-mark: var(--c-on-dark); /* símbolo y texto de la pantalla de carga */
   --booking-h: 70px;         /* alto de la barra de reserva fija */
   --booking-hide: .6s;       /* bajada y subida de la barra al llegar o salir del footer */
