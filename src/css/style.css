@@ -501,10 +501,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .rooms__cta { position: absolute; z-index: 3; }
 
 /* Contador "1 ——— 10": la línea se rellena mientras dura cada habitación.
-   Prueba: esquina inferior derecha, a la altura del enlace «Nuestras habitaciones» */
+   Arriba en el centro, a la altura del logo y de Reservar/Menú (su centro está a 59px del borde) */
 .rooms__count {
-  bottom: calc(var(--rooms-cta-bottom) + 6px); /* misma altura que el enlace «Nuestras habitaciones» (+ su línea inferior) */
-  right: var(--edge);              /* esquina inferior derecha, alineado con el botón Menú */
+  top: 59px;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -661,6 +662,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* Saltos de línea solo para escritorio: en móvil el texto fluye libre */
 @media (max-width: 767px) { .br-desktop { display: none; } }
+@media (min-width: 768px) { .br-mobile { display: none; } }   /* salto de línea solo en móvil */
 
 /* ==========================================================
    SECCIÓN · TESTIMONIOS
@@ -1661,8 +1663,8 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 }
 .slider__slide.is-active { opacity: 1; }
 /* Contador: mismo estilo y sitio que el del pase de habitaciones; la línea dura --slider-autoplay */
-.slider__count { bottom: calc(var(--rooms-cta-bottom) + 6px); }
-@media (max-width: 767px) { .slider .slider__count { top: 40px; bottom: auto; } }   /* móvil · Vivir: arriba, a 40px del borde de la foto */
+.slider__count { top: auto; left: auto; transform: none; bottom: calc(var(--rooms-cta-bottom) + 6px); right: var(--edge); } /* Vivir: abajo a la derecha */
+@media (max-width: 767px) { .slider .slider__count { top: 40px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); } }   /* móvil · Vivir: arriba, a 40px del borde de la foto */
 .slider .rooms__progress.is-running span { animation-duration: var(--slider-autoplay); }
 /* Flecha: en reposo a 95px del borde derecho y centrada en alto (Figma).
    Con ratón, sigue al puntero como si fuera el cursor (main.js la mueve con transform). */
@@ -2483,3 +2485,6 @@ html.is-loading body { background: transparent; }
   .eyebrow:not(.testimonial .eyebrow, .guide__contact .eyebrow) { margin-bottom: 0 !important; }
   .eyebrow:not(.testimonial .eyebrow, .guide__contact .eyebrow) + * { margin-top: var(--eyebrow-gap-mobile) !important; }
 }
+
+/* Contador del pase de habitaciones (Home): oculto por ahora. Para recuperarlo, borrar esta regla */
+.rooms .rooms__count { display: none; }
