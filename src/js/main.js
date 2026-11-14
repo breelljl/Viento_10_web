@@ -2,6 +2,22 @@
 // Viento 10 · interacciones
 // ==========================================================
 
+// ---------- Alto real de la pantalla ----------
+// En iPad y móvil, 100vh incluye la barra del navegador y el hero queda más alto que lo visible
+// (y algunos iPad no entienden 100svh). Se guarda el alto visible en --screen-h.
+// Solo se recalcula al cambiar el ancho (girar la pantalla), no al ocultarse la barra al hacer scroll.
+(function () {
+  let lastW = 0;
+  const set = () => {
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    document.documentElement.style.setProperty('--screen-h', `${window.innerHeight}px`);
+  };
+  set();
+  window.addEventListener('resize', set);
+  window.addEventListener('orientationchange', () => setTimeout(() => { lastW = 0; set(); }, 300));
+})();
+
 // ---------- Selector de idioma ----------
 // Solo cambia la etiqueta visible; las traducciones están pendientes.
 (function () {
