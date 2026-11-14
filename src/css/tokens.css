@@ -150,6 +150,7 @@
   --footer-block-mobile: 40px; /* móvil · footer: espacio arriba y abajo de cada bloque (entre líneas) */
   --reviews-pad: 16.25rem;      /* espacio arriba y abajo de la sección de opiniones (240px); antes 12.5rem = 200px */
   --eyebrow-gap-mobile: 10px;   /* móvil: espacio entre el antetítulo y el texto de debajo (antes 20px) */
+  --eyebrow-gap: 10px;          /* tableta y escritorio: espacio entre el antetítulo y el texto de debajo (antes 20px) */
   --statement-link-gap-mobile: 24px; /* móvil: espacio entre el texto y su enlace («Descubre el hotel»…); antes 36px */
   --statement-max-tablet: 600px;     /* tableta: ancho máximo de los textos centrados («Un hotel en el centro histórico…») */
   --reviews-bottom-tablet: 120px;    /* tableta: espacio debajo de Testimonios (escritorio 260px) */

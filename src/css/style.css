@@ -2497,3 +2497,9 @@ html.is-loading body { background: transparent; }
 
 /* Tableta: nombres de las habitaciones del pase a 26px, como en el móvil (y con el mismo token que los textos centrados) */
 @media (min-width: 768px) and (max-width: 1199px) { .rooms__names-track span { font-size: var(--fs-statement-tablet); } }
+
+/* Tableta y escritorio · antetítulos: mismo espacio hasta el texto de debajo en todas las páginas (--eyebrow-gap) */
+@media (min-width: 768px) {
+  .eyebrow:not(.testimonial .eyebrow, .guide__contact .eyebrow) { margin-bottom: 0 !important; }
+  .eyebrow:not(.testimonial .eyebrow, .guide__contact .eyebrow) + * { margin-top: var(--eyebrow-gap) !important; }
+}
