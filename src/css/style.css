@@ -150,6 +150,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   top: 0;
   z-index: 0;
   height: 100vh;
+  height: 100svh;                  /* iPad y móvil: alto visible, sin contar la barra del navegador (en escritorio es igual que 100vh) */
   min-height: 640px;
   overflow: hidden;
   display: flex;
@@ -262,8 +263,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   100% { clip-path: inset(100% 0 0 0); }  /* pausa */
 }
 
-/* ---------- Hero · móvil ---------- */
-@media (max-width: 767px) {
+/* ---------- Hero · móvil y tableta en vertical (botones abajo, logo centrado) ---------- */
+@media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {
   .header { padding: 0; }
   .header__meta, .header__lang { display: none; }
   .header__actions {
@@ -465,6 +466,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: relative;
   z-index: 1;                      /* pasa por encima del texto fijo */
   height: 100vh;
+  height: 100svh;                  /* iPad y móvil: alto visible, sin la barra del navegador */
   min-height: 560px;
   overflow: hidden;
   color: var(--c-white);
@@ -2104,7 +2106,8 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
 }
 .menu__img.is-active { opacity: 1; }
 
-@media (max-width: 767px) {
+/* Menú · móvil y tableta en vertical: una columna centrada, sin fotos */
+@media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {
   .menu__col { width: 100%; }
   .menu__col::after { display: none; }
   .menu__media { display: none; }
@@ -2502,4 +2505,11 @@ html.is-loading body { background: transparent; }
 @media (min-width: 768px) {
   .eyebrow:not(.testimonial .eyebrow, .guide__contact .eyebrow) { margin-bottom: 0 !important; }
   .eyebrow:not(.testimonial .eyebrow, .guide__contact .eyebrow) + * { margin-top: var(--eyebrow-gap) !important; }
+}
+
+/* Tableta en vertical: Reservar y Menú abajo como en el móvil, pero con ancho propio y centrados (no de borde a borde) */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .header__actions { left: 0; right: 0; width: var(--actions-width-tablet); margin: 0 auto; bottom: 40px; }
+  .rooms__cta { bottom: 150px; }   /* el enlace del pase sube para no quedar tapado por los botones */
+  .slider .slider__count { bottom: 150px; }
 }
