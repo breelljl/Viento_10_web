@@ -151,6 +151,7 @@
   --reviews-pad: 16.25rem;      /* espacio arriba y abajo de la sección de opiniones (240px); antes 12.5rem = 200px */
   --eyebrow-gap-mobile: 10px;   /* móvil: espacio entre el antetítulo y el texto de debajo (antes 20px) */
   --actions-width-tablet: 440px; /* tableta en vertical: ancho de los botones Reservar + Menú (abajo, centrados) */
+  --intro-pad-tablet: 120px;    /* tableta: espacio arriba y abajo del texto de entrada de cada página (escritorio 200px, móvil 100px) */
   --eyebrow-gap: 10px;          /* tableta y escritorio: espacio entre el antetítulo y el texto de debajo (antes 20px) */
   --statement-link-gap-mobile: 24px; /* móvil: espacio entre el texto y su enlace («Descubre el hotel»…); antes 36px */
   --statement-max-tablet: 600px;     /* tableta: ancho máximo de los textos centrados («Un hotel en el centro histórico…») */

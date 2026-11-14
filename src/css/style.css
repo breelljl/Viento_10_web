@@ -1359,7 +1359,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   .gallery__close { top: 62px; right: 120px; }
   .gallery__stage { position: absolute; top: 124px; right: 100px; bottom: 125px; left: 100px; width: auto; }
   /* la foto entera, sin recortar, centrada en el hueco (medidas en pantalla: Safari no respeta el % aquí) */
-  .gallery__img { max-width: calc(100vw - 200px); max-height: calc(100vh - 249px); }
+  .gallery__img { max-width: calc(100vw - 200px); max-height: calc(100vh - 249px); max-height: calc(100dvh - 249px); } /* dvh: alto visible real en iPad (sin la barra de Safari) y se recalcula al girar */
   .gallery__thumbs { position: absolute; left: 100px; right: 100px; bottom: 40px; } /* centradas */
   /* flechas a media altura, a 30px de los bordes */
   .gallery__nav {
@@ -2512,4 +2512,17 @@ html.is-loading body { background: transparent; }
   .header__actions { left: 0; right: 0; width: var(--actions-width-tablet); margin: 0 auto; bottom: 40px; }
   .rooms__cta { bottom: 150px; }   /* el enlace del pase sube para no quedar tapado por los botones */
   .slider .slider__count { bottom: 150px; }
+}
+
+/* Tableta: menos espacio arriba y abajo del texto de entrada de cada página */
+@media (min-width: 768px) and (max-width: 1199px) { .page-intro:not(.page-intro--team) { padding: var(--intro-pad-tablet) 0; } }
+
+/* Tableta en vertical · galería: foto más ancha (40px a los lados), sin flechas (se desliza con el dedo) */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .gallery__head { left: 120px; right: 120px; }
+  .gallery__close { right: 40px; }
+  .gallery__stage { left: 40px; right: 40px; }
+  .gallery__img { max-width: calc(100vw - 80px); }
+  .gallery__thumbs { left: 40px; right: 40px; }
+  .gallery__nav { display: none; }
 }
