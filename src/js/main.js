@@ -547,6 +547,7 @@ function arrowCursor(box, go) {
   if (!dialog || !buttons.length) return;
 
   const img = dialog.querySelector('.gallery__img');
+  const stage = dialog.querySelector('.gallery__stage');
   const name = dialog.querySelector('.gallery__name');
   const details = dialog.querySelector('.gallery__details');
   const thumbs = dialog.querySelector('.gallery__thumbs');
@@ -559,9 +560,17 @@ function arrowCursor(box, go) {
     [...thumbs.children].forEach((t, i) => t.setAttribute('aria-current', i === current));
     thumbs.children[current].scrollIntoView({ block: 'nearest', inline: 'center' });
     const swap = () => {
-      img.src = photos[current];
       img.alt = `${name.textContent}, foto ${current + 1} de ${photos.length}`;
-      img.classList.remove('is-changing');
+      img.onload = img.onerror = () => {
+        // iPad (Safari y Chrome): al pasar de una foto horizontal a una vertical, el navegador
+        // no borraba la zona que deja libre y la foto anterior se quedaba "pegada" a los lados.
+        // Ocultar y mostrar el escenario le obliga a repintarlo entero.
+        stage.style.display = 'none';
+        stage.offsetHeight;
+        stage.style.display = '';
+        img.classList.remove('is-changing'); // se muestra cuando la foto nueva ya está cargada
+      };
+      img.src = photos[current];
     };
     if (!animate) return swap();
     img.classList.add('is-changing');
