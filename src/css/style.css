@@ -940,6 +940,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @media (max-width: 767px) {
   .hero__title { padding: 0 var(--gutter-sm); }   /* tamaño: --fs-page-title (móvil) en tokens.css */
 }
+@media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {
+  .hero__title { position: relative; top: calc(-1 * var(--hero-title-lift)); }   /* equilibrado entre el logo y la frase de abajo */
+}
 
 /* ---------- Página Habitaciones · texto de entrada ---------- */
 .page-intro { padding: 12.5rem 0; } /* 200px arriba y abajo */
