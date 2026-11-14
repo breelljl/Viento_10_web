@@ -150,7 +150,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   top: 0;
   z-index: 0;
   height: 100vh;
-  height: 100svh;                  /* iPad y móvil: alto visible, sin contar la barra del navegador (en escritorio es igual que 100vh) */
+  height: var(--screen-h);                  /* iPad y móvil: alto visible, sin contar la barra del navegador (en escritorio es igual que 100vh) */
   min-height: 640px;
   overflow: hidden;
   display: flex;
@@ -285,7 +285,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .btn--olive { padding: 0 24px; }
   .btn--light { width: auto; } /* en móvil ocupa el ancho disponible */
 
-  .hero { height: 100svh; min-height: 600px; }
+  .hero { height: var(--screen-h); min-height: 600px; }
   .hero__bg { object-position: 72% center; }
   .hero__logo { top: 25px; left: 50%; transform: translateX(-50%); } /* en móvil, fijo arriba en el centro */
   .hero__logo { transition: opacity .4s var(--ease), visibility 0s linear .4s; }
@@ -452,7 +452,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  min-height: 100svh;              /* en móvil, sin contar la barra del navegador */
+  min-height: var(--screen-h);              /* en móvil, sin contar la barra del navegador */
   padding-bottom: var(--rooms-text-up);   /* sube el texto respecto al centro de la pantalla */
   /* Se queda quieto (no sube ni se oscurece): el pase de habitaciones lo tapa al subir
      y el texto se funde mientras tanto (--rooms-cover lo pone main.js) */
@@ -466,7 +466,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: relative;
   z-index: 1;                      /* pasa por encima del texto fijo */
   height: 100vh;
-  height: 100svh;                  /* iPad y móvil: alto visible, sin la barra del navegador */
+  height: var(--screen-h);                  /* iPad y móvil: alto visible, sin la barra del navegador */
   min-height: 560px;
   overflow: hidden;
   color: var(--c-white);
@@ -586,7 +586,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Habitaciones · móvil ---------- */
 @media (max-width: 767px) {
-  .rooms__slider { height: 100svh; }
+  .rooms__slider { height: var(--screen-h); }
   .rooms__count { top: 90px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); font-size: 1rem; } /* 16px; antes 13px */ /* móvil: sigue arriba en el centro (abajo chocaría con el enlace) */
   :root { --fs-room-name: 1.625rem; --fs-room-details: .875rem; } /* 26px y 14px */
   /* Si el nombre no cabe dejando 40px a cada lado, pasa a dos líneas */
@@ -1359,7 +1359,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   .gallery__close { top: 62px; right: 120px; }
   .gallery__stage { position: absolute; top: 124px; right: 100px; bottom: 125px; left: 100px; width: auto; }
   /* la foto entera, sin recortar, centrada en el hueco (medidas en pantalla: Safari no respeta el % aquí) */
-  .gallery__img { max-width: calc(100vw - 200px); max-height: calc(100vh - 249px); max-height: calc(100dvh - 249px); } /* dvh: alto visible real en iPad (sin la barra de Safari) y se recalcula al girar */
+  .gallery__img { max-width: calc(100vw - 200px); max-height: calc(100vh - 249px); max-height: calc(var(--screen-h) - 249px); } /* dvh: alto visible real en iPad (sin la barra de Safari) y se recalcula al girar */
   .gallery__thumbs { position: absolute; left: 100px; right: 100px; bottom: 40px; } /* centradas */
   /* flechas a media altura, a 30px de los bordes */
   .gallery__nav {
@@ -1647,7 +1647,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .slider {
   position: relative;
   height: 100vh;                              /* ocupa el alto de la pantalla, como el pase de habitaciones */
-  height: 100svh;                             /* móvil: sin saltos al aparecer/ocultarse la barra del navegador */
+  height: var(--screen-h);                             /* móvil: sin saltos al aparecer/ocultarse la barra del navegador */
   min-height: 560px;
   margin-bottom: var(--slider-after);
   overflow: hidden;
@@ -2525,4 +2525,16 @@ html.is-loading body { background: transparent; }
   .gallery__img { max-width: calc(100vw - 80px); }
   .gallery__thumbs { left: 40px; right: 40px; }
   .gallery__nav { display: none; }
+}
+
+/* Tableta en vertical: usa las fotos _movil (verticales), así que sus cajas toman la misma proporción que en el móvil */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .care__media  { aspect-ratio: 810 / 1200; }   /* img_salon_movil.jpg */
+  .story__media { aspect-ratio: 904 / 1335; }   /* img_pasillo_movil.jpg */
+  .amenities { min-height: 0; aspect-ratio: 905 / 1335; }   /* img_camarera-pisos_movil.jpg */
+  .feature__media:has(source[srcset*="01_piscina_jardin_movil"]) { aspect-ratio: 1335 / 2000; }
+  .feature__media:has(source[srcset*="04_desayuno_movil"])       { aspect-ratio: 1106 / 1335; }
+  .feature__media:has(source[srcset*="09_amenities_movil"])      { aspect-ratio: 1335 / 2000; }
+  .feature__media:has(source[srcset*="12_equipo_movil"])         { aspect-ratio: 1354 / 1335; }
+  .contact__row:not(.contact__row--arrive) .contact__media img { aspect-ratio: 980 / 1308; }   /* 02_mapa_viento_movil.jpg */
 }
