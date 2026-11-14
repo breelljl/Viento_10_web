@@ -141,13 +141,12 @@
   const track = slider.querySelector('.rooms__names-track');
   const details = slider.querySelector('.rooms__details');
   const srName = slider.querySelector('[data-room-name]');
-  const counter = slider.querySelector('[data-current]');
-  const progress = slider.querySelector('.rooms__progress');
   const total = slides.length;
 
   const styles = getComputedStyle(document.documentElement);
   const toMs = (v) => parseFloat(v) * (v.trim().endsWith('ms') ? 1 : 1000);
   const MOVE = toMs(styles.getPropertyValue('--rooms-text-move')) || 1000;
+  const AUTOPLAY = toMs(styles.getPropertyValue('--rooms-autoplay')) || 6000;
 
   // Cinta: [copia] [original] [copia]
   for (let copy = 0; copy < 3; copy++) {
@@ -167,8 +166,6 @@
   let position = total;   // nombre centrado dentro de la cinta (empieza en la copia central)
   let busy = false;
 
-  slider.querySelector('[data-total]').textContent = total;
-
   // Desplaza la cinta para centrar el nombre "position"
   function center(animate) {
     const el = names[position];
@@ -184,10 +181,11 @@
     details.style.top = `calc(50% + ${names[position].offsetHeight / 2 + 12}px)`;
   }
 
+  // Temporizador: pasa a la siguiente habitación cada --rooms-autoplay
+  let timer = null;
   function restartProgress() {
-    progress.classList.remove('is-running');
-    progress.offsetWidth; // reinicia la animación de la línea
-    progress.classList.add('is-running');
+    clearTimeout(timer);
+    timer = setTimeout(() => (busy ? restartProgress() : go(1)), AUTOPLAY);
   }
 
   let queued = 0; // clic durante el movimiento: se hace al terminar
@@ -215,7 +213,6 @@
       details.classList.remove('is-hidden');
     }, MOVE / 2);
 
-    counter.textContent = current + 1;
     srName.textContent = to.dataset.name.replace('|', '');
     restartProgress();
 
@@ -229,10 +226,6 @@
       if (queued) { const d = queued; queued = 0; go(d); }
     }, MOVE);
   }
-
-  // La línea del contador marca el tiempo: cuando termina de llenarse, pasa a la siguiente.
-  // Así la línea y el cambio de habitación van siempre sincronizados.
-  progress.addEventListener('animationend', () => (busy ? restartProgress() : go(1)));
 
   function restart() {
     restartProgress();

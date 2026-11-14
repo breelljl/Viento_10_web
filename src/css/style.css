@@ -394,7 +394,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .welcome { padding: 11vw 0 10vw; }
 
-.collage--welcome { margin: 3vw 0 13.5vw; } /* 1er valor: distancia del título a la foto */
+.collage--welcome { margin: var(--welcome-title-gap) 0 13.5vw; } /* 1er valor: distancia del título a la foto */
 .collage__img--pool   { width: 30.2vw;  aspect-ratio: 435 / 291; margin: 12.7vw 0 0 10.8vw; } /* Figma: 435×291, 183px más baja que el libro */
 .collage__img--book   { width: 37.85vw; aspect-ratio: 545 / 363; margin-left: 18.4vw; } /* el libro se queda donde estaba (x 854) */
 
@@ -408,7 +408,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 
   .collage { flex-direction: column; gap: var(--pair-gap-mobile); padding: 0 var(--gutter-sm); }   /* composición escalonada (Figma móvil) */
-  .collage--welcome { margin: 40px 0 120px; }   /* 120px hasta el texto «El hotel» */
+  .collage--welcome { margin: var(--welcome-title-gap-mobile) 0 120px; }   /* 120px hasta el texto «El hotel» */
   .collage__img--pool { width: var(--pair-narrow-mobile); margin: 0; }                    /* estrecha, a la izquierda */
   .collage__img--book { width: var(--pair-wide-mobile); margin: 0; align-self: flex-end; } /* ancha, a la derecha */
 
@@ -2376,11 +2376,13 @@ html.is-loading body { background: transparent; }
 }
 .booking__confirm:hover { opacity: .7; }
 
-/* Tablet: sin diseño todavía → solo título, Ver disponibilidad y teléfono */
+/* Tableta: fechas, huéspedes, Ver disponibilidad y teléfono (sin el rótulo) */
 @media (max-width: 1199px) {
-  .booking__field { display: none; }  /* por debajo de 1200px no caben las fechas y los huéspedes */
-  .booking__title { margin-left: var(--gutter-sm); width: auto; }
-  .booking__cta { width: auto; padding: 0 24px; }
+  .booking__title { display: none; }   /* tableta: sin el rótulo, para que quepan fechas y huéspedes */
+  .booking__field:first-of-type { margin-left: var(--gutter-sm); }
+  .booking__field { margin-right: 32px; }
+  .booking__toggle b { display: none; }   /* sin «Entrada:», «Salida:» y «Huéspedes:»: no caben a lo ancho de un iPad en vertical */
+  .booking__cta { flex: none; width: auto; padding: 0 28px; }   /* ancho según el texto, con aire a los lados (antes el texto tocaba la línea) */
   .booking__phone { width: var(--booking-h); }
 }
 @media (max-width: 767px) { .booking { display: none; } }   /* en móvil no hay barra de reserva */
@@ -2486,5 +2488,21 @@ html.is-loading body { background: transparent; }
   .eyebrow:not(.testimonial .eyebrow, .guide__contact .eyebrow) + * { margin-top: var(--eyebrow-gap-mobile) !important; }
 }
 
-/* Contador del pase de habitaciones (Home): oculto por ahora. Para recuperarlo, borrar esta regla */
-.rooms .rooms__count { display: none; }
+
+/* Tableta: sin las etiquetas de navegación en la cabecera (no caben); se llega por el Menú */
+@media (min-width: 768px) and (max-width: 1199px) { .header__nav { display: none; } }
+
+/* Tableta: textos centrados más estrechos y con líneas equilibradas (a todo el ancho quedaban largos y con una palabra suelta) */
+@media (min-width: 768px) and (max-width: 1199px) { .statement { max-width: calc(var(--statement-max-tablet) + 2 * var(--edge)); } .statement__text { text-wrap: balance; font-size: var(--fs-statement-tablet); } }
+
+/* Tableta: sin flecha en el pase de habitaciones de la Home; se desliza con el dedo */
+@media (min-width: 768px) and (max-width: 1199px) { .rooms__slider .slider__next { display: none; } }
+
+/* Tableta: el texto de Experiencia bajo el titular, alineado a su izquierda (en columna a la derecha quedaba estrecho y con un hueco vacío) */
+@media (min-width: 768px) and (max-width: 1199px) { .experience__text { margin: 40px 0 0; max-width: var(--statement-max-tablet); } .experience__title { font-size: var(--fs-statement-tablet); } }   /* titular al mismo tamaño que «Un hotel en el centro histórico…» */
+
+/* Tableta: menos espacio debajo de Testimonios */
+@media (min-width: 768px) and (max-width: 1199px) { .hero ~ section.testimonials { padding-bottom: var(--reviews-bottom-tablet); } }
+
+/* Tableta: nombres de las habitaciones del pase a 26px, como en el móvil (y con el mismo token que los textos centrados) */
+@media (min-width: 768px) and (max-width: 1199px) { .rooms__names-track span { font-size: var(--fs-statement-tablet); } }
