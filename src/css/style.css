@@ -2376,16 +2376,7 @@ html.is-loading body { background: transparent; }
 }
 .booking__confirm:hover { opacity: .7; }
 
-/* Tableta: fechas, huéspedes, Ver disponibilidad y teléfono (sin el rótulo) */
-@media (max-width: 1199px) {
-  .booking__title { display: none; }   /* tableta: sin el rótulo, para que quepan fechas y huéspedes */
-  .booking__field:first-of-type { margin-left: var(--gutter-sm); }
-  .booking__field { margin-right: 32px; }
-  .booking__toggle b { display: none; }   /* sin «Entrada:», «Salida:» y «Huéspedes:»: no caben a lo ancho de un iPad en vertical */
-  .booking__cta { flex: none; width: auto; padding: 0 28px; }   /* ancho según el texto, con aire a los lados (antes el texto tocaba la línea) */
-  .booking__phone { width: var(--booking-h); }
-}
-@media (max-width: 767px) { .booking { display: none; } }   /* en móvil no hay barra de reserva */
+@media (max-width: 1199px) { .booking { display: none; } }   /* en móvil y tableta no hay barra de reserva: se reserva con el botón Reservar */
 
 
 /* ==========================================================
