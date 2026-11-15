@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viento 10 • Hotel boutique en Córdoba</title>
-  <link rel="stylesheet" href="css/tokens.css?v=2026-11-16c">
-  <link rel="stylesheet" href="css/style.css?v=2026-11-16c">
+  <link rel="stylesheet" href="css/tokens.css?v=2026-11-16d">
+  <link rel="stylesheet" href="css/style.css?v=2026-11-16d">
 </head>
 <body>
 
@@ -150,6 +150,12 @@
         <!-- Cinta de nombres: main.js la rellena con el data-name de cada foto; cada nombre enlaza (data-href) a su habitación -->
         <div class="rooms__names"><div class="rooms__names-track"></div></div>
         <h3 class="visually-hidden" aria-live="polite" data-room-name>Estudio jardín</h3>
+        <!-- Contador: mismo lugar que el del pase de Vivir Viento 10. Solo informa; el pase avanza con su propio temporizador -->
+        <p class="rooms__count slider__count">
+          <span data-current>1</span>
+          <span class="rooms__progress" aria-hidden="true"><span></span></span>
+          <span data-total>10</span>
+        </p>
         <p class="rooms__details">2 personas • Cama Super King</p>
         <button class="slider__next" type="button" aria-label="Siguiente habitación">
           <svg viewBox="0 0 94 94" aria-hidden="true"><path d="M50.93 40.3a1 1 0 0 1 1.41 0l6.37 6.48a1.03 1.03 0 0 1 0 1.44l-6.37 6.48a1 1 0 0 1-1.41 0 1.03 1.03 0 0 1 0-1.44l4.66-4.74H34v-2.04h21.59l-4.66-4.74a1.03 1.03 0 0 1 0-1.44Z" fill="currentColor"/></svg>
@@ -332,6 +338,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2026-11-16c"></script>
+  <script src="js/main.js?v=2026-11-16d"></script>
 </body>
 </html>

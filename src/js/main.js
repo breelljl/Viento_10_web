@@ -211,7 +211,13 @@
 
   // Temporizador: pasa a la siguiente habitación cada --rooms-autoplay
   let timer = null;
+  // Contador (solo visual): número actual y línea que se llena durante --rooms-autoplay
+  const count = slider.querySelector('[data-current]');
+  const bar = slider.querySelector('.rooms__progress');
+  if (slider.querySelector('[data-total]')) slider.querySelector('[data-total]').textContent = total;
   function restartProgress() {
+    if (count) count.textContent = current + 1;
+    if (bar) { bar.classList.remove('is-running'); bar.offsetWidth; bar.classList.add('is-running'); }
     clearTimeout(timer);
     timer = setTimeout(() => (busy ? restartProgress() : go(1)), AUTOPLAY);
   }
