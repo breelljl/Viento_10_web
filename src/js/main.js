@@ -176,7 +176,10 @@
   for (let copy = 0; copy < 3; copy++) {
     slides.forEach((slide) => {
       // "|" en data-name marca un salto de línea (nombres que van en dos líneas)
-      const span = document.createElement('span');
+      // Cada nombre es un enlace a su habitación; las copias no se leen ni se tabulan
+      const span = document.createElement('a');
+      span.href = slide.dataset.href || 'habitaciones.html';
+      if (copy !== 1) { span.tabIndex = -1; span.setAttribute('aria-hidden', 'true'); }
       slide.dataset.name.split('|').forEach((line, i) => {
         if (i) span.appendChild(document.createElement('br'));
         span.appendChild(document.createTextNode(line.trim()));
@@ -193,6 +196,7 @@
   // Desplaza la cinta para centrar el nombre "position"
   function center(animate) {
     const el = names[position];
+    names.forEach((n) => n.classList.toggle('is-current', n === el)); // solo el nombre centrado se puede pulsar
     const x = slider.clientWidth / 2 - (el.offsetLeft + el.offsetWidth / 2);
     track.classList.toggle('no-transition', !animate);
     track.style.transform = `translateX(${x}px)`;
@@ -216,6 +220,7 @@
   function go(dir) {
     if (busy) { queued = dir; return; }
     busy = true;
+    slider.classList.add('is-moving'); // mientras se mueve, los nombres no se pueden pulsar
 
     const from = slides[current];
     current = (current + dir + total) % total;
@@ -247,6 +252,7 @@
         center(false);
       }
       busy = false;
+      slider.classList.remove('is-moving');
       if (queued) { const d = queued; queued = 0; go(d); }
     }, MOVE);
   }

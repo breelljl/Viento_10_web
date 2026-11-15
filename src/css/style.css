@@ -500,8 +500,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Elementos fijos sobre las fotos */
 .rooms__count,
 .rooms__names,
-.rooms__details,
-.rooms__cta { position: absolute; z-index: 3; }
+.rooms__details { position: absolute; z-index: 3; }
 
 /* Contador "1 ——— 10": la línea se rellena mientras dura cada habitación.
    Arriba en el centro, a la altura del logo y de Reservar/Menú (su centro está a 59px del borde) */
@@ -550,7 +549,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: transform var(--rooms-text-move) var(--ease-names);
 }
 .rooms__names-track.no-transition { transition: none; }
-.rooms__names-track span {
+.rooms__names-track a {
   font-family: var(--f-serif);
   font-weight: 400;
   font-size: var(--fs-room-name);
@@ -583,7 +582,34 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   white-space: nowrap;
 }
 
-.rooms__cta { bottom: var(--rooms-cta-bottom); left: 50%; transform: translateX(-50%); white-space: nowrap; }
+
+/* Nombres enlazados a su habitación: solo el centrado se puede pulsar, y no mientras se mueve la cinta.
+   Flecha al pasar el ratón (escritorio) o siempre visible en el nombre centrado (móvil y tableta) */
+.rooms__names-track a { color: inherit; pointer-events: none; transition: opacity .4s var(--ease); }
+.rooms__names-track a.is-current { pointer-events: auto; }
+.rooms__slider.is-moving .rooms__names-track a { pointer-events: none; }
+.rooms__names-track a::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: .3em;
+  margin-left: 0;
+  vertical-align: middle;
+  opacity: 0;
+  background: currentColor;
+  transition: width .4s var(--ease), margin-left .4s var(--ease), opacity .4s var(--ease);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+.rooms__names-track a.is-current:hover { opacity: .7; }
+.rooms__names-track a.is-current:hover::after,
+.rooms__names-track a.is-current:focus-visible::after { width: .5em; margin-left: .3em; opacity: 1; }
+
+/* Móvil y tableta (sin ratón): las flechas de los enlaces se ven siempre */
+@media (max-width: 1199px), (hover: none) {
+  .link-arrow::after { width: 12px; margin-left: 0; opacity: 1; }
+  .rooms__names-track a.is-current::after { width: .5em; margin-left: .3em; opacity: 1; }
+}
 
 /* ---------- Habitaciones · móvil ---------- */
 @media (max-width: 767px) {
@@ -591,12 +617,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .rooms__count { top: 90px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); font-size: 1rem; } /* 16px; antes 13px */ /* móvil: sigue arriba en el centro (abajo chocaría con el enlace) */
   :root { --fs-room-name: 1.625rem; --fs-room-details: .875rem; } /* 26px y 14px */
   /* Si el nombre no cabe dejando 40px a cada lado, pasa a dos líneas */
-  .rooms__names-track span { white-space: normal; max-width: calc(100vw - 80px); }
+  .rooms__names-track a { white-space: normal; max-width: calc(100vw - 80px); }
   /* Solo el nombre, en el centro de la foto (sin personas ni cama) */
   .rooms__details { display: none; }
   /* Nombre a medio camino entre el contador (arriba: 90px + 16px de alto) y el enlace (abajo: 150px + 19px de alto) */
   .rooms__names { top: calc(50% + ((90px + 16px) - (150px + 19px)) / 2); }
-  .rooms__cta { bottom: 150px; }   /* deja sitio a los botones fijos */
 }
 
 /* ==========================================================
@@ -1713,7 +1738,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 @media (hover: hover) and (pointer: fine) {
   .slider,
   .rooms__slider { cursor: none; }            /* la flecha hace de cursor */
-  .rooms__cta { cursor: pointer; }            /* sobre el enlace vuelve el cursor normal */
+  .rooms__names-track a.is-current { cursor: pointer; } /* sobre el nombre enlazado vuelve el cursor normal */
   /* el clic lo recoge toda la foto; fuera de la foto la flecha no se ve */
   .slider__next { pointer-events: none; opacity: 0; transition: background-color var(--btn-hover-time) ease, opacity var(--slider-cursor-fade) ease; }
   .is-pointing > .slider__next,
@@ -2514,7 +2539,7 @@ html.is-loading body { background: transparent; }
 @media (min-width: 768px) and (max-width: 1199px) { .hero ~ section.testimonials { padding-bottom: var(--reviews-bottom-tablet); } }
 
 /* Tableta: nombres de las habitaciones del pase a 26px, como en el móvil (y con el mismo token que los textos centrados) */
-@media (min-width: 768px) and (max-width: 1199px) { .rooms__names-track span { font-size: var(--fs-statement-tablet); } }
+@media (min-width: 768px) and (max-width: 1199px) { .rooms__names-track a { font-size: var(--fs-statement-tablet); } }
 
 /* Tableta y escritorio · antetítulos: mismo espacio hasta el texto de debajo en todas las páginas (--eyebrow-gap) */
 @media (min-width: 768px) {
@@ -2525,7 +2550,6 @@ html.is-loading body { background: transparent; }
 /* Tableta en vertical: Reservar y Menú abajo como en el móvil, pero con ancho propio y centrados (no de borde a borde) */
 @media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
   .header__actions { left: 0; right: 0; width: var(--actions-width-tablet); margin: 0 auto; bottom: 40px; }
-  .rooms__cta { bottom: 150px; }   /* el enlace del pase sube para no quedar tapado por los botones */
   .slider .slider__count { bottom: 150px; }
 }
 
