@@ -584,31 +584,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 
 /* Nombres enlazados a su habitación: solo el centrado se puede pulsar, y no mientras se mueve la cinta.
-   Flecha al pasar el ratón (escritorio) o siempre visible en el nombre centrado (móvil y tableta) */
+   Sin flecha: al pasar el ratón se aclara un poco */
 .rooms__names-track a { color: inherit; pointer-events: none; transition: opacity .4s var(--ease); }
 .rooms__names-track a.is-current { pointer-events: auto; }
 .rooms__slider.is-moving .rooms__names-track a { pointer-events: none; }
-.rooms__names-track a::after {
-  content: "";
-  display: inline-block;
-  width: 0;
-  height: .3em;
-  margin-left: 0;
-  vertical-align: middle;
-  opacity: 0;
-  background: currentColor;
-  transition: width .4s var(--ease), margin-left .4s var(--ease), opacity .4s var(--ease);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 7'%3E%3Cpath d='M0 3.5h11.3M8.5 0.7l2.8 2.8-2.8 2.8' fill='none' stroke='%23000' stroke-width='1'/%3E%3C/svg%3E") no-repeat center / contain;
-}
 .rooms__names-track a.is-current:hover { opacity: .7; }
-.rooms__names-track a.is-current:hover::after,
-.rooms__names-track a.is-current:focus-visible::after { width: .5em; margin-left: .3em; opacity: 1; }
 
 /* Móvil y tableta (sin ratón): las flechas de los enlaces se ven siempre */
 @media (max-width: 1199px), (hover: none) {
   .link-arrow::after { width: 12px; margin-left: 0; opacity: 1; }
-  .rooms__names-track a.is-current::after { width: .5em; margin-left: .3em; opacity: 1; }
 }
 
 /* ---------- Habitaciones · móvil ---------- */
