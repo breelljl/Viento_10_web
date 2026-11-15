@@ -2171,7 +2171,7 @@ body.menu-leaving .menu__col::after { scale: 1 0; transition-delay: 0s; }
   align-items: center;
   justify-content: center;
   background: var(--c-olive-dark);
-  box-shadow: 0 100vh 0 var(--c-olive-dark);   /* se alarga por debajo: nunca deja ver una franja */
+  box-shadow: 0 var(--screen-h) 0 var(--c-olive-dark);   /* se alarga por debajo: nunca deja ver una franja */
   transition: transform var(--loader-time) var(--ease-names);
 }
 .loader.is-open { transform: translateY(-200vh); pointer-events: none; } /* sube del todo, sombra incluida */
