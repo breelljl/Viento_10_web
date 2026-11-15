@@ -234,7 +234,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .hero__tagline {
   margin: 0;
-  font-size: 1rem;
+  font-size: var(--fs-eyebrow);   /* mismo tamaño que los antetítulos */
   line-height: 1.4;
   letter-spacing: .05em;
   text-transform: uppercase;
@@ -292,7 +292,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   body.past-top:not(.menu-open) .hero__logo { opacity: 0; visibility: hidden; }   /* al pasar media pantalla se funde: no tapa los títulos · al cerrar el menú se funde en claro con la cortina, sin pasar a oscuro */
   body:not(.past-top) .hero__logo { transition-delay: 0s; }
   .hero__bottom { bottom: 120px; gap: 32px; } /* por encima de los botones */
-  .hero__tagline { font-size: .95rem; }
   .hero__scroll { gap: 12px; }
   .hero__scroll::after { height: 30px; }
 }
@@ -372,7 +371,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-family: var(--f-sans);
   font-size: var(--fs-caption);
   font-weight: 400;
-  line-height: 1.5;                /* 150% */
+  line-height: var(--lh-body);
   letter-spacing: .02em;
   color: var(--c-olive-dark);
 }
@@ -637,7 +636,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .experience__text p {
   margin: 0 0 60px;
   font-size: 1rem;                 /* 16px */
-  line-height: 1.5;
+  line-height: var(--lh-body);
   letter-spacing: .02em;
 }
 
@@ -682,7 +681,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Etiqueta pequeña en mayúsculas (reutilizable) */
 .eyebrow {
   margin: 0;
-  font-size: .875rem;              /* 14px */
+  font-size: var(--fs-eyebrow);    /* 14px */
   font-weight: 500;
   letter-spacing: .05em;           /* 5% */
   text-transform: uppercase;
@@ -1041,7 +1040,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   max-width: 620px;                          /* a este ancho ninguna habitación deja una palabra sola en la última línea */
   margin: 0;
   font-size: .875rem;                         /* 14px */
-  line-height: 1.5;
+  line-height: var(--lh-body);
   letter-spacing: .02em;
   color: var(--c-olive-dark);
 }
@@ -1066,6 +1065,20 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .room-card__media { aspect-ratio: 4 / 5; }   /* móvil: vertical (antes 4/3) */
   .room-card__gallery { bottom: 40px; }
   .room-card__foot { flex-direction: column; gap: 25px; margin-top: 25px; }
+}
+
+/* Móvil y tableta en vertical: texto corrido como en El hotel (14px, mismo interlineado) y botón debajo del texto */
+@media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {
+  .room-card__text { font-size: var(--fs-body-tablet); line-height: var(--lh-body-tablet); max-width: none; }
+  .room-card__foot { flex-direction: column; gap: 25px; margin-top: 25px; }
+}
+/* Tableta en vertical: márgenes de la retícula, como los bloques de El hotel */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .room-list { padding-left: var(--text-side-tablet); padding-right: var(--text-side-tablet); }
+  /* Lo que va encima de la foto, al tamaño del móvil */
+  .room-card__name { font-size: 1.5rem; }      /* 24px */
+  .room-card__details { display: none; }       /* sin personas ni camas */
+  .room-card__gallery { bottom: 40px; }
 }
 
 /* ---------- Página Habitaciones · Amenidades ----------
@@ -1158,7 +1171,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 0;
   padding: 0 10px 40px;
   font-size: 1rem;                            /* 16px */
-  line-height: 1.5;
+  line-height: var(--lh-body);
   color: var(--c-olive-dark);
 }
 
@@ -1428,7 +1441,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .care__text p {
   margin: 0;
   font-size: .875rem;                         /* 14px */
-  line-height: 1.7;
+  line-height: var(--lh-body);
 }
 .care__text .care__lead {
   margin-bottom: 40px;
@@ -1476,7 +1489,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   padding: 0 var(--gutter);
   box-sizing: content-box;
 }
-.story__text p { font-size: 1rem; line-height: 1.5; } /* 16px */
+.story__text p { font-size: 1rem; line-height: var(--lh-body); } /* 16px */
 
 @media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {   /* móvil y tableta en vertical: ladillo encima y texto debajo */
   .story { padding-bottom: 100px; }
@@ -1635,7 +1648,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .founder__sign-off {
   margin: 40px 0 0;
   font-size: .8125rem;                        /* 13px */
-  line-height: 1.5;
+  line-height: var(--lh-body);
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--c-green-800);
@@ -1836,15 +1849,15 @@ body.page-cream { background: var(--c-bg); }
 .guide__figure .caption { margin-top: var(--caption-gap); }
 .guide__figure--inline { margin: 40px 0; }
 .guide__text { margin-top: 30px; }
-.guide__text p { margin: 0; font-size: 1rem; line-height: 1.5; text-wrap: pretty; }
+.guide__text p { margin: 0; font-size: 1rem; line-height: var(--lh-body); text-wrap: pretty; }
 .guide__text p + p, .guide__text p + ul { margin-top: 24px; }
 .guide__list { margin: 24px 0 0; padding-left: 1.1em; } /* el punto queda en el margen del texto, sin sangría extra */
-.guide__list li { line-height: 1.5; }
+.guide__list li { line-height: var(--lh-body); }
 .guide__list li + li { margin-top: 24px; }
 .guide__list strong { font-weight: 500; }
 
 /* Notas laterales (40°C y salmorejo) */
-.guide__aside { max-width: 318px; font-size: .875rem; line-height: 1.5; } /* 318px como en el Figma de 1440: en pantallas grandes no se ensancha */
+.guide__aside { max-width: 318px; font-size: .875rem; line-height: var(--lh-body); } /* 318px como en el Figma de 1440: en pantallas grandes no se ensancha */
 .guide__aside p { margin: 0; }
 .guide__aside--right { grid-column: 3; grid-row: 2; align-self: start; }
 .guide__aside--left { grid-column: 1; grid-row: 1; align-self: start; justify-self: end; margin-top: 210px; } /* a la altura de la foto */
@@ -1885,7 +1898,7 @@ body.page-cream { background: var(--c-bg); }
   border: 1px solid var(--c-green-800);
   border-radius: var(--radius);
   text-align: center;
-  line-height: 1.5;
+  line-height: var(--lh-body);
   color: var(--c-green-800);
   transition: opacity .3s var(--ease);
 }
@@ -1943,10 +1956,10 @@ body.page-cream { background: var(--c-bg); }
   text-transform: uppercase;
 }
 .contact__data dt:first-child { margin-top: 0; }
-.contact__data dd { margin: 4px 0 0; font-size: 1rem; line-height: 1.5; }
+.contact__data dd { margin: 4px 0 0; font-size: 1rem; line-height: var(--lh-body); }
 .contact__data--spaced dt { margin-top: 55px; }
 .contact__data--spaced dt:first-child { margin-top: 0; }
-.contact__lead { margin: 30px 0 50px; font-size: 1rem; line-height: 1.5; }
+.contact__lead { margin: 30px 0 50px; font-size: 1rem; line-height: var(--lh-body); }
 .contact__cta { margin-top: 50px; }
 .contact__media { flex: 0 1 665px; margin: 0; }
 .contact__media img {
@@ -2499,6 +2512,11 @@ html.is-loading body { background: transparent; }
   .loader { padding-bottom: 130px; }          /* texto inferior (80px + su alto): el símbolo se centra en el resto */
   .loader__mark { width: 84px; }              /* 104px en escritorio */
 }
+/* Pantalla de carga · tableta: símbolo del tamaño del móvil y en el centro exacto de la pantalla */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .loader { padding-bottom: 0; }
+  .loader__mark { width: 84px; }
+}
 
 /* Móvil · antetítulos: mismo espacio hasta el texto de debajo en todas las páginas (--eyebrow-gap-mobile) */
 @media (max-width: 767px) {
@@ -2511,7 +2529,7 @@ html.is-loading body { background: transparent; }
 @media (min-width: 768px) and (max-width: 1199px) { .header__nav { display: none; } }
 
 /* Tableta: textos centrados más estrechos y con líneas equilibradas (a todo el ancho quedaban largos y con una palabra suelta) */
-@media (min-width: 768px) and (max-width: 1199px) { .statement { max-width: calc(var(--statement-max-tablet) + 2 * var(--edge)); } .statement__text { text-wrap: balance; font-size: var(--fs-statement-tablet); } }
+@media (min-width: 768px) and (max-width: 1199px) { .statement { max-width: calc(var(--statement-max-tablet) + 2 * var(--edge)); } .statement__text { font-size: var(--fs-statement-tablet); } }
 
 /* Tableta: sin flecha en el pase de habitaciones de la Home; se desliza con el dedo */
 @media (min-width: 768px) and (max-width: 1199px) { .rooms__slider .slider__next { display: none; } }

@@ -43,6 +43,8 @@
   --fs-body:    0.95rem;
   --fs-caption: 0.875rem;                       /* 14px · pies de foto */
   --fs-label:   0.8rem;                          /* mayúsculas espaciadas */
+  --lh-body: 1.5;                                /* interlineado de todo el texto corrido de la web (21px a 14px, 24px a 16px) */
+  --fs-eyebrow: .875rem;                         /* 14px · antetítulos y frases de abajo del hero (mismo tamaño en todas partes) */
   --fs-meta:    13px;                            /* teléfono e idiomas (13pt en Figma) */
 
   /* Espaciado y layout */
@@ -166,7 +168,7 @@
   --fs-subhead-tablet: 1.25rem;      /* tableta en vertical (El hotel): ladillo, 20px */
   --fs-lead-tablet:    1.5rem;       /* tableta en vertical (El hotel): entradilla, 24px */
   --fs-body-tablet:    .875rem;      /* móvil y tableta en vertical (El hotel): texto corrido, 14px */
-  --lh-body-tablet:    1.7;          /* móvil y tableta en vertical (El hotel): interlineado del texto corrido (23,8px a 14px) */
+  --lh-body-tablet:    var(--lh-body); /* móvil y tableta en vertical: el mismo interlineado que en toda la web */
   --fs-statement-tablet: 1.625rem;   /* tableta: texto centrado («Un hotel en el centro histórico…»): 26px */
   --reviews-deco-top-mobile: 140px; /* móvil · opiniones: altura de los dientes de león desde arriba de la sección (antes 40px); más alto = más cerca de la cita */
   --reviews-move: 30px;      /* distancia que sube cada opinión al aparecer (0 = solo fundido) */
@@ -182,6 +184,11 @@
   --hero-fade: 3s;   /* duración del fundido entre fotos */
   --hero-zoom: 1.05;   /* zoom final de cada foto (1.08 = 8% más grande) */
   --hero-zoom-time: 15s; /* duración del zoom: conviene que sea algo más que --hero-time + --hero-fade */
+}
+
+/* Tableta: tamaño de los titulares del hero */
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root { --fs-page-title: 2.25rem; }    /* 36px · «Nuestras habitaciones»… */
 }
 
 /* Móvil: tamaños de texto propios */
