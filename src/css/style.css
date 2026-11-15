@@ -1725,8 +1725,9 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .slider__slide.is-active { opacity: 1; }
 /* Contador: mismo estilo y sitio que el del pase de habitaciones; la línea dura --slider-autoplay */
 .slider__count { top: auto; left: auto; transform: none; bottom: calc(var(--rooms-cta-bottom) + 6px); right: var(--edge); } /* Vivir: abajo a la derecha */
-@media (max-width: 1199px) { .slider .slider__count { top: 40px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); } }   /* móvil y tableta · Vivir: arriba, a 40px del borde de la foto */
-@media (min-width: 768px) and (max-width: 1199px) { .slider .slider__count { top: var(--slider-count-top-tablet); } }
+@media (max-width: 1199px) { :is(.slider, .rooms__slider) .slider__count { top: 40px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); } }   /* móvil y tableta · Vivir: arriba, a 40px del borde de la foto */
+@media (min-width: 768px) and (max-width: 1199px) { :is(.slider, .rooms__slider) .slider__count { top: var(--slider-count-top-tablet); } }
+.rooms__slider .slider__count { top: var(--rooms-count-top); bottom: auto; left: 50%; right: auto; transform: translateX(-50%); }   /* Home · habitaciones: arriba en el centro, a --rooms-count-top de la foto, en todas las versiones */
 .slider .rooms__progress.is-running span { animation-duration: var(--slider-autoplay); }
 /* Flecha: en reposo a 95px del borde derecho y centrada en alto (Figma).
    Con ratón, sigue al puntero como si fuera el cursor (main.js la mueve con transform). */
