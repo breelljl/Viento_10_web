@@ -467,7 +467,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: relative;
   z-index: 1;                      /* pasa por encima del texto fijo */
   height: 100vh;
-  height: var(--screen-h);                  /* iPad y móvil: alto visible, sin la barra del navegador */
+  height: var(--screen-h-full);             /* iPad y móvil: alto visible con la barra del navegador ya oculta (está más abajo que el hero) */
   min-height: 560px;
   overflow: hidden;
   color: var(--c-white);
@@ -587,7 +587,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Habitaciones · móvil ---------- */
 @media (max-width: 767px) {
-  .rooms__slider { height: var(--screen-h); }
+  .rooms__slider { height: var(--screen-h-full); }
   .rooms__count { top: 90px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); font-size: 1rem; } /* 16px; antes 13px */ /* móvil: sigue arriba en el centro (abajo chocaría con el enlace) */
   :root { --fs-room-name: 1.625rem; --fs-room-details: .875rem; } /* 26px y 14px */
   /* Si el nombre no cabe dejando 40px a cada lado, pasa a dos líneas */
@@ -1662,7 +1662,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .slider {
   position: relative;
   height: 100vh;                              /* ocupa el alto de la pantalla, como el pase de habitaciones */
-  height: var(--screen-h);                             /* móvil: sin saltos al aparecer/ocultarse la barra del navegador */
+  height: var(--screen-h-full);                        /* iPad y móvil: alto visible con la barra del navegador ya oculta */
   min-height: 560px;
   margin-bottom: var(--slider-after);
   overflow: hidden;

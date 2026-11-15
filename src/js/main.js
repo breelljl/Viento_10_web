@@ -7,11 +7,19 @@
 // (y algunos iPad no entienden 100svh). Se guarda el alto visible en --screen-h.
 // Solo se recalcula al cambiar el ancho (girar la pantalla), no al ocultarse la barra al hacer scroll.
 (function () {
-  let lastW = 0;
+  let lastW = 0, maxH = 0;
+  const root = document.documentElement.style;
   const set = () => {
-    if (window.innerWidth === lastW) return;
+    // --screen-h-full: el alto mayor visto (con la barra del navegador ya oculta al hacer scroll),
+    // para los pases a pantalla completa que están más abajo en la página
+    if (window.innerWidth === lastW) {
+      if (window.innerHeight > maxH) { maxH = window.innerHeight; root.setProperty('--screen-h-full', `${maxH}px`); }
+      return;
+    }
     lastW = window.innerWidth;
-    document.documentElement.style.setProperty('--screen-h', `${window.innerHeight}px`);
+    maxH = window.innerHeight;
+    root.setProperty('--screen-h', `${maxH}px`);
+    root.setProperty('--screen-h-full', `${maxH}px`);
   };
   set();
   window.addEventListener('resize', set);
