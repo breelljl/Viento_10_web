@@ -7,11 +7,19 @@
 // (y algunos iPad no entienden 100svh). Se guarda el alto visible en --screen-h.
 // Solo se recalcula al cambiar el ancho (girar la pantalla), no al ocultarse la barra al hacer scroll.
 (function () {
-  let lastW = 0;
+  let lastW = 0, maxH = 0;
+  const root = document.documentElement.style;
   const set = () => {
-    if (window.innerWidth === lastW) return;
+    // --screen-h-full: el alto mayor visto (con la barra del navegador ya oculta al hacer scroll),
+    // para los pases a pantalla completa que están más abajo en la página
+    if (window.innerWidth === lastW) {
+      if (window.innerHeight > maxH) { maxH = window.innerHeight; root.setProperty('--screen-h-full', `${maxH}px`); }
+      return;
+    }
     lastW = window.innerWidth;
-    document.documentElement.style.setProperty('--screen-h', `${window.innerHeight}px`);
+    maxH = window.innerHeight;
+    root.setProperty('--screen-h', `${maxH}px`);
+    root.setProperty('--screen-h-full', `${maxH}px`);
   };
   set();
   window.addEventListener('resize', set);
@@ -168,7 +176,10 @@
   for (let copy = 0; copy < 3; copy++) {
     slides.forEach((slide) => {
       // "|" en data-name marca un salto de línea (nombres que van en dos líneas)
-      const span = document.createElement('span');
+      // Cada nombre es un enlace a su habitación; las copias no se leen ni se tabulan
+      const span = document.createElement('a');
+      span.href = slide.dataset.href || 'habitaciones.html';
+      if (copy !== 1) { span.tabIndex = -1; span.setAttribute('aria-hidden', 'true'); }
       slide.dataset.name.split('|').forEach((line, i) => {
         if (i) span.appendChild(document.createElement('br'));
         span.appendChild(document.createTextNode(line.trim()));
@@ -185,6 +196,7 @@
   // Desplaza la cinta para centrar el nombre "position"
   function center(animate) {
     const el = names[position];
+    names.forEach((n) => n.classList.toggle('is-current', n === el)); // solo el nombre centrado se puede pulsar
     const x = slider.clientWidth / 2 - (el.offsetLeft + el.offsetWidth / 2);
     track.classList.toggle('no-transition', !animate);
     track.style.transform = `translateX(${x}px)`;
@@ -208,6 +220,7 @@
   function go(dir) {
     if (busy) { queued = dir; return; }
     busy = true;
+    slider.classList.add('is-moving'); // mientras se mueve, los nombres no se pueden pulsar
 
     const from = slides[current];
     current = (current + dir + total) % total;
@@ -239,6 +252,7 @@
         center(false);
       }
       busy = false;
+      slider.classList.remove('is-moving');
       if (queued) { const d = queued; queued = 0; go(d); }
     }, MOVE);
   }
