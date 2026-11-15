@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es" class="is-loading">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal • Viento 10, hotel boutique en Córdoba</title>
+  <link rel="stylesheet" href="css/tokens.css?v=2026-11-16b">
+  <link rel="stylesheet" href="css/style.css?v=2026-11-16b">
+</head>
+<body class="page-cream">
+
+  <!-- ============ PANTALLA DE CARGA ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 85 122" width="104" height="150"><path pathLength="1" style="--i: 0" d="M42.3237 1C65.1462 1 83.6474 19.4194 83.6474 42.141V79.859C83.6474 102.581 65.1462 121 42.3237 121C19.5013 121 1 102.581 1 79.859V42.141C1 19.4194 19.5013 1 42.3237 1Z"/><path pathLength="1" style="--i: 1" d="M1.1521 70.8845H83.4654"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L42.5 19.4314"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L36.4214 20.4878"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L31.0786 23.526"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L27.1096 28.1789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L25 33.8932"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L25 39.9697"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L27.1096 45.6789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L31.0786 50.3369"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L36.4214 53.3751"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L42.5 54.4314"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L48.5785 53.3751"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L53.9214 50.3369"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L57.8903 45.6789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L59.9999 39.9697"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L59.9999 33.8932"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L57.8903 28.1789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L53.9214 23.526"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L48.5785 20.4878"/><path pathLength="1" style="--i: 3" d="M27.4417 86.5898L32.781 84.6304H34.1173V120.226"/><path pathLength="1" style="--i: 4" d="M39.7908 96.4895V96.423C39.7908 90.0127 43.5569 84.4006 49.4976 84.4006C55.4383 84.4006 59.1375 89.9462 59.1375 96.3565V96.423C59.1375 102.833 55.3654 108.445 49.4307 108.445C43.4961 108.445 39.7908 102.9 39.7908 96.4895Z"/></svg>
+    <p class="loader__text">Hotel Viento 10<br>Córdoba</p>
+  </div>
+  <noscript><style>.loader { display: none; } html.is-loading { overflow: auto; background: none; }</style></noscript>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <a class="hero__logo" href="index.html"><img src="assets/img/home/slider_hero/logo-viento.svg" data-dark-src="assets/img/home/slider_hero/logo-viento_oscuro.svg" alt="Viento 10 · Inicio" width="210" height="40"></a>  <!-- logo fijo, siempre visible -->
+    <div class="header__meta">
+      <nav class="header__nav" aria-label="Principal">
+        <a href="habitaciones.html">Habitaciones</a>
+        <a href="hotel.html">El hotel</a>
+        <a href="vivir.html">Vivir Viento 10</a>
+      </nav>
+    </div>
+    <div class="lang header__lang" id="lang">
+      <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <span class="lang__current">ES</span>
+        <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <ul class="lang__list" hidden>
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+    </div>
+    <div class="header__actions">
+      <a href="#" class="btn btn--light">Reservar</a>
+      <button class="btn btn--olive menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+    </div>
+  </header>
+
+  <!-- ============ MENÚ DESPLEGABLE ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__col">
+      <a class="menu__logo" href="index.html"><img src="assets/img/home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
+      <ul class="menu__lang" aria-label="Idioma"> <!-- solo en móvil: en escritorio el idioma está en la cabecera -->
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+      <nav class="menu__nav" aria-label="Menú">
+        <a href="index.html" style="--i: 0"><span>Inicio</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El Hotel</span></a>
+        <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vive Viento 10</span></a>
+        <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
+        <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
+      </nav>
+      <p class="menu__contact">
+        <a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a>
+        <a href="tel:+34744655732">+34 744 655 732</a>
+      </p>
+      <ul class="menu__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/home/cordoba/img_whatsapp.svg" alt="" width="40" height="40"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/home/cordoba/img_instagram.svg" alt="" width="40" height="40"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/home/cordoba/img_facebook.svg" alt="" width="40" height="40"></a></li>
+      </ul>
+    </div>
+    <div class="menu__media">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/home/Menu/img_hierba_viento.jpg" alt="">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/home/Menu/img_menu_hotel.jpg" alt="">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/home/Menu/img_menu_habitaciones.jpg" alt="">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/home/Menu/img_menu_vivir-viento.jpg" alt="">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/home/Menu/img_menu_sobre-cordoba.jpg" alt="">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/home/Menu/img_menu_contacto.jpg" alt="">
+    </div>
+  </div>
+
+  <main class="legal">
+    <!-- ============ ENTRADA ============ -->
+    <section class="guide__intro contact__intro legal__intro">
+      <p class="eyebrow eyebrow--pre reveal">Legal</p>
+      <h1 class="contact__title reveal">Información legal</h1>
+      <!-- Índice: salta a cada apartado -->
+      <ul class="legal__index reveal">
+        <li><a class="link-arrow" href="#aviso-legal">Aviso legal</a></li>
+        <li><a class="link-arrow" href="#privacidad">Privacidad</a></li>
+        <li><a class="link-arrow" href="#cookies">Cookies</a></li>
+      </ul>
+    </section>
+
+    <!-- ============ APARTADOS · textos pendientes de la parte legal del hotel ============ -->
+    <div class="legal__body">
+      <section class="legal__section" id="aviso-legal">
+        <h2 class="care__title">Aviso legal</h2>
+        <!-- Texto tomado de hotelviento10.es/es/aviso-legal -->
+        <div class="guide__text">
+          <h3 class="legal__subtitle">1. Información general</h3>
+          <p>En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), a continuación, se facilita la siguiente información general sobre este sitio web:</p>
+          <ul class="guide__list">
+            <li><strong>Denominación social:</strong> Hotel Viento 10</li>
+            <li><strong>NIF:</strong> B14732432</li>
+            <li><strong>Correo electrónico de contacto:</strong> <a class="text-link" href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a></li>
+            <li><strong>Actividad:</strong> Hostelería, desayuno, bienestar y otras actividades complementarias destinadas a estancias de corta duración.</li>
+            <li><strong>Web:</strong> https://hotelviento10.es</li>
+          </ul>
+          <h3 class="legal__subtitle">2. Propiedad intelectual e industrial</h3>
+          <p>Los derechos de propiedad intelectual sobre el contenido de este sitio web, sus imágenes, textos, gráficos, logotipos, iconos, software y demás elementos están protegidos por las leyes españolas e internacionales sobre propiedad intelectual. El usuario se compromete a no realizar ninguna acción que infrinja estos derechos.</p>
+          <p>La reproducción, distribución, comunicación pública y transformación de los contenidos de este sitio web sin la debida autorización está prohibida, salvo en los casos previstos por la legislación vigente.</p>
+          <h3 class="legal__subtitle">3. Responsabilidad</h3>
+          <p>Hotel Viento 10 no se hace responsable de los daños derivados del uso indebido del contenido de su página web, ni de los daños que pueda ocasionar la falta de disponibilidad o continuidad del funcionamiento del sitio.</p>
+          <p>La empresa no garantiza la ausencia de errores en el acceso al sitio web, ni en su contenido, aunque se compromete a realizar los esfuerzos necesarios para evitarlo.</p>
+          <h3 class="legal__subtitle">4. Enlaces a otros sitios web</h3>
+          <p>En el caso de que en este sitio web se dispusieran enlaces a otros sitios web, hotel Viento 10 no ejerce control sobre dichos sitios, por lo que no asume responsabilidad alguna por el contenido, la política de privacidad o las prácticas de estos sitios. El acceso a estos enlaces es bajo la exclusiva responsabilidad del usuario.</p>
+          <h3 class="legal__subtitle">5. Protección de datos personales</h3>
+          <p>En cumplimiento de la legislación vigente sobre protección de datos, en particular el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 relativo a la protección de las personas físicas en lo que respecta al tratamiento de datos personales, le informamos que sus datos personales serán tratados de acuerdo con nuestra <a class="text-link" href="#privacidad">Política de Privacidad</a>.</p>
+          <h3 class="legal__subtitle">6. Modificación del Aviso Legal</h3>
+          <p>Hotel Viento 10 se reserva el derecho de modificar el presente Aviso Legal en cualquier momento. Cualquier modificación será publicada en esta página y será de aplicación desde el momento de su publicación. Se recomienda revisar periódicamente este Aviso Legal para estar informado de cualquier cambio.</p>
+          <h3 class="legal__subtitle">7. Legislación aplicable y jurisdicción</h3>
+          <p>El presente Aviso Legal se rige por la legislación española. Para la resolución de cualquier controversia que pudiera derivarse de la interpretación o ejecución de este Aviso Legal, las partes se someten a los tribunales competentes de la ciudad de Cordoba, España.</p>
+          <h3 class="legal__subtitle">8. Contacto</h3>
+          <p>Si tienes alguna duda o comentario sobre este Aviso Legal, no dudes en ponerte en contacto con nosotros a través del correo electrónico: <a class="text-link" href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a></p>
+        </div>
+      </section>
+      <section class="legal__section" id="privacidad">
+        <h2 class="care__title">Privacidad</h2>
+        <!-- Texto tomado de hotelviento10.es/es/politica-de-privacidad -->
+        <div class="guide__text">
+          <h3 class="legal__subtitle">1. Responsable</h3>
+          <p class="legal__point">A. Datos de contacto del Responsable.</p>
+          <p>El responsable de los datos recabados mediante esta web es Hotel Viento 10, con NIF B14732432 y el correo electrónico de contacto es <a class="text-link" href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a></p>
+          <p class="legal__point">B. Identidad y datos de contacto del representante.</p>
+          <p>Hotel Viento 10<br>Correo electrónico: <a class="text-link" href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a><br>C/Ronquillo Briceño 10, Córdoba.<br>+34 957 764 960 // +34 677 588 790</p>
+          <h3 class="legal__subtitle">2. Finalidad</h3>
+          <p class="legal__point">A. Descripción ampliada de los fines del tratamiento.</p>
+          <ul class="guide__list">
+            <li>Gestión de solicitudes y consultas.</li>
+            <li>Publicidad y prospección comercial.</li>
+            <li>Gestión administrativa de la relación contractual.</li>
+          </ul>
+          <p class="legal__point">B. Plazos o criterios de conservación de los datos.</p>
+          <p>Conservaremos los datos durante el tiempo necesario para cumplir con las finalidades mencionadas y para atender las solicitudes o cumplir con las obligaciones legales que nos correspondan.</p>
+          <p class="legal__point">C. Decisiones automatizadas, perfiles y lógica aplicada.</p>
+          <p>Los datos recogidos mediante la página web no serán utilizados para tomar decisiones automatizadas ni para crear perfiles.</p>
+          <h3 class="legal__subtitle">3. Legitimación</h3>
+          <p class="legal__point">A. Legislación aplicable.</p>
+          <p>La legislación aplicable es el Reglamento General de Protección de Datos 2016/679 de 27 de abril de 2016, así como la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales.</p>
+          <p class="legal__point">B. Detalles de la base jurídica del tratamiento.</p>
+          <p>Art. 6, apartado 1 letra a: el consentimiento del interesado, el cual se considera base legítima para el tratamiento de datos personales contenidos en este fichero.</p>
+          <p class="legal__point">C. Obligación o no de facilitar datos y consecuencias de no hacerlo.</p>
+          <p>No está obligado a facilitarnos los datos. Sin embargo, será necesario para gestionar las sugerencias o peticiones que nos realice a través de la página web.</p>
+          <h3 class="legal__subtitle">4. Destinatarios</h3>
+          <p class="legal__point">A. Destinatarios.</p>
+          <p>Los datos podrán ser cedidos a organizaciones o personas directamente relacionadas con la empresa o a Administraciones públicas con competencia en la materia.</p>
+          <p class="legal__point">B. Destinatarios específicos.</p>
+          <p>No existen destinatarios específicos fuera de los mencionados en el apartado anterior.</p>
+          <p class="legal__point">C. Decisiones de adecuación, garantías, normas corporativas vinculantes o situaciones específicas aplicables.</p>
+          <p>No existen.</p>
+          <p class="legal__point">D. Transferencias internacionales.</p>
+          <p>No se realizarán transferencias internacionales de datos.</p>
+          <h3 class="legal__subtitle">5. Derechos</h3>
+          <p class="legal__point">A. Cómo ejercer los derechos de acceso, rectificación, supresión y portabilidad de sus datos, y la limitación u oposición a su tratamiento.</p>
+          <p>El interesado podrá conocer, modificar o eliminar los datos que la empresa posee acerca de su persona mediante correo electrónico, facilitando su DNI, a <a class="text-link" href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a></p>
+          <p class="legal__point">B. Derecho a retirar el Consentimiento prestado.</p>
+          <p>El interesado podrá retirar el consentimiento prestado en cualquier momento mediante correo electrónico, facilitando su DNI, a <a class="text-link" href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a></p>
+          <p class="legal__point">C. Derecho a reclamar ante la Autoridad de Control.</p>
+          <p>El interesado podrá presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) en caso de que considere que sus derechos han sido vulnerados.</p>
+          <h3 class="legal__subtitle">6. Procedencia</h3>
+          <p class="legal__point">A. Información detallada del origen de los datos.</p>
+          <p>Los datos son facilitados directamente por el interesado.</p>
+          <p class="legal__point">B. Categorías de datos que se tratan.</p>
+          <ul class="guide__list">
+            <li>Nombre y Apellidos</li>
+            <li>Email</li>
+            <li>Teléfono</li>
+          </ul>
+        </div>
+      </section>
+      <section class="legal__section" id="cookies">
+        <h2 class="care__title">Cookies</h2>
+        <!-- Texto tomado de hotelviento10.es/es/politica-de-cookies -->
+        <div class="guide__text">
+          <p>En Hotel Viento 10 utilizamos cookies para mejorar la experiencia de navegación de nuestros usuarios y para analizar el uso de nuestra página web. A continuación, te proporcionamos información sobre qué son las cookies, qué tipo de cookies utilizamos y cómo puedes gestionarlas.</p>
+          <h3 class="legal__subtitle">¿Qué son las cookies?</h3>
+          <p>Las cookies son pequeños archivos de texto que se almacenan en el dispositivo del usuario (ordenador, tablet, móvil) cuando navega por sitios web. Estos archivos permiten que la página web recuerde información sobre la visita, como el idioma, el tipo de navegador o las preferencias, lo que facilita la navegación y mejora la experiencia del usuario.</p>
+          <h3 class="legal__subtitle">Tipos de cookies que utilizamos</h3>
+          <p>En nuestra web utilizamos los siguientes tipos de cookies:</p>
+          <ul class="guide__list">
+            <li><strong>Cookies técnicas:</strong> Son aquellas que permiten al usuario la navegación a través de nuestra web y la utilización de las distintas opciones o servicios que ofrece, como por ejemplo, controlar el tráfico y la comunicación de datos.</li>
+            <li><strong>Cookies de personalización:</strong> Son aquellas que permiten recordar las preferencias del usuario, como el idioma o la región, con el fin de proporcionar una experiencia de navegación personalizada.</li>
+            <li><strong>Cookies analíticas:</strong> Son aquellas que nos permiten realizar el seguimiento y análisis del comportamiento de los usuarios en nuestra web, con el fin de mejorar su funcionamiento. Estas cookies no recogen información personal identificable.</li>
+            <li><strong>Cookies publicitarias:</strong> Son aquellas que permiten gestionar los espacios publicitarios de nuestra web, de acuerdo con el comportamiento de navegación del usuario.</li>
+          </ul>
+          <h3 class="legal__subtitle">¿Cómo gestionar las cookies?</h3>
+          <p>El usuario puede gestionar el uso de cookies mediante la configuración de su navegador. A continuación, te indicamos cómo puedes deshabilitar las cookies según el navegador que utilices:</p>
+          <ul class="guide__list">
+            <li><strong>Google Chrome:</strong> Accede a la configuración del navegador y en la sección «Privacidad y seguridad» podrás gestionar las cookies.</li>
+            <li><strong>Mozilla Firefox:</strong> Accede al menú «Opciones», luego a «Privacidad y seguridad» y allí podrás gestionar las cookies.</li>
+            <li><strong>Microsoft Edge:</strong> En el menú de «Configuración» selecciona «Privacidad, búsqueda y servicios» y podrás gestionar las cookies.</li>
+            <li><strong>Safari:</strong> Accede a «Preferencias», luego a «Privacidad» y podrás gestionar las cookies desde allí.</li>
+          </ul>
+          <p>Si decides desactivar las cookies, es posible que algunas funcionalidades de nuestra web no estén disponibles o no funcionen correctamente.</p>
+          <h3 class="legal__subtitle">Consentimiento</h3>
+          <p>Al continuar navegando por nuestra web, el usuario acepta el uso de cookies de acuerdo con la presente política. Si no está de acuerdo con nuestra política de cookies, debe configurar su navegador para rechazar las cookies o abandonar el sitio web.</p>
+          <h3 class="legal__subtitle">Modificaciones de la Política de Cookies</h3>
+          <p>Nos reservamos el derecho de actualizar y modificar esta Política de Cookies en cualquier momento, por lo que te recomendamos que la revises periódicamente. Cualquier cambio será efectivo en el momento de su publicación en esta página.</p>
+          <p>Si tienes alguna pregunta sobre nuestra política de cookies, no dudes en contactarnos a través de <a class="text-link" href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a></p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+
+  <footer data-dark class="footer">
+    <div class="footer__claim reveal">
+      <img class="footer__logo" src="assets/img/home/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
+      <p class="footer__title">El viaje empieza al cruzar la puerta.<br>El tuyo, en Viento 10.</p>
+    </div>
+
+    <div class="footer__main">
+      <nav class="footer__col" aria-label="Menú del pie">
+        <p class="footer__label">Menú</p>
+        <ul class="footer__menu">
+          <li><a href="hotel.html">El Hotel</a></li>
+          <li><a href="habitaciones.html">Habitaciones</a></li>
+          <li><a href="vivir.html">Vivir Viento 10</a></li>
+          <li><a href="cordoba.html">Sobre Córdoba</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col" id="contacto">
+        <p class="footer__label">Dirección</p>
+        <address class="footer__address">
+          <p>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba (España)</p>
+          <p><a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a><br><a href="tel:+34744655732">+34 744 655 732</a></p>
+        </address>
+      </div>
+
+      <ul class="footer__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__michelin"><img src="assets/img/home/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
+      <ul class="footer__legal">
+        <li><a href="legal.html">Legal</a></li>
+      </ul>
+      <p class="footer__copy">Viento 10 2026</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=2026-11-16b"></script>
+</body>
+</html>
