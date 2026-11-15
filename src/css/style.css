@@ -936,8 +936,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .footer__social { gap: 20px; margin-top: 0 !important; }
   .footer__michelin { border-bottom: 1px solid rgba(223, 224, 195, .2); }
   .footer__michelin img { width: 54px; }   /* como en escritorio; antes 68px */
-  .footer__legal { flex-direction: row; flex-wrap: wrap; gap: 14px 24px; padding-bottom: 14px !important; }   /* en horizontal (si no caben, pasan a la línea siguiente) */
-  .footer__copy { padding-top: 0 !important; padding-bottom: 60px !important; }
+  /* «Legal» y «Viento 10 2026» en la misma línea, bajo la línea de Michelin */
+  .footer .footer__bottom { grid-template-columns: auto 1fr; }
+  .footer__michelin { grid-column: 1 / -1; }
+  .footer .footer__legal { flex-direction: row; gap: 24px; padding-right: 0; padding-bottom: 60px; }
+  .footer .footer__copy { padding-left: 24px; padding-bottom: 60px; }
 }
 
 /* Tableta: la fila inferior como en el móvil (Michelin, avisos legales y copyright apilados, con línea bajo Michelin) */
