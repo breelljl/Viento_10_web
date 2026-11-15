@@ -52,6 +52,7 @@
   --page-side:  max(0px, (100vw - var(--page-max)) / 2); /* espacio sobrante a cada lado (0 hasta 1440) */
   --page-spread: calc(var(--page-side) * .5); /* Experiencia y Opiniones: cuánto se separan a lo ancho titular y texto en pantallas grandes (0 = juntos como en el Figma, 1 = hasta el borde) */
   --gutter:     calc(clamp(20px, 10.8vw, 156px) + var(--page-side)); /* margen lateral de 156px a 1440, centrado en pantallas grandes */
+  --text-side-tablet: 16.4vw;                  /* tableta en vertical: margen de los bloques de texto (margen + 1 columna + medianil de la retícula de 8 columnas; 126px a 768) */
   --edge:       clamp(20px, 3vw, 42px);          /* distancia de la cabecera (idioma, Reservar/Menú) al borde de la pantalla */
   --gutter-sm:  calc(var(--edge) + var(--page-side)); /* margen lateral pequeño, centrado en pantallas grandes */
   --radius:     6px;
@@ -78,6 +79,7 @@
   --rooms-text-move: 2.2s;     /* deslizamiento de la cinta de nombres */
   --rooms-names-gap: clamp(500px, 24vw, 600px); /* separación entre nombres: controla cuánto asoman los vecinos */
   --ease-names: cubic-bezier(.65, 0, .35, 1);   /* arranque y llegada suaves */
+  --fs-h1: 2.5rem;           /* 40px · titulares grandes de sección (escritorio): «Un hotel en el centro histórico…», «La habitación es solo el principio…», opiniones, Córdoba, «Lo esencial…», intros de página y «Más sobre Viento 10». En tableta: --fs-statement-tablet */
   --fs-room-name: 2.5rem;    /* 40px · nombre de la habitación (Canela) */
   --fs-room-details: 1rem;   /* 16px · capacidad y cama (Gotham) */
 
@@ -160,6 +162,10 @@
   --reviews-bottom-tablet: 120px;    /* tableta: espacio debajo de Testimonios (escritorio 260px) */
   --welcome-title-gap: 100px;        /* Bienvenida: espacio bajo «Bienvenidos al hotel Viento 10» hasta la primera foto (antes 3vw ≈ 43px a 1440) */
   --welcome-title-gap-mobile: 60px;  /* lo mismo en móvil (antes 40px) */
+  --fs-subhead-tablet: 1.25rem;      /* tableta en vertical (El hotel): ladillo, 20px */
+  --fs-lead-tablet:    1.5rem;       /* tableta en vertical (El hotel): entradilla, 24px */
+  --fs-body-tablet:    .875rem;      /* móvil y tableta en vertical (El hotel): texto corrido, 14px */
+  --lh-body-tablet:    1.7;          /* móvil y tableta en vertical (El hotel): interlineado del texto corrido (23,8px a 14px) */
   --fs-statement-tablet: 1.625rem;   /* tableta: texto centrado («Un hotel en el centro histórico…»): 26px */
   --reviews-deco-top-mobile: 140px; /* móvil · opiniones: altura de los dientes de león desde arriba de la sección (antes 40px); más alto = más cerca de la cita */
   --reviews-move: 30px;      /* distancia que sube cada opinión al aparecer (0 = solo fundido) */

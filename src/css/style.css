@@ -325,7 +325,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 0;
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: var(--fs-lead);
+  font-size: var(--fs-h1);
   line-height: 1.2; /* 120% */
   color: var(--c-olive-dark);
 }
@@ -390,6 +390,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero ~ section {
   position: relative;
   z-index: 1;
+  transform: translateZ(0);         /* iPad (Safari/Chrome): fuerza a pintar la sección en su propia capa, por encima del hero; si no, el titular y la frase del hero se veían encima del contenido  */
   background: var(--c-bg);
 }
 
@@ -615,7 +616,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 20px 0 0;                /* 20px desde "Vivir Viento 10" */
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: var(--fs-room-name);  /* 40px */
+  font-size: var(--fs-h1);  /* 40px */
   line-height: 1.2;
   color: var(--c-olive-dark);
 }
@@ -698,7 +699,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 20px 0 0;
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: var(--fs-room-name);  /* 40px */
+  font-size: var(--fs-h1);  /* 40px */
   line-height: 1.2;
   color: var(--c-olive-dark);
   max-width: 700px;                /* caja ajustada: corta en "vivieron / Viento 10," */
@@ -809,7 +810,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 0 0 50px;
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: var(--fs-room-name);  /* 40px */
+  font-size: var(--fs-h1);  /* 40px */
   line-height: 1.2;
 }
 
@@ -1086,7 +1087,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 20px 0 0;                           /* 20px desde el antetítulo */
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: var(--fs-room-name);             /* 40px */
+  font-size: var(--fs-h1);             /* 40px */
   line-height: 1.2;
   color: var(--c-olive-dark);
 }
@@ -1214,7 +1215,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin: 15px 0 0;
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: var(--fs-more);                  /* 40px a 1440 (ver --fs-more) */
+  font-size: var(--fs-h1);                    /* 40px, como los demás titulares grandes */
   line-height: 1.2;
 }
 /* Enlaces en cursiva y subrayados; en hover bajan la opacidad */
@@ -1433,12 +1434,13 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   rotate: -4deg;                              /* "rotate" para no chocar con el fundido (transform) */
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {   /* móvil y tableta en vertical: ladillo encima y texto debajo */
   .care { padding: 0 var(--gutter-sm) 100px; }
   .care__media { aspect-ratio: 810 / 1200; }   /* vertical, la proporción de img_salon_movil.jpg (antes 4/3 horizontal) */
   .care__body { flex-direction: column; gap: 20px; margin-top: 40px; } /* 40px entre foto y ladillo, 20px entre ladillo y texto */
   .care__text { flex-basis: auto; }      /* mismo motivo: el ancho de escritorio (665px) no debe volverse alto en columna */
   .care__text .care__lead { margin-bottom: 30px; }
+  .care__text p:not(.care__lead) { font-size: var(--fs-body-tablet); line-height: var(--lh-body-tablet); }
   .care__script { margin-top: calc(80px - .6em); }
 }
 
@@ -1467,11 +1469,21 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 }
 .story__text p { font-size: 1rem; line-height: 1.5; } /* 16px */
 
-@media (max-width: 767px) {
+@media (max-width: 767px), (max-width: 1023px) and (orientation: portrait) {   /* móvil y tableta en vertical: ladillo encima y texto debajo */
   .story { padding-bottom: 100px; }
   .story__media { aspect-ratio: 904 / 1335; }   /* móvil: vertical, proporción de img_pasillo_movil.jpg (antes 4/3) */
   .story__body { margin-top: 40px; padding: 0 var(--gutter-sm); }
-  .story__text p { font-size: .875rem; }
+  .story__text p { font-size: var(--fs-body-tablet); line-height: var(--lh-body-tablet); }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {   /* tableta en vertical: texto dentro de la retícula (sin la 1.ª y la última columna) */
+  .care { padding-left: var(--text-side-tablet); padding-right: var(--text-side-tablet); }
+  .story__body { padding: 0 var(--text-side-tablet); }
+  .care__media { aspect-ratio: 1125 / 727; }   /* fotos de escritorio, horizontales */
+  .story__media { aspect-ratio: 1440 / 1047; }
+  .care__title { font-size: var(--fs-subhead-tablet); }
+  .care__text .care__lead { font-size: var(--fs-lead-tablet); }
+  .care__text p:not(.care__lead), .story__text p { font-size: var(--fs-body-tablet); line-height: var(--lh-body-tablet); }
 }
 
 /* ---------- Página El hotel · El flechazo (Gerardo Holgado) ----------
@@ -2532,8 +2544,6 @@ html.is-loading body { background: transparent; }
 
 /* Tableta en vertical: usa las fotos _movil (verticales), así que sus cajas toman la misma proporción que en el móvil */
 @media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
-  .care__media  { aspect-ratio: 810 / 1200; }   /* img_salon_movil.jpg */
-  .story__media { aspect-ratio: 904 / 1335; }   /* img_pasillo_movil.jpg */
   .amenities { min-height: 0; aspect-ratio: 905 / 1335; }   /* img_camarera-pisos_movil.jpg */
   .feature__media:has(source[srcset*="01_piscina_jardin_movil"]) { aspect-ratio: 1335 / 2000; }
   .feature__media:has(source[srcset*="04_desayuno_movil"])       { aspect-ratio: 1106 / 1335; }
@@ -2541,3 +2551,6 @@ html.is-loading body { background: transparent; }
   .feature__media:has(source[srcset*="12_equipo_movil"])         { aspect-ratio: 1354 / 1335; }
   .contact__row:not(.contact__row--arrive) .contact__media img { aspect-ratio: 980 / 1308; }   /* 02_mapa_viento_movil.jpg */
 }
+
+/* Tableta: todos los titulares grandes de sección al mismo tamaño que «Un hotel en el centro histórico…» (26px) */
+@media (min-width: 768px) and (max-width: 1199px) { :is(.testimonials__title, .city__title, .faq__title, .more__text) { font-size: var(--fs-statement-tablet); } }
