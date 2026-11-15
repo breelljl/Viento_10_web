@@ -2633,3 +2633,28 @@ html.is-loading body { background: transparent; }
 
 /* Tableta (vertical y horizontal): ladillos a 18px, como en el móvil */
 @media (min-width: 768px) and (max-width: 1199px) { .care__title, .faq__toggle { font-size: var(--fs-subhead-tablet); } }   /* también las preguntas frecuentes */
+
+/* ==========================================================
+   PÁGINA LEGAL · aviso legal, privacidad y cookies en una sola página
+   ========================================================== */
+.legal__index { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 40px; margin: 50px 0 0; padding: 0; list-style: none; }
+.legal__body { max-width: 665px; margin: 0 auto; padding: 0 var(--edge) 12.5rem; box-sizing: content-box; }   /* columna de lectura, 665px como el texto de Sobre Córdoba */
+.legal__section { padding-top: 80px; border-top: 1px solid var(--c-line); scroll-margin-top: 40px; }   /* al saltar desde el índice o el pie, el apartado no queda pegado arriba */
+.legal__section + .legal__section { margin-top: 80px; }
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .legal__body { max-width: none; padding-left: var(--text-side-tablet); padding-right: var(--text-side-tablet); }
+}
+.legal__subtitle { margin: 50px 0 0; font-family: var(--f-sans); font-weight: 500; font-size: 1rem; line-height: var(--lh-body); color: var(--c-olive-dark); }   /* subtítulos dentro de cada apartado */
+.legal__subtitle + p, .legal__subtitle + ul { margin-top: 10px !important; }
+.legal__point { font-weight: 500; }   /* puntos A., B., C. dentro de cada subtítulo */
+.legal__point + p, .legal__point + ul { margin-top: 6px !important; }
+.legal__index .link-arrow::after { display: none; }   /* índice de la página Legal: sin flecha */
+.guide__intro.contact__intro.legal__intro { padding-bottom: 50px; }   /* índice de la página Legal más cerca de la primera línea */
+/* Índice repartido a lo largo de la línea: mismo ancho que la columna de texto */
+.legal__index { justify-content: space-between; max-width: 665px; margin-inline: auto; }
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .legal__index { max-width: calc(100vw - 2 * var(--text-side-tablet)); }
+}
+/* Índice entre dos líneas: una encima y la del primer apartado debajo; los enlaces sin subrayado */
+.legal__index { border-top: 1px solid var(--c-line); padding-top: 50px; }
+.legal__index .link-arrow { border-bottom: 0; padding-bottom: 0; }
