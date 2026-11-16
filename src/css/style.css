@@ -1728,6 +1728,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 @media (max-width: 1199px) { :is(.slider, .rooms__slider) .slider__count { top: 40px; bottom: auto; left: 50%; right: auto; transform: translateX(-50%); } }   /* móvil y tableta · Vivir: arriba, a 40px del borde de la foto */
 @media (min-width: 768px) and (max-width: 1199px) { :is(.slider, .rooms__slider) .slider__count { top: var(--slider-count-top-tablet); } }
 .rooms__slider .slider__count { top: var(--rooms-count-top); bottom: auto; left: 50%; right: auto; transform: translateX(-50%); }   /* Home · habitaciones: arriba en el centro, a --rooms-count-top de la foto, en todas las versiones */
+@media (min-width: 1200px) { .slider .slider__count { top: var(--rooms-count-top); bottom: auto; left: 50%; right: auto; transform: translateX(-50%); } }   /* escritorio · Vivir: arriba en el centro, como el de habitaciones */
 .slider .rooms__progress.is-running span { animation-duration: var(--slider-autoplay); }
 /* Flecha: en reposo a 95px del borde derecho y centrada en alto (Figma).
    Con ratón, sigue al puntero como si fuera el cursor (main.js la mueve con transform). */
@@ -1741,7 +1742,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: rgba(223, 224, 195, .45);       /* crema claro al 45% (Figma) */
+  background: rgba(223, 224, 195, var(--slider-btn-opacity));   /* crema claro semitransparente (Figma: 45%) */
   -webkit-backdrop-filter: blur(2px);
           backdrop-filter: blur(2px);
   color: var(--c-olive-dark);                 /* flecha verde oscuro (Figma: #404219) */
@@ -1755,7 +1756,7 @@ html:has(body.no-scroll) { overflow: hidden; } /* Safari: si no, la página de d
 .rooms__slider { container-type: size; }      /* para colocar la flecha en reposo con cqw/cqh */
 .rooms__slider .slider__next { z-index: 4; }   /* por encima de nombres y contador */
 .slider:hover .slider__next,
-.rooms__slider:hover .slider__next { background: rgba(223, 224, 195, .65); }
+.rooms__slider:hover .slider__next { background: rgba(223, 224, 195, var(--slider-btn-opacity-hover)); }
 @media (hover: hover) and (pointer: fine) {
   .slider,
   .rooms__slider { cursor: none; }            /* la flecha hace de cursor */

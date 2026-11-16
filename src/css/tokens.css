@@ -59,7 +59,9 @@
   --pair-top-tablet: 80px;                     /* tableta en vertical (Vivir): aire encima de cada pareja de fotos (escritorio 150px) */
   --pair-bottom-tablet: 120px;                 /* tableta en vertical (Vivir): aire debajo de cada pareja de fotos (escritorio 280px) */
   --slider-count-top-tablet: 220px;            /* tableta: distancia del contador del pase (Vivir) al borde superior de la foto */
-  --rooms-count-top: 120px;                    /* Home · pase de habitaciones: distancia del contador al borde superior de la foto (todas las versiones) */
+  --slider-btn-opacity: .3;                    /* botón redondo de flecha de los pases: opacidad del fondo (0 = transparente, 1 = opaco; Figma .45) */
+  --slider-btn-opacity-hover: .5;              /* el mismo botón con el ratón encima de la foto (antes .65) */
+  --rooms-count-top: 120px;                    /* distancia del contador al borde superior de la foto: pase de habitaciones (todas las versiones) y pase de Vivir (escritorio) */
   --guide-top-tablet: 191px;                   /* tableta en vertical (Sobre Córdoba): del borde de arriba al antetítulo; deja 120px bajo el logo (que acaba a 71px) */
   --guide-lead-max-tablet: 600px;              /* tableta en vertical (Sobre Córdoba): ancho de la entradilla, más ancha que la foto (como los textos centrados) */
   --text-side-tablet: 16.4vw;                  /* tableta en vertical: margen de los bloques de texto (margen + 1 columna + medianil de la retícula de 8 columnas; 126px a 768) */
