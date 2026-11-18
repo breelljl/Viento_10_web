@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es" class="is-loading">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog • Viento 10, hotel boutique en Córdoba</title>
+  <link rel="stylesheet" href="css/tokens.css?v=2026-11-18a">
+  <link rel="stylesheet" href="css/style.css?v=2026-11-18a">
+</head>
+<body class="page-cream">
+
+  <!-- ============ PANTALLA DE CARGA ============ -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__mark" viewBox="0 0 85 122" width="104" height="150"><path pathLength="1" style="--i: 0" d="M42.3237 1C65.1462 1 83.6474 19.4194 83.6474 42.141V79.859C83.6474 102.581 65.1462 121 42.3237 121C19.5013 121 1 102.581 1 79.859V42.141C1 19.4194 19.5013 1 42.3237 1Z"/><path pathLength="1" style="--i: 1" d="M1.1521 70.8845H83.4654"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L42.5 19.4314"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L36.4214 20.4878"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L31.0786 23.526"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L27.1096 28.1789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L25 33.8932"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L25 39.9697"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L27.1096 45.6789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L31.0786 50.3369"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L36.4214 53.3751"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L42.5 54.4314"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L48.5785 53.3751"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L53.9214 50.3369"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L57.8903 45.6789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L59.9999 39.9697"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L59.9999 33.8932"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L57.8903 28.1789"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L53.9214 23.526"/><path pathLength="1" style="--i: 2" d="M42.5 36.9314L48.5785 20.4878"/><path pathLength="1" style="--i: 3" d="M27.4417 86.5898L32.781 84.6304H34.1173V120.226"/><path pathLength="1" style="--i: 4" d="M39.7908 96.4895V96.423C39.7908 90.0127 43.5569 84.4006 49.4976 84.4006C55.4383 84.4006 59.1375 89.9462 59.1375 96.3565V96.423C59.1375 102.833 55.3654 108.445 49.4307 108.445C43.4961 108.445 39.7908 102.9 39.7908 96.4895Z"/></svg>
+    <p class="loader__text">Hotel Viento 10<br>Córdoba</p>
+  </div>
+  <noscript><style>.loader { display: none; } html.is-loading { overflow: auto; background: none; }</style></noscript>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header">
+    <a class="hero__logo" href="index.html"><img src="assets/img/home/slider_hero/logo-viento.svg" data-dark-src="assets/img/home/slider_hero/logo-viento_oscuro.svg" alt="Viento 10 · Inicio" width="210" height="40"></a>  <!-- logo fijo, siempre visible -->
+    <div class="header__meta">
+      <nav class="header__nav" aria-label="Principal">
+        <a href="habitaciones.html">Habitaciones</a>
+        <a href="hotel.html">El hotel</a>
+        <a href="vivir.html">Vivir Viento 10</a>
+      </nav>
+    </div>
+    <div class="lang header__lang" id="lang">
+      <button class="lang__toggle" type="button" aria-haspopup="true" aria-expanded="false">
+        <span class="lang__current">ES</span>
+        <svg class="lang__arrow" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true"><path d="M0.5 2.5L4 6L7.5 2.5" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      </button>
+      <ul class="lang__list" hidden>
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+    </div>
+    <div class="header__actions">
+      <a href="https://direct-book.com/properties/viento10direct?locale=es&amp;items[0][adults]=1&amp;items[0][children]=0&amp;items[0][infants]=0&amp;currency=EUR&amp;trackPage=yes" class="btn btn--light" target="_blank" rel="noopener">Reservar</a>
+      <button class="btn btn--olive menu-toggle" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+    </div>
+  </header>
+
+  <!-- ============ MENÚ DESPLEGABLE ============ -->
+  <div class="menu" id="menu" aria-hidden="true">
+    <div class="menu__col">
+      <a class="menu__logo" href="index.html"><img src="assets/img/home/slider_hero/logo-viento.svg" alt="Viento 10 · Inicio" width="150" height="29"></a>
+      <ul class="menu__lang" aria-label="Idioma"> <!-- solo en móvil: en escritorio el idioma está en la cabecera -->
+        <li><button type="button" lang="es" aria-current="true" aria-label="Español">ES</button></li>
+        <li><button type="button" lang="en" aria-label="English">EN</button></li>
+        <li><button type="button" lang="fr" aria-label="Français">FR</button></li>
+        <li><button type="button" lang="de" aria-label="Deutsch">DE</button></li>
+      </ul>
+      <nav class="menu__nav" aria-label="Menú">
+        <a href="index.html" style="--i: 0"><span>Inicio</span></a>
+        <a href="hotel.html" style="--i: 1"><span>El Hotel</span></a>
+        <a href="habitaciones.html" style="--i: 2"><span>Habitaciones</span></a>
+        <a href="vivir.html" style="--i: 3"><span>Vive Viento 10</span></a>
+        <a href="cordoba.html" style="--i: 4"><span>Sobre Córdoba</span></a>
+        <a href="contacto.html" style="--i: 5"><span>Contacto</span></a>
+      </nav>
+      <p class="menu__contact">
+        <a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a>
+        <a href="tel:+34744655732">+34 744 655 732</a>
+      </p>
+      <ul class="menu__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/home/cordoba/img_whatsapp.svg" alt="" width="40" height="40"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/home/cordoba/img_instagram.svg" alt="" width="40" height="40"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/home/cordoba/img_facebook.svg" alt="" width="40" height="40"></a></li>
+      </ul>
+    </div>
+    <div class="menu__media">
+      <img class="menu__img is-active" data-for="index.html" src="assets/img/home/Menu/img_hierba_viento.jpg" alt="">
+      <img class="menu__img" data-for="hotel.html" src="assets/img/home/Menu/img_menu_hotel.jpg" alt="">
+      <img class="menu__img" data-for="habitaciones.html" src="assets/img/home/Menu/img_menu_habitaciones.jpg" alt="">
+      <img class="menu__img" data-for="vivir.html" src="assets/img/home/Menu/img_menu_vivir-viento.jpg" alt="">
+      <img class="menu__img" data-for="cordoba.html" src="assets/img/home/Menu/img_menu_sobre-cordoba.jpg" alt="">
+      <img class="menu__img" data-for="contacto.html" src="assets/img/home/Menu/img_menu_contacto.jpg" alt="">
+    </div>
+  </div>
+
+  <main class="blog">
+    <!-- ============ ENTRADA ============ -->
+    <section class="guide__intro contact__intro legal__intro blog__intro">
+      <p class="eyebrow eyebrow--pre reveal">Blog</p>
+      <h1 class="contact__title reveal">Lo que no cuentan las guías de Córdoba, escrito desde Viento 10</h1>
+    </section>
+
+    <!-- ============ ARTÍCULOS · por ahora enlazan a la web actual ============ -->
+    <section class="blog__list">
+      <a class="post-card reveal" href="https://hotelviento10.es/es/varios/brujas-en-cordoba-2" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/aquelarredet.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">¿Brujas en Córdoba?</h2>
+          <p class="post-card__text">Aunque un dicho gallego reza que “haberlas haylas” a mí me cuesta mucho pensar que todas esas historias fantásticas y milagreras tengan algo de verdad. Más si pensamos en qué época nacen todas estas historietas. Con una Inquisición que construye sobre la mentira sus acusaciones, en muchos casos con fines que nada tienen que ver con la limpieza étnica y religiosa que pretenden. Unos tiempos oscuros donde la ignorancia es el caldo perfecto para expandir bulos y falsedades que excitan a las turbas a encender los quemaderos del santo oficio, como hoy se enciende las gradas de los estadios.</p>
+          <ul class="post-card__tags"><li>Brujas</li><li>Temple</li><li>Iglesia de Santiago</li></ul>
+        </div>
+      </a>
+      <a class="post-card reveal" href="https://hotelviento10.es/es/varios/rosa-de-los-vientos" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/rosadelosvientos.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">Rosa de los Vientos</h2>
+          <p class="post-card__text">El Viento es un contubernio mágico entre el Sol y las rotaciones de la Tierra. Es un dios creador desde las mitologías más arcanas del hombre. Transporta las semillas y la vida, modela las montañas y crea las dunas y las olas. Ni la lluvia ni el agua dulce existirían sin la intervención del viento, es decir, que nosotros no seríamos si el viento no fuera.</p>
+          <ul class="post-card__tags"><li>Viento10</li><li>Rosa de los Vientos</li></ul>
+        </div>
+      </a>
+      <a class="post-card reveal" href="https://hotelviento10.es/es/varios/historia-de-cordoba-en-fotografias-en-la-red" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/calleGondomar.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">Una Historia Gráfica de Córdoba en la Red.</h2>
+          <p class="post-card__text">No hace mucho tiempo para bucear en el pasado de las ciudades, teníamos que escarbar en bibliotecas. Encontrar fotos antiguas de la ciudad era un trabajo casi de arqueología rebuscando en anticuarios y mercadillos de cachivaches. Pero todo esto ha quedado atrás con la aparición de internet y todavía más atrás con la de las redes sociales.</p>
+          <ul class="post-card__tags"><li>Córdoba</li><li>Fotografía</li><li>Historia</li></ul>
+        </div>
+      </a>
+      <a class="post-card" href="https://hotelviento10.es/es/varios/ese-gran-invento" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/maletas.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">...Ese gran invento.</h2>
+          <p class="post-card__text">El turismo es tan antiguo como las ciudades. Ya los griegos emprendían viajes de placer para asistir a los Juegos en la ciudad de Olimpia. Los romanos eran muy aficionados a los baños y termas y las visitaban a muchas leguas de su residencia habitual.</p>
+          <ul class="post-card__tags"><li>Córdoba</li><li>Viento10</li><li>Hoteles</li><li>Coleccionistas</li></ul>
+        </div>
+      </a>
+      <a class="post-card" href="https://hotelviento10.es/es/varios/merecido-salon-de-la-fama-para-viento-10" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/salon.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">Buscáis la fama, pero la fama cuesta...</h2>
+          <p class="post-card__text">&quot;Buscáis la fama, pero la fama cuesta y aquí es donde vais a empezar a pagar. Con sudor.&quot; Así comenzaban los capítulos de la ochentera y superfamosa serie televisiva &quot;Fama&quot;. Y así comenzó también esta aventura, allá por 2005. Este mes de mayo Hotel Viento 10 ha entrado en el Salón de la Fama de Trip Advisor, al obtener durante cinco años consecutivos el Certificado de Excelencia que este portal concede a quienes reciben críticas positivas y constancia de satisfacción en el servicio contratado.</p>
+          <ul class="post-card__tags"><li>Viento10</li><li>Premios</li><li>Restauración</li></ul>
+        </div>
+      </a>
+      <a class="post-card" href="https://hotelviento10.es/es/varios/el-motin-del-pan-y-la-falsificacion-de-monedas-en-los-conventos-de-cordoba" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/Maravedi.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">El motín del Pan y la falsificación de monedas en los conventos de Córdoba.</h2>
+          <p class="post-card__text">El Motín del Pan de Córdoba en mayo de 1652 fue justificado oficialmente por las epidemias de peste y el desorbitado precio de las cosas en esos años. Todos aceptamos como válidas las explicaciones que Ramírez de Arellano da sobre el asunto, y esta es casi la versión oficial de lo que se considera una de las primeras revueltas populares de Europa, y que después se extenderán por todo el continente hasta llegar a la Revolución francesa o más recientemente al Mayo del 68.</p>
+          <ul class="post-card__tags"><li>Historia</li><li>Motín del Pan</li></ul>
+        </div>
+      </a>
+      <a class="post-card" href="https://hotelviento10.es/es/varios/purpura-morado-violeta-lila-malva-cual-es-el-color-de-la-pasion" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/morado.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">Púrpura, morado, violeta, lila, malva… ¿Cuál es el color de la Pasión?</h2>
+          <p class="post-card__text">El viernes de Dolores y alrededor de los arreglos florales que Javier (BUREAU DELLAFLEUR) ha realizado para esta semana festiva en Viento10, surgió la discusión entre Gerardo y él sobre el nombre de los colores de las flores. Uno decía que eran púrpura, el otro que moradas, otro que pasaba por ahí aseguraba que eran malvas…</p>
+          <ul class="post-card__tags"><li>Viento10</li><li>Dellafleur</li></ul>
+        </div>
+      </a>
+      <a class="post-card" href="https://hotelviento10.es/es/varios/se-hizo-la-panoramica-de-cordoba-desde-un-globo" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/Guesdon_Cordoba.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">¿Se hizo la famosa panorámica de Alfred Guesdon desde un globo?</h2>
+          <p class="post-card__text">Si hay una imagen interesante de la Córdoba de mediados del siglo XIX, esa es la vista aérea de la ciudad que realiza y publica Alfred Guesdon en 1853. Tuvimos esa suerte y Córdoba fue una de las ciudades elegidas para componer este bello álbum de estampas.</p>
+          <ul class="post-card__tags"><li>Fotografía</li><li>Alfred Guesdon</li></ul>
+        </div>
+      </a>
+      <a class="post-card" href="https://hotelviento10.es/es/varios/opinion-de-rosa-marques-periodista" target="_blank" rel="noopener">
+        <div class="post-card__media"><img class="post-card__img" src="assets/img/Blog/opinion_rosa_marques.jpg" alt="" loading="lazy"><span class="post-card__tab"><svg class="post-card__arrow" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M5 17L17 5M7 5h10v10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span></div>
+        <div class="post-card__body">
+          <h2 class="post-card__title">Opinión de Rosa Marqués, periodista</h2>
+          <p class="post-card__text">AMOR UNDERGROUND ¿Se imaginan a la ‘poco convencional’ pareja de Patti Smith y Robert Mapplethorpe paseando por Córdoba? Sí. Recorrerían al anochecer antiguas callejas suburbiales, del “antiguo barrio de los gitanos”, que conectan la calle Amparo hasta la de plaza de la Alhóndiga:</p>
+        </div>
+      </a>
+    </section>
+  </main>
+
+
+  <footer data-dark class="footer">
+    <div class="footer__claim reveal">
+      <img class="footer__logo" src="assets/img/home/cordoba/logo_viento10.svg" alt="Viento 10" width="65" height="94">
+      <p class="footer__title">El viaje empieza al cruzar la puerta.<br>El tuyo, en Viento 10.</p>
+    </div>
+
+    <div class="footer__main">
+      <nav class="footer__col" aria-label="Menú del pie">
+        <p class="footer__label">Menú</p>
+        <ul class="footer__menu">
+          <li><a href="hotel.html">El Hotel</a></li>
+          <li><a href="habitaciones.html">Habitaciones</a></li>
+          <li><a href="vivir.html">Vivir Viento 10</a></li>
+          <li><a href="cordoba.html">Sobre Córdoba</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col" id="contacto">
+        <p class="footer__label">Dirección</p>
+        <address class="footer__address">
+          <p>Calle Ronquillo Briceño, 10<br>Antigua “Calle del viento”<br>14002, Córdoba (España)</p>
+          <p><a href="mailto:cordoba@hotelviento10.es">cordoba@hotelviento10.es</a><br><a href="tel:+34744655732">+34 744 655 732</a></p>
+        </address>
+      </div>
+
+      <ul class="footer__social">
+        <li><a href="https://wa.me/34744655732" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/img/home/cordoba/img_whatsapp.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Instagram"><img src="assets/img/home/cordoba/img_instagram.svg" alt="" width="50" height="50"></a></li>
+        <li><a href="#" aria-label="Facebook"><img src="assets/img/home/cordoba/img_facebook.svg" alt="" width="50" height="50"></a></li>
+      </ul>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__michelin"><img src="assets/img/home/cordoba/img_michelin.png" alt="" width="54" height="60">Hotel recomendado<br>por la Guía Michelin</p>
+      <ul class="footer__legal">
+        <li><a href="legal.html">Legal</a></li>
+      </ul>
+      <p class="footer__copy">Viento 10 2026</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=2026-11-18a"></script>
+</body>
+</html>
