@@ -657,7 +657,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width: auto;
   max-width: none;
   height: calc(41.67 * var(--u));                 /* 600px a 1440 · mismo alto en todos los carruseles (Home, El hotel, Sobre Córdoba) */
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 
 
@@ -1846,7 +1846,7 @@ body.page-cream { background: var(--c-bg); }
 .guide__intro {
   max-width: 920px;
   margin: 0 auto;
-  padding: 18.75rem var(--edge) 4.375rem;       /* 300px arriba · 70px abajo · a los lados el margen fijo (la caja ya se centra sola) */
+  padding: var(--guide-top) var(--edge) 4.375rem;       /* --guide-top arriba (antes 300px) · 70px abajo · a los lados el margen fijo (la caja ya se centra sola) */
   text-align: center;
 }
 .guide__title {
@@ -2663,3 +2663,33 @@ html.is-loading body { background: transparent; }
 /* Índice entre dos líneas: una encima y la del primer apartado debajo; los enlaces sin subrayado */
 .legal__index { border-top: 1px solid var(--c-line); padding-top: 50px; }
 .legal__index .link-arrow { border-bottom: 0; padding-bottom: 0; }
+
+/* ==========================================================================
+   BLOG · listado de artículos en tarjetas (3 columnas escritorio, 2 tableta, 1 móvil)
+   ========================================================================== */
+.blog__list { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--blog-gap-x); padding: 0 var(--gutter) 12.5rem; border-top: 0; }
+.post-card { display: flex; flex-direction: column; background: var(--blog-card-bg); border-radius: var(--radius); overflow: hidden; color: inherit; text-decoration: none; }   /* toda la tarjeta es el enlace */
+.post-card__media { position: relative; aspect-ratio: var(--blog-img-ratio); overflow: hidden; background: var(--c-ph); }
+.post-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--blog-zoom-time) ease; }
+.post-card:hover .post-card__img { transform: scale(var(--blog-zoom)); }   /* la foto se acerca un poco al pasar por la tarjeta */
+/* Pestaña con flecha en la esquina inferior derecha de la foto, del color de la tarjeta */
+.post-card__tab { position: absolute; right: var(--blog-pad); bottom: 0; display: grid; place-items: center; width: var(--blog-tab); height: var(--blog-tab); background: var(--blog-card-bg); border-radius: var(--radius) var(--radius) 0 0; color: var(--c-olive-dark); }
+.post-card__arrow { transition: transform var(--blog-arrow-time) ease; }
+.post-card:hover .post-card__arrow { transform: translate(2px, -2px); }
+.post-card__body { display: flex; flex-direction: column; flex: 1; padding: var(--blog-pad); }
+.post-card__title { margin: 0; font-family: var(--f-serif); font-weight: 400; font-size: var(--fs-blog-title); line-height: 1.2; color: var(--c-olive-dark); }
+.post-card__text { margin: 16px 0 0; font-size: var(--fs-body-tablet); line-height: var(--lh-body); display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: var(--blog-lines); overflow: hidden; }   /* resumen cortado a unas líneas */
+.post-card__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: auto 0 0; padding: 24px 0 0; list-style: none; }   /* etiquetas abajo del todo */
+.post-card__tags li { padding: 4px 10px; border: 1px solid var(--c-line); border-radius: var(--radius); font-size: var(--fs-caption); line-height: 1.3; color: var(--c-olive-dark); }
+@media (max-width: 1199px) {
+  .blog__list { grid-template-columns: repeat(2, 1fr); padding-left: var(--footer-side-tablet); padding-right: var(--footer-side-tablet); }
+}
+@media (max-width: 767px) {
+  .blog__list { grid-template-columns: 1fr; padding-left: var(--edge); padding-right: var(--edge); gap: var(--blog-gap-x); }
+  .post-card__title { font-size: var(--fs-blog-title-mobile); }
+}
+/* Entrada del blog: el titular largo en una columna estrecha y repartido en líneas parejas, como las demás entradas */
+.blog__intro .contact__title { max-width: var(--blog-title-max); margin-inline: auto; text-wrap: balance; }
+@media (min-width: 768px) and (max-width: 1199px) {
+  .blog__intro { max-width: none; padding-left: var(--text-side-tablet); padding-right: var(--text-side-tablet); }
+}

@@ -13,6 +13,21 @@
 @font-face { font-family: "Bon Vivant"; src: url("../assets/font/bont_vivant/bon-vivant-regular.ttf") format("truetype"); font-display: swap; }
 
 :root {
+  /* ---------- Blog ---------- */
+  --blog-gap-x: 40px;              /* separación entre tarjetas (en horizontal y en vertical) */
+  --blog-card-bg: var(--c-cream);  /* fondo de cada tarjeta y de la pestaña de la flecha */
+  --blog-pad: 32px;                /* relleno interior de la tarjeta (y posición de la pestaña) */
+  --blog-tab: 56px;                /* tamaño de la pestaña con la flecha */
+  --blog-img-ratio: 3 / 2;         /* proporción de la foto de cada tarjeta */
+  --blog-zoom: 1.04;               /* acercamiento de la foto al pasar el ratón */
+  --blog-arrow-time: .3s;          /* desplazamiento de la flecha al pasar el ratón */
+  --blog-zoom-time: .8s;           /* duración de ese acercamiento */
+  --fs-blog-title: 1.75rem;        /* 28px · título del artículo en la tarjeta */
+  --fs-blog-title-mobile: 1.5rem;  /* 24px · ídem en móvil */
+  --guide-top: 12.5rem;            /* 200px · escritorio: espacio de la cabecera al antetítulo en Sobre Córdoba, Contacto, Legal y Blog (antes 300px) */
+  --blog-title-max: 665px;         /* ancho máximo del titular de entrada (como la columna de lectura) */
+  --blog-lines: 4;                 /* líneas visibles del resumen */
+
   /* Color */
   --c-olive-dark: #404219;   /* el más oscuro: texto principal, botón Reservar, menú, carga y galería (antes #40421a) */
   --c-green-800:  #545621;   /* green-800 (Figma): footer, botones, enlaces, script */
@@ -67,7 +82,7 @@
   --text-side-tablet: 16.4vw;                  /* tableta en vertical: margen de los bloques de texto (margen + 1 columna + medianil de la retícula de 8 columnas; 126px a 768) */
   --edge:       clamp(20px, 3vw, 42px);          /* distancia de la cabecera (idioma, Reservar/Menú) al borde de la pantalla */
   --gutter-sm:  calc(var(--edge) + var(--page-side)); /* margen lateral pequeño, centrado en pantallas grandes */
-  --radius:     6px;
+  --radius:     4px;
 
   --ease: cubic-bezier(.25, .6, .3, 1);
 
